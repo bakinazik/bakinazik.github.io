@@ -49,6 +49,39 @@
     });
   }
 
+  function removeUrlParam(key) {
+    var params = new URLSearchParams(window.location.search);
+    if (!params.has(key)) return;
+    params.delete(key);
+    var query = params.toString();
+    var url = window.location.pathname + (query ? "?" + query : "") + window.location.hash;
+    window.history.replaceState(null, "", url);
+  }
+
+  var quoteTargetEl = null;
+  var quoteTargetNextSibling = null;
+
+  function clearQuoteTarget() {
+    removeUrlParam("target");
+    var featured = document.getElementById("quote-featured");
+    if (quoteTargetEl) {
+      var quotesList = document.getElementById("quotes-list");
+      if (quotesList) {
+        if (quoteTargetNextSibling && quoteTargetNextSibling.parentNode === quotesList) {
+          quotesList.insertBefore(quoteTargetEl, quoteTargetNextSibling);
+        } else {
+          quotesList.appendChild(quoteTargetEl);
+        }
+      }
+      quoteTargetEl = null;
+      quoteTargetNextSibling = null;
+    }
+    if (featured) {
+      featured.innerHTML = "";
+      featured.style.display = "none";
+    }
+  }
+
   function setupProfileTabs() {
     var tabs = Array.from(document.querySelectorAll(".profile-tab"));
     var panels = Array.from(document.querySelectorAll(".profile-panel"));
@@ -72,6 +105,7 @@
     tabs.forEach(function (tab) {
       tab.addEventListener("click", function (e) {
         e.preventDefault();
+        clearQuoteTarget();
         activate(tab.dataset.tab, true);
       });
     });
@@ -90,6 +124,8 @@
     var featured = document.getElementById("quote-featured");
     if (!source || !featured) return;
 
+    quoteTargetEl = source;
+    quoteTargetNextSibling = source.nextSibling;
     featured.appendChild(source);
     featured.style.display = "block";
     featured.scrollIntoView({ behavior: "smooth", block: "start" });
