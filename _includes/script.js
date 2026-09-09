@@ -348,8 +348,9 @@
       }, 250);
     }
 
-    function open() {
+    function open(query) {
       loadPosts();
+      if (typeof query === "string") input.value = query;
       showOverlay();
       input.focus();
       render(input.value);
@@ -364,9 +365,20 @@
       }
     }
 
-    trigger.addEventListener("focus", open);
+    trigger.addEventListener("focus", function () { open(); });
     closeBtn.addEventListener("click", requestClose);
     backdrop.addEventListener("click", requestClose);
+
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest('a[href*="?search="]');
+      if (!link) return;
+      var url = new URL(link.getAttribute("href"), window.location.href);
+      if (url.pathname !== window.location.pathname) return;
+      var query = url.searchParams.get("search");
+      if (!query) return;
+      e.preventDefault();
+      open(decodeURIComponent(query));
+    });
 
     input.addEventListener("input", function () {
       render(input.value);
