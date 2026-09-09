@@ -1,5 +1,5 @@
 (function () {
-  var CONTACT_EMAIL = "seninadresin@example.com";
+  var CONTACT_EMAIL = "bakinazikk@gmail.com";
 
   function readListParam(key, fallback) {
     var raw = new URLSearchParams(window.location.search).get(key);
@@ -97,11 +97,8 @@
     if (!form) return;
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var name = form.querySelector("#contact-form-name").value.trim();
-      var email = form.querySelector("#contact-form-email").value.trim();
-      var message = form.querySelector("#contact-form-message").value.trim();
-      var subject = "Website mesajı - " + name;
-      var body = message + "\n\nGönderen: " + name + " (" + email + ")";
+      var subject = form.querySelector("#contact-form-subject").value.trim();
+      var body = form.querySelector("#contact-form-message").value.trim();
       window.location.href = "mailto:" + CONTACT_EMAIL +
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(body);
