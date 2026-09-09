@@ -266,6 +266,7 @@
     var clearBtn = document.getElementById("search-overlay-clear");
     var closeBtn = document.getElementById("search-overlay-close");
     var body = document.getElementById("search-overlay-body");
+    var placeholder = document.getElementById("search-overlay-placeholder");
     var metaBox = document.getElementById("search-overlay-meta");
     var resultsBox = document.getElementById("search-overlay-results");
     var emptyBox = document.getElementById("search-overlay-empty");
@@ -294,10 +295,12 @@
     function render(rawQuery) {
       var query = rawQuery.trim();
       clearBtn.style.display = query ? "flex" : "none";
-      body.style.display = query ? "" : "none";
+      placeholder.style.display = query ? "none" : "flex";
       if (!query) {
         metaBox.textContent = "";
         resultsBox.innerHTML = "";
+        resultsBox.style.display = "none";
+        emptyBox.style.display = "none";
         return;
       }
 
