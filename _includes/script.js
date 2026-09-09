@@ -32,10 +32,6 @@
     var initial = Math.min(perPage, items.length);
     var visible = Math.min(Math.max(readListParam(paramKey, initial), initial), items.length);
 
-    var targetId = new URLSearchParams(window.location.search).get("target");
-    var targetIndex = targetId ? items.findIndex(function (item) { return item.id === targetId; }) : -1;
-    if (targetIndex !== -1) visible = Math.max(visible, targetIndex + 1);
-
     function render() {
       items.forEach(function (item, i) {
         item.style.display = i < visible ? "" : "none";
@@ -45,13 +41,6 @@
 
     render();
     syncListParam(paramKey, visible, initial);
-
-    if (targetIndex !== -1) {
-      var target = items[targetIndex];
-      target.classList.add("is-target");
-      target.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(function () { target.classList.remove("is-target"); }, 2000);
-    }
 
     button.addEventListener("click", function () {
       visible = Math.min(visible + perPage, items.length);
@@ -90,6 +79,35 @@
     var requested = new URLSearchParams(window.location.search).get("tab");
     var startTab = tabNames.indexOf(requested) !== -1 ? requested : defaultTab;
     activate(startTab, false);
+  }
+
+  function setupQuoteTarget() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("tab") !== "quotes") return;
+    var targetId = params.get("target");
+    if (!targetId) return;
+    var source = document.getElementById(targetId);
+    var featured = document.getElementById("quote-featured");
+    if (!source || !featured) return;
+
+    var label = document.createElement("div");
+    label.className = "quote-featured-label";
+    label.textContent = "Aradığınız söz";
+
+    var body = document.createElement("p");
+    var text = document.createElement("span");
+    text.className = "text";
+    text.textContent = source.querySelector(".text").textContent;
+    var date = document.createElement("span");
+    date.className = "date";
+    date.textContent = source.querySelector(".date").textContent;
+    body.appendChild(text);
+    body.appendChild(date);
+
+    featured.appendChild(label);
+    featured.appendChild(body);
+    featured.style.display = "flex";
+    featured.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function setupContactForm() {
@@ -259,7 +277,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     setupProfileTabs();
     setupLoadMore("posts-list", "posts-load-more", ".post-list-item", 3, "post");
-    setupLoadMore("quotes-list", "quotes-load-more", "p", 3, "quote");
+    setupQuoteTarget();
     setupContactForm();
     setupArchiveFilter();
     setupSearch();
