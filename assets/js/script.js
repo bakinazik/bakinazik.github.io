@@ -151,22 +151,24 @@
   }
 
   function scorePost(post, q) {
-    var title = normalizeTr(post.title || "");
-    var description = normalizeTr(post.description || "");
-    var keywords = normalizeTr((post.keywords || []).join(" "));
-    var content = normalizeTr(post.content || "");
-    return countOccurrences(title, q) * 10
-      + countOccurrences(description, q) * 5
-      + countOccurrences(keywords, q) * 5
-      + countOccurrences(content, q);
+    var title = countOccurrences(normalizeTr(post.title || ""), q);
+    var description = countOccurrences(normalizeTr(post.description || ""), q);
+    var keywords = countOccurrences(normalizeTr((post.keywords || []).join(" ")), q);
+    var content = countOccurrences(normalizeTr(post.content || ""), q);
+    return [title, description + keywords, content];
   }
 
   function filterPosts(posts, query) {
     var q = normalizeTr(query);
     return posts
       .map(function (post) { return { post: post, score: scorePost(post, q) }; })
-      .filter(function (entry) { return entry.score > 0; })
-      .sort(function (a, b) { return b.score - a.score; })
+      .filter(function (entry) { return entry.score[0] + entry.score[1] + entry.score[2] > 0; })
+      .sort(function (a, b) {
+        for (var i = 0; i < a.score.length; i++) {
+          if (b.score[i] !== a.score[i]) return b.score[i] - a.score[i];
+        }
+        return 0;
+      })
       .map(function (entry) { return entry.post; });
   }
 
