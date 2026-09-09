@@ -351,6 +351,8 @@
       document.body.classList.remove("search-overlay-locked");
       isOpen = false;
       trigger.blur();
+      input.value = "";
+      render("");
     }
 
     function open() {
