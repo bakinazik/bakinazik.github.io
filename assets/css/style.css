@@ -573,46 +573,14 @@ header {
   
 .contact-form-widget { width: 100%; }
 
-.contact-form-widget .contact-form-name,
-.contact-form-widget .contact-form-email,
-.contact-form-widget .contact-form-email-message {
-  width: 100%;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  color: var(--text);
-  font-size: 0.95rem;
-  padding: 12px 16px;
-  outline: none;
-  transition: border-color 0.2s;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-}
-
-.contact-form-widget .contact-form-name:focus,
-.contact-form-widget .contact-form-email:focus,
-.contact-form-widget .contact-form-email-message:focus {
-  border-color: var(--secondary);
-}
-
-.contact-form-widget .contact-form-name::placeholder,
-.contact-form-widget .contact-form-email::placeholder,
-.contact-form-widget .contact-form-email-message::placeholder {
-  color: var(--muted);
-}
-
-
-
-
 .form {
-  display: grid;
-  gap: 20px;
+  display: flex;
 }
-.form .row {
-  display: grid;
+.form form {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
-  grid-auto-flow: column;
+  width: 100%;
 }
 .form input,
 .form textarea {
@@ -641,7 +609,7 @@ header {
   outline: none;
   border-color: var(--text);
 }
-#contact-form-submit {
+.contact-form-button-submit {
   display: flex;
   color: var(--muted);
   padding: 10px 15px;
@@ -655,19 +623,11 @@ header {
   font-size: 1rem;
   font-weight: bold;
 }
-#contact-form-submit:hover {
+.contact-form-button-submit:hover {
     color: var(--text);
     background: var(--secondary);
     border-color: var(--secondary);
 }
-  
-@media (max-width: 600px) {
-  .form .row {
-    grid-template-columns: 1fr;
-    gap: 0;
-    grid-auto-flow: row;
-  }
-}  
   
   
 .quotes {
