@@ -674,7 +674,7 @@ header {
   text-align: center;
 }
 
-.quotes p {
+.quote-item {
   margin: 0;
   padding: 14px 18px;
   color: var(--muted2);
@@ -689,11 +689,11 @@ header {
   gap: 20px;
 }
 
-.quotes p:last-child {
+.quote-item:last-child {
   border-bottom: none;
 }
 
-.quotes p .text {
+.quote-item .text {
   flex: 1;
   font-size: .96rem;
   font-weight: 400;
@@ -703,7 +703,7 @@ header {
   color: var(--text);
 }
 
-.quotes p .date {
+.quote-item .date {
   flex-shrink: 0;
   font-size: 0.8rem;
   color: var(--muted);
@@ -711,7 +711,7 @@ header {
 }
 
 @media (max-width: 480px) {
-  .quotes p {
+  .quote-item {
     padding: 12px 14px;
     font-size: 0.95rem;
     flex-direction: column;
@@ -719,62 +719,16 @@ header {
     gap: 4px;
   }
   
- .quotes p .date {
+ .quote-item .date {
     font-size: .74rem;
   }
 }
 
 .quote-featured {
   display: none;
-  flex-direction: column;
-  gap: 8px;
-  padding: 14px 18px;
   border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
   border-radius: 14px;
-  background: var(--primary);
-}
-
-.quote-featured-label {
-  font-size: 0.74rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: .04em;
-}
-
-.quote-featured p {
-  margin: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.quote-featured p .text {
-  flex: 1;
-  font-size: .96rem;
-  line-height: 1.5;
-  color: var(--text);
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-.quote-featured p .date {
-  flex-shrink: 0;
-  font-size: 0.8rem;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-@media (max-width: 480px) {
-  .quote-featured p {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-  .quote-featured p .date {
-    font-size: .74rem;
-  }
+  overflow: hidden;
 }
   
 @media (max-width:640px){

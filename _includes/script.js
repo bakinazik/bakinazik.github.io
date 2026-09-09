@@ -90,23 +90,8 @@
     var featured = document.getElementById("quote-featured");
     if (!source || !featured) return;
 
-    var label = document.createElement("div");
-    label.className = "quote-featured-label";
-    label.textContent = "Aradığınız söz";
-
-    var body = document.createElement("p");
-    var text = document.createElement("span");
-    text.className = "text";
-    text.textContent = source.querySelector(".text").textContent;
-    var date = document.createElement("span");
-    date.className = "date";
-    date.textContent = source.querySelector(".date").textContent;
-    body.appendChild(text);
-    body.appendChild(date);
-
-    featured.appendChild(label);
-    featured.appendChild(body);
-    featured.style.display = "flex";
+    featured.appendChild(source);
+    featured.style.display = "block";
     featured.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 

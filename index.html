@@ -38,7 +38,7 @@ layout: default
     <div class="quote-featured" id="quote-featured"></div>
     <div class="quotes" id="quotes-list" tabindex="0">
       {% for quote in site.data.quotes %}
-      <p id="quote-{{ forloop.index0 }}">
+      <p id="quote-{{ forloop.index0 }}" class="quote-item">
         <span class="text">{{ quote.text }}</span>
         <span class="date">{{ quote.date }}</span>
       </p>
