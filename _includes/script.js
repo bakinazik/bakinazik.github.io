@@ -182,6 +182,13 @@
   }
 
   function filterPosts(posts, query) {
+    if (query.charAt(0) === "#") {
+      var tag = normalizeTr(query.slice(1).trim());
+      if (!tag) return [];
+      return posts.filter(function (post) {
+        return (post.tags || []).some(function (t) { return normalizeTr(t) === tag; });
+      });
+    }
     var q = normalizeTr(query);
     return posts
       .map(function (post) { return { post: post, score: scorePost(post, q) }; })

@@ -12,6 +12,7 @@ permalink: /search.json
   "date": {{ post.date | date: "%d %B %Y" | jsonify }},
   "description": {{ post.description | default: "" | jsonify }},
   "keywords": {{ post.keywords | default: post.tags | jsonify }},
+  "tags": {{ post.tags | jsonify }},
   "content": {{ post.content | strip_html | strip_newlines | jsonify }}
 }
 {% endfor %}
@@ -23,6 +24,7 @@ permalink: /search.json
   "date": {{ quote.date | jsonify }},
   "description": "",
   "keywords": [],
+  "tags": [],
   "content": {{ quote.text | jsonify }}
 }
 {% endfor %}
