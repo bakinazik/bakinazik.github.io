@@ -93,7 +93,7 @@ header {
 .profile-name {
   font-size: 1.7rem;
   font-weight: 700;
-  color: var(--title);
+  color: var(--accent);
   line-height: 1.25;
 }
 
@@ -205,7 +205,7 @@ header {
 }
 
 .profile-tab.is-active {
-  color: var(--title);
+  color: var(--accent);
 }
 
 .profile-tab.is-active::before {
@@ -411,8 +411,22 @@ header {
 }
 
 .post-meta {
-    font-size: 0.85rem;
-    color: var(--muted);
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+}
+
+.post-meta a {
+  background: var(--primary);
+  border-radius: 6px;
+  padding: 0 8px;
+}
+
+.post-meta time {
+  padding: 0 5px;
+  border-radius: 5px;
+  border: 1px solid var(--border);
 }
   
 .post-body p { margin-bottom: 1.4em; }
