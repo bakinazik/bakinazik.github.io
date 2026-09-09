@@ -932,3 +932,51 @@ body.search-overlay-locked {
 .js-ready .quotes::after {
   display: none;
 }
+
+.rss-menu {
+  position: relative;
+}
+
+.rss-menu-panel {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  display: flex;
+  flex-direction: column;
+  min-width: 130px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 20;
+}
+
+.rss-menu.is-open .rss-menu-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.rss-menu-panel a {
+  display: block;
+  width: auto;
+  height: auto;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  font-size: 0.85rem;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.rss-menu-panel a:hover {
+  background: var(--secondary);
+  color: var(--text);
+}

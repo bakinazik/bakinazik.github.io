@@ -5,5 +5,9 @@
   url: https://github.com/bakinazik
   icon: github
 - label: RSS Feed
-  url: /feed.xml
   icon: rss
+  feeds:
+    - label: Yazılar
+      url: /feed.xml
+    - label: Sözler
+      url: /quotes.xml
