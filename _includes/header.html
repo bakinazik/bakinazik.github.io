@@ -1,0 +1,16 @@
+<header class="profile-top">
+  <a href="{{ '/' | relative_url }}" aria-label="{{ site.title }} - Ana Sayfa" class="profile-identity">
+    <h1 class="profile-name">{{ site.title }}</h1>
+  </a>
+
+  <div class="header-search" id="header-search">
+    <span class="header-search-icon">{% include social-icon.html icon="search" %}</span>
+    <input type="search" id="header-search-input" class="header-search-input" placeholder="Ara…" autocomplete="off">
+    <div class="header-search-dropdown" id="header-search-dropdown">
+      <div class="post-list-wrapper" id="header-search-results"></div>
+      <div class="no-result" id="header-search-empty">
+        <p>Sonuç bulunamadı.</p>
+      </div>
+    </div>
+  </div>
+</header>

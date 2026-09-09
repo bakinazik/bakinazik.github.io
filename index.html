@@ -1,0 +1,87 @@
+---
+layout: default
+---
+<div class="profile">
+  <nav class="profile-tabs" role="tablist" aria-label="Profil sekmeleri">
+    <a href="#panel-posts" class="profile-tab is-active" role="tab" data-tab="posts">Yazılar</a>
+    <a href="#panel-quotes" class="profile-tab" role="tab" data-tab="quotes">Sözler</a>
+    <a href="#panel-projects" class="profile-tab" role="tab" data-tab="projects">Projeler</a>
+    <a href="#panel-contact" class="profile-tab" role="tab" data-tab="contact">İletişim</a>
+  </nav>
+</div>
+
+<div class="profile-panels">
+
+  <section class="profile-panel is-active" id="panel-posts" role="tabpanel">
+    {% if site.posts.size > 0 %}
+    <div class="post-list-wrapper" id="posts-list">
+      {% for post in site.posts %}
+      <div class="post-list-item">
+        <a class="post-list-link" href="{{ post.url | relative_url }}">
+          <div class="post-list-title">{{ post.title }}</div>
+          <div class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %B %Y" }}</time></div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="panel-toolbar">
+      <button type="button" class="load-more" id="posts-load-more">Daha Fazla Yükle</button>
+    </div>
+    {% else %}
+    <div class="no-result">
+      <p>Henüz hiç yazı yayınlanmamış.</p>
+    </div>
+    {% endif %}
+  </section>
+
+  <section class="profile-panel" id="panel-quotes" role="tabpanel">
+    <div class="quotes" id="quotes-list" tabindex="0">
+      {% for quote in site.data.quotes %}
+      <p id="quote-{{ forloop.index0 }}">
+        <span class="text">{{ quote.text }}</span>
+        <span class="date">{{ quote.date }}</span>
+      </p>
+      {% endfor %}
+    </div>
+    <div class="panel-toolbar">
+      <button type="button" class="load-more" id="quotes-load-more">Daha Fazla Yükle</button>
+    </div>
+  </section>
+
+  <section class="profile-panel" id="panel-projects" role="tabpanel">
+    <div id="projects-container">
+      {% for project in site.data.projects %}
+      <div class="project-item">
+        <div class="project-left">
+          <div class="project-icon">{% include social-icon.html icon="project" %}</div>
+          <div class="project-meta">
+            <div class="project-title">{{ project.title }}</div>
+            <small>{{ project.meta }}</small>
+          </div>
+        </div>
+        <div class="project-actions">
+          {% for link in project.links %}
+          <a href="{{ link.url }}" aria-label="{{ project.title }} - {{ link.label }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="profile-panel" id="panel-contact" role="tabpanel">
+    <div class="contact-form-widget">
+      <div class="form">
+        <form id="contact-form">
+          <div class="row">
+            <input class="contact-form-name" id="contact-form-name" name="name" placeholder="Ad ve Soyad" type="text" required>
+            <input class="contact-form-email" id="contact-form-email" name="email" placeholder="E-Posta *" type="email" required>
+          </div>
+          <textarea class="contact-form-email-message" id="contact-form-message" name="message" placeholder="Mesaj *" rows="6" required></textarea>
+          <input class="contact-form-button contact-form-button-submit" id="contact-form-submit" type="submit" value="Gönder">
+        </form>
+      </div>
+    </div>
+  </section>
+
+</div>

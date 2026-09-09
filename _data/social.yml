@@ -1,0 +1,9 @@
+- label: Mastodon profili
+  url: https://mastodon.social/@bakinazik
+  icon: mastodon
+- label: GitHub profili
+  url: https://github.com/bakinazik
+  icon: github
+- label: RSS Feed
+  url: /feed.xml
+  icon: rss

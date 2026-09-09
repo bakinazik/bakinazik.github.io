@@ -1,0 +1,31 @@
+---
+layout: default
+title: Arşiv
+description: Tüm yazıların listesi.
+permalink: /archive.html
+---
+<section class="homepage-section">
+  <div class="section-header">
+    <h2>Arşiv</h2>
+  </div>
+
+  {% if site.posts.size > 0 %}
+  <div class="post-list-wrapper" id="archive-list">
+    {% for post in site.posts %}
+    <div class="post-list-item" data-tags="{{ post.tags | join: ',' }}">
+      <a class="post-list-link" href="{{ post.url | relative_url }}">
+        <div class="post-list-title">{{ post.title }}</div>
+        <div class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %B %Y" }}</time></div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="no-result" id="archive-no-result" style="display:none">
+    <p>Bu etikete ait yazı bulunamadı.</p>
+  </div>
+  {% else %}
+  <div class="no-result">
+    <p>Henüz hiç yazı yayınlanmamış.</p>
+  </div>
+  {% endif %}
+</section>

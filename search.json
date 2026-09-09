@@ -1,0 +1,29 @@
+---
+layout: null
+permalink: /search.json
+---
+[
+{% assign i = 0 %}
+{% for post in site.posts %}{% unless i == 0 %},{% endunless %}{% assign i = i | plus: 1 %}
+{
+  "type": "post",
+  "title": {{ post.title | jsonify }},
+  "url": {{ post.url | relative_url | jsonify }},
+  "date": {{ post.date | date: "%d %B %Y" | jsonify }},
+  "description": {{ post.description | default: "" | jsonify }},
+  "keywords": {{ post.keywords | default: post.tags | jsonify }},
+  "content": {{ post.content | strip_html | strip_newlines | jsonify }}
+}
+{% endfor %}
+{% for quote in site.data.quotes %}{% unless i == 0 %},{% endunless %}{% assign i = i | plus: 1 %}
+{
+  "type": "quote",
+  "title": {{ quote.text | jsonify }},
+  "url": {{ "/" | relative_url | append: "?tab=quotes&target=quote-" | append: forloop.index0 | jsonify }},
+  "date": {{ quote.date | jsonify }},
+  "description": "",
+  "keywords": [],
+  "content": {{ quote.text | jsonify }}
+}
+{% endfor %}
+]

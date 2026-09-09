@@ -1,0 +1,32 @@
+title: Baki Nazik
+description: "Kişisel blog: yazılım, teknoloji ve günlük düşünceler."
+url: "https://bakinazik.github.io"
+baseurl: ""
+author: Baki Nazik
+avatar: /assets/img/avatar.png
+
+permalink: /:year/:month/:title.html
+
+plugins:
+  - jekyll-feed
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md

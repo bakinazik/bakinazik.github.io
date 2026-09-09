@@ -1,0 +1,11 @@
+<footer class="footer" role="contentinfo">
+  <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}</p>
+
+  <nav class="links" aria-label="Sosyal medya bağlantıları">
+    {% for item in site.data.social %}
+    <a href="{{ item.url }}" aria-label="{{ item.label }}" {% unless item.icon == 'rss' %}target="_blank" rel="noopener noreferrer"{% endunless %}>
+      {% include social-icon.html icon=item.icon %}
+    </a>
+    {% endfor %}
+  </nav>
+</footer>
