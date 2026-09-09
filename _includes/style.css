@@ -407,7 +407,7 @@ header {
     line-height: 1.25;
     letter-spacing: -0.02em;
     margin-bottom: 12px;
-    color: var(--title);
+    color: var(--accent);
 }
 
 .post-meta {
@@ -422,12 +422,6 @@ header {
   border-radius: 6px;
   padding: 0 8px;
 }
-
-.post-meta time {
-  padding: 0 5px;
-  border-radius: 5px;
-  border: 1px solid var(--border);
-}
   
 .post-body p { margin-bottom: 1.4em; }
 .post-body b {
@@ -438,7 +432,7 @@ header {
   line-height: 1.25;
   letter-spacing: -0.01em;
   margin: 1.2em 0;
-  color: var(--title);
+  color: var(--accent);
 }
  
 .post-body a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
@@ -623,20 +617,22 @@ header {
   outline: none;
   border-color: var(--text);
 }
+
 .form .contact-form-button-submit {
-  display: flex;
-  color: var(--muted);
-  padding: 10px 15px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  transition: all 0.2s ease;
-  background: var(--primary);
-  justify-content: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 1rem;
-  font-weight: bold;
+    display: flex;
+    color: var(--bg);
+    padding: 10px 15px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    background: var(--accent);
+    justify-content: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
 }
+
 .contact-form-button-submit:hover {
     color: var(--text);
     background: var(--secondary);
