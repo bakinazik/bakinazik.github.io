@@ -24,9 +24,12 @@
 
 @media (prefers-color-scheme: light) { :root { --bg: #fff; --primary: #ddd; --secondary: #eee; --text: #363737; --muted: #777; --muted2: #444; --border: #ddd; --accent: #000; --contrast-text: #fff; } }
   
+html, body{
+  background: var(--bg);
+}  
+  
 body {
   font-family: 'Inter', sans-serif;
-  background: var(--bg);
   color: var(--text);
   font-size: clamp(1.1rem, 1.5vw, 1.1rem);
   line-height: 1.75;
