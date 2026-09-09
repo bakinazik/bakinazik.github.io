@@ -323,11 +323,13 @@
         var title = document.createElement("div");
         title.className = "post-list-title";
         title.innerHTML = markMatches(post.title || "", normalizeTr(post.title || ""), normalizedQuery);
-        var snippet = document.createElement("div");
-        snippet.className = "post-list-snippet";
-        snippet.innerHTML = buildSnippet(post.content || "", normalizeTr(post.content || ""), normalizedQuery);
         link.appendChild(title);
-        link.appendChild(snippet);
+        if (post.type !== "quote") {
+          var snippet = document.createElement("div");
+          snippet.className = "post-list-snippet";
+          snippet.innerHTML = buildSnippet(post.content || "", normalizeTr(post.content || ""), normalizedQuery);
+          link.appendChild(snippet);
+        }
         item.appendChild(link);
         resultsBox.appendChild(item);
       });
