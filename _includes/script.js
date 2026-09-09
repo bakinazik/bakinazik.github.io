@@ -113,6 +113,8 @@
     var requested = new URLSearchParams(window.location.search).get("tab");
     var startTab = tabNames.indexOf(requested) !== -1 ? requested : defaultTab;
     activate(startTab, false);
+
+    document.querySelector(".profile-tabs").classList.add("is-interactive");
   }
 
   function setupQuoteTarget() {

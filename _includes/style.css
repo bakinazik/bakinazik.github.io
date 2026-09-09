@@ -185,6 +185,9 @@ header {
   font-size: 0.95rem;
   color: var(--muted);
   white-space: nowrap;
+}
+
+.profile-tabs.is-interactive .profile-tab {
   transition: color 140ms ease;
 }
 
@@ -198,6 +201,9 @@ header {
   border-radius: 3px;
   background: var(--accent);
   transform: translateX(-50%) scaleX(0);
+}
+
+.profile-tabs.is-interactive .profile-tab::before {
   transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
