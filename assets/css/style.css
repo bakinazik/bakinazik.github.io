@@ -292,21 +292,21 @@ header {
 }
 
 @media (max-width: 600px) {
-  .profile-name { font-size: 1.4rem; }
   .profile-tabs { gap: 1.1rem; }
+  .footer .links a {width: 30px;height: 30px;}
+  .footer .links a svg {width: 18px;height: 18px;}
 }
   
 .footer {
-  margin: 5rem 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.85rem;
-  color: var(--muted);
-  padding: 10px 10px 10px 18px;
-  border: 1px solid var(--border);
-  border-radius: 15px;
+    margin: 5rem 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 20px 0 10px 0;
+    border-top: 1px solid var(--border);
 }
  
 .links {
