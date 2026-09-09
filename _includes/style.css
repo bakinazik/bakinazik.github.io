@@ -944,11 +944,11 @@ body.search-overlay-locked {
   transform: translateX(-50%) translateY(4px);
   display: flex;
   flex-direction: column;
-  min-width: 130px;
+  min-width: 140px;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 6px;
+  border-radius: 10px;
+  overflow: hidden;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -963,20 +963,24 @@ body.search-overlay-locked {
   transform: translateX(-50%) translateY(0);
 }
 
-.rss-menu-panel a {
+#rss-menu-panel a {
   display: block;
-  width: auto;
+  width: 100%;
   height: auto;
-  padding: 8px 12px;
+  padding: 10px 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 0;
   background: none;
   font-size: 0.85rem;
+  text-align: left;
   color: var(--text);
-  white-space: nowrap;
 }
 
-.rss-menu-panel a:hover {
+#rss-menu-panel a + a {
+  border-top: 1px solid var(--border);
+}
+
+#rss-menu-panel a:hover {
   background: var(--secondary);
   color: var(--text);
 }
