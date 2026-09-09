@@ -5,12 +5,25 @@
 
   <div class="header-search" id="header-search">
     <span class="header-search-icon">{% include social-icon.html icon="search" %}</span>
-    <input type="search" id="header-search-input" class="header-search-input" placeholder="Ara…" autocomplete="off">
-    <div class="header-search-dropdown" id="header-search-dropdown">
-      <div class="post-list-wrapper" id="header-search-results"></div>
-      <div class="no-result" id="header-search-empty">
+    <input type="search" id="header-search-trigger" class="header-search-input" placeholder="Ara…" autocomplete="off" readonly>
+  </div>
+</header>
+
+<div class="search-overlay" id="search-overlay" aria-hidden="true">
+  <div class="search-overlay-backdrop" id="search-overlay-backdrop"></div>
+  <div class="search-overlay-panel" role="dialog" aria-modal="true" aria-label="Arama">
+    <div class="search-overlay-top">
+      <span class="search-overlay-icon">{% include social-icon.html icon="search" %}</span>
+      <input type="search" id="search-overlay-input" class="search-overlay-input" placeholder="Ara…" autocomplete="off">
+      <button type="button" id="search-overlay-clear" class="search-overlay-clear">Temizle</button>
+      <button type="button" id="search-overlay-close" class="search-overlay-close" aria-label="Kapat">{% include social-icon.html icon="close" %}</button>
+    </div>
+    <div class="search-overlay-body">
+      <p class="search-overlay-meta" id="search-overlay-meta"></p>
+      <div class="post-list-wrapper" id="search-overlay-results"></div>
+      <div class="no-result" id="search-overlay-empty">
         <p>Sonuç bulunamadı.</p>
       </div>
     </div>
   </div>
-</header>
+</div>
