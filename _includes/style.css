@@ -225,6 +225,12 @@ header {
   color: var(--muted);
 }
 
+.search-overlay-input::-webkit-search-cancel-button,
+.search-overlay-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
 .search-overlay-clear,
 .search-overlay-close {
   flex-shrink: 0;

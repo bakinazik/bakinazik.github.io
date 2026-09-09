@@ -265,6 +265,7 @@
     var input = document.getElementById("search-overlay-input");
     var clearBtn = document.getElementById("search-overlay-clear");
     var closeBtn = document.getElementById("search-overlay-close");
+    var body = document.getElementById("search-overlay-body");
     var metaBox = document.getElementById("search-overlay-meta");
     var resultsBox = document.getElementById("search-overlay-results");
     var emptyBox = document.getElementById("search-overlay-empty");
@@ -272,15 +273,31 @@
 
     var posts = [];
     var loaded = false;
+    var isOpen = false;
+
+    function urlFor(query) {
+      var params = new URLSearchParams(window.location.search);
+      if (query) params.set("search", query); else params.delete("search");
+      var qs = params.toString();
+      return window.location.pathname + (qs ? "?" + qs : "") + window.location.hash;
+    }
+
+    function loadPosts() {
+      if (loaded) return;
+      loaded = true;
+      fetchSearchIndex().then(function (data) {
+        posts = data;
+        render(input.value);
+      });
+    }
 
     function render(rawQuery) {
       var query = rawQuery.trim();
       clearBtn.style.display = query ? "flex" : "none";
+      body.style.display = query ? "" : "none";
       if (!query) {
         metaBox.textContent = "";
-        resultsBox.style.display = "none";
         resultsBox.innerHTML = "";
-        emptyBox.style.display = "none";
         return;
       }
 
@@ -316,40 +333,76 @@
       emptyBox.style.display = matches.length ? "none" : "";
     }
 
-    function open() {
-      if (!loaded) {
-        loaded = true;
-        fetchSearchIndex().then(function (data) {
-          posts = data;
-          render(input.value);
-        });
-      }
+    function showOverlay() {
       overlay.classList.add("is-open");
       overlay.setAttribute("aria-hidden", "false");
       document.body.classList.add("search-overlay-locked");
-      input.focus();
-      render(input.value);
+      isOpen = true;
     }
 
-    function close() {
+    function hideOverlay() {
       overlay.classList.remove("is-open");
       overlay.setAttribute("aria-hidden", "true");
       document.body.classList.remove("search-overlay-locked");
+      isOpen = false;
       trigger.blur();
     }
 
+    function open() {
+      loadPosts();
+      showOverlay();
+      input.focus();
+      render(input.value);
+      window.history.pushState({ searchOverlay: true }, "", urlFor(input.value));
+    }
+
+    function requestClose() {
+      if (window.history.state && window.history.state.searchOverlay) {
+        window.history.back();
+      } else {
+        hideOverlay();
+      }
+    }
+
     trigger.addEventListener("focus", open);
-    closeBtn.addEventListener("click", close);
-    backdrop.addEventListener("click", close);
-    input.addEventListener("input", function () { render(input.value); });
+    closeBtn.addEventListener("click", requestClose);
+    backdrop.addEventListener("click", requestClose);
+
+    input.addEventListener("input", function () {
+      render(input.value);
+      if (isOpen) window.history.replaceState({ searchOverlay: true }, "", urlFor(input.value));
+    });
+
     clearBtn.addEventListener("click", function () {
       input.value = "";
       render("");
       input.focus();
+      if (isOpen) window.history.replaceState({ searchOverlay: true }, "", urlFor(""));
     });
+
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && overlay.classList.contains("is-open")) close();
+      if (e.key === "Escape" && isOpen) requestClose();
     });
+
+    window.addEventListener("popstate", function (e) {
+      var wantsOpen = !!(e.state && e.state.searchOverlay);
+      if (isOpen && !wantsOpen) {
+        hideOverlay();
+      } else if (!isOpen && wantsOpen) {
+        input.value = new URLSearchParams(window.location.search).get("search") || "";
+        loadPosts();
+        showOverlay();
+        render(input.value);
+      }
+    });
+
+    var initialQuery = new URLSearchParams(window.location.search).get("search");
+    if (initialQuery) {
+      input.value = initialQuery;
+      loadPosts();
+      showOverlay();
+      render(input.value);
+    }
   }
 
   document.addEventListener("DOMContentLoaded", function () {
