@@ -343,6 +343,7 @@
       trigger.blur();
       input.value = "";
       render("");
+      removeUrlParam("search");
     }
 
     function open() {
