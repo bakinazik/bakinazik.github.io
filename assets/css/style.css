@@ -80,7 +80,7 @@ header {
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: .75rem;
 }
 
 .profile-identity {
