@@ -201,7 +201,6 @@ header {
   gap: 10px;
   flex-shrink: 0;
   padding: 16px 20px;
-  border-bottom: 1px solid var(--border);
 }
 
 .search-overlay-icon {
@@ -258,6 +257,7 @@ header {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
+  border-top: 1px solid var(--border);
 }
 
 .search-overlay-meta {
@@ -289,8 +289,8 @@ header {
 
 .post-list-title mark,
 .post-list-snippet mark {
-  background: #ffe066;
-  color: #000;
+  background: var(--accent);
+  color: var(--contrast-text);
   border-radius: 3px;
   padding: 0 2px;
 }
@@ -301,8 +301,7 @@ header {
     padding: 6vh 20px;
   }
   .search-overlay-panel {
-    height: auto;
-    max-height: 82vh;
+    height: 82vh;
     border: 1px solid var(--border);
     border-radius: 18px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
