@@ -940,8 +940,8 @@ body.search-overlay-locked {
 .rss-menu-panel {
   position: absolute;
   bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
+  right: 0;
+  transform: translateY(4px);
   display: flex;
   flex-direction: column;
   min-width: 140px;
@@ -960,7 +960,7 @@ body.search-overlay-locked {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
 }
 
 #rss-menu-panel a {
