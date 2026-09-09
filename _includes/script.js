@@ -145,23 +145,6 @@
     });
   }
 
-  function setupArchiveFilter() {
-    var list = document.getElementById("archive-list");
-    var emptyBox = document.getElementById("archive-no-result");
-    if (!list || !emptyBox) return;
-    var tag = new URLSearchParams(window.location.search).get("tag");
-    if (!tag) return;
-    var items = Array.from(list.querySelectorAll(".post-list-item"));
-    var visibleCount = 0;
-    items.forEach(function (item) {
-      var tags = (item.getAttribute("data-tags") || "").split(",");
-      var matches = tags.indexOf(tag) !== -1;
-      item.style.display = matches ? "" : "none";
-      if (matches) visibleCount++;
-    });
-    emptyBox.style.display = visibleCount === 0 ? "" : "none";
-  }
-
   function fetchSearchIndex() {
     return fetch("/search.json")
       .then(function (r) { return r.json(); })
@@ -417,7 +400,6 @@
     setupLoadMore("posts-list", "posts-load-more", ".post-list-item", 3, "post");
     setupQuoteTarget();
     setupContactForm();
-    setupArchiveFilter();
     setupSearchOverlay();
   });
 })();
