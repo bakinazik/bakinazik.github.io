@@ -128,13 +128,46 @@
       .catch(function () { return []; });
   }
 
+  function normalizeTr(str) {
+    return String(str)
+      .replace(/[İIı]/g, "i")
+      .replace(/[Ğğ]/g, "g")
+      .replace(/[Üü]/g, "u")
+      .replace(/[Şş]/g, "s")
+      .replace(/[Öö]/g, "o")
+      .replace(/[Çç]/g, "c")
+      .toLowerCase();
+  }
+
+  function countOccurrences(haystack, needle) {
+    if (!needle) return 0;
+    var count = 0;
+    var pos = haystack.indexOf(needle);
+    while (pos !== -1) {
+      count++;
+      pos = haystack.indexOf(needle, pos + needle.length);
+    }
+    return count;
+  }
+
+  function scorePost(post, q) {
+    var title = normalizeTr(post.title || "");
+    var description = normalizeTr(post.description || "");
+    var keywords = normalizeTr((post.keywords || []).join(" "));
+    var content = normalizeTr(post.content || "");
+    return countOccurrences(title, q) * 10
+      + countOccurrences(description, q) * 5
+      + countOccurrences(keywords, q) * 5
+      + countOccurrences(content, q);
+  }
+
   function filterPosts(posts, query) {
-    var q = query.toLowerCase();
-    return posts.filter(function (post) {
-      var haystack = [post.title, post.description, post.content, (post.keywords || []).join(" ")]
-        .join(" ").toLowerCase();
-      return haystack.indexOf(q) !== -1;
-    });
+    var q = normalizeTr(query);
+    return posts
+      .map(function (post) { return { post: post, score: scorePost(post, q) }; })
+      .filter(function (entry) { return entry.score > 0; })
+      .sort(function (a, b) { return b.score - a.score; })
+      .map(function (entry) { return entry.post; });
   }
 
   function renderResults(resultsBox, emptyBox, matches) {
