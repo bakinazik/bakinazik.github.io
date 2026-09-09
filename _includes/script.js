@@ -341,9 +341,11 @@
       document.body.classList.remove("search-overlay-locked");
       isOpen = false;
       trigger.blur();
-      input.value = "";
-      render("");
       removeUrlParam("search");
+      setTimeout(function () {
+        input.value = "";
+        render("");
+      }, 250);
     }
 
     function open() {

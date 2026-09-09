@@ -155,13 +155,17 @@ header {
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  opacity: 0;
   visibility: hidden;
   pointer-events: none;
+  transition: opacity .25s ease, visibility 0s linear .25s;
 }
 
 .search-overlay.is-open {
+  opacity: 1;
   visibility: visible;
   pointer-events: auto;
+  transition: opacity .25s ease, visibility 0s linear 0s;
 }
 
 .search-overlay-backdrop {
