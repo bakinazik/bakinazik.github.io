@@ -60,6 +60,7 @@
 
   var quoteTargetEl = null;
   var quoteTargetNextSibling = null;
+  var activateTab = null;
 
   function clearQuoteTarget() {
     removeUrlParam("target");
@@ -82,6 +83,18 @@
     }
   }
 
+  function focusQuoteTarget(targetId) {
+    clearQuoteTarget();
+    var source = document.getElementById(targetId);
+    var featured = document.getElementById("quote-featured");
+    if (!source || !featured) return;
+
+    quoteTargetEl = source;
+    quoteTargetNextSibling = source.nextSibling;
+    featured.appendChild(source);
+    featured.style.display = "block";
+  }
+
   function setupProfileTabs() {
     var tabs = Array.from(document.querySelectorAll(".profile-tab"));
     var panels = Array.from(document.querySelectorAll(".profile-panel"));
@@ -101,6 +114,7 @@
       });
       if (sync) syncListParam("tab", name, defaultTab);
     }
+    activateTab = activate;
 
     tabs.forEach(function (tab) {
       tab.addEventListener("click", function (e) {
@@ -122,14 +136,7 @@
     if (params.get("tab") !== "quotes") return;
     var targetId = params.get("target");
     if (!targetId) return;
-    var source = document.getElementById(targetId);
-    var featured = document.getElementById("quote-featured");
-    if (!source || !featured) return;
-
-    quoteTargetEl = source;
-    quoteTargetNextSibling = source.nextSibling;
-    featured.appendChild(source);
-    featured.style.display = "block";
+    focusQuoteTarget(targetId);
   }
 
   function setupContactForm() {
@@ -378,6 +385,25 @@
       if (!query) return;
       e.preventDefault();
       open(decodeURIComponent(query));
+    });
+
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest('a[href*="tab=quotes"]');
+      if (!link) return;
+      var url = new URL(link.getAttribute("href"), window.location.href);
+      if (url.pathname !== window.location.pathname) return;
+      var targetId = url.searchParams.get("target");
+      if (!targetId) return;
+      e.preventDefault();
+      hideOverlay();
+      var params = new URLSearchParams();
+      params.set("tab", "quotes");
+      params.set("target", targetId);
+      window.history.pushState(null, "", window.location.pathname + "?" + params.toString());
+      if (activateTab) activateTab("quotes", false);
+      focusQuoteTarget(targetId);
+      var el = document.getElementById(targetId);
+      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "center" });
     });
 
     input.addEventListener("input", function () {
