@@ -128,7 +128,6 @@
     quoteTargetNextSibling = source.nextSibling;
     featured.appendChild(source);
     featured.style.display = "block";
-    featured.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function setupContactForm() {
