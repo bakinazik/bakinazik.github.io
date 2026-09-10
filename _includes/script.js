@@ -138,7 +138,6 @@
       btn.appendChild(flag);
       btn.appendChild(name);
       btn.addEventListener("click", function () {
-        closeSettingsMenu();
         chooseLanguage(lang.code);
       });
       panel.appendChild(btn);
@@ -620,7 +619,6 @@
     var theme = THEMES.indexOf(stored) !== -1 ? stored : "system";
     panel.querySelectorAll("button").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        closeSettingsMenu();
         setTheme(btn.dataset.themeOption);
       });
     });
@@ -642,7 +640,6 @@
     var size = FONT_SIZES.indexOf(stored) !== -1 ? stored : "normal";
     panel.querySelectorAll("button").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        closeSettingsMenu();
         setFontSize(btn.dataset.fontSizeOption);
       });
     });
