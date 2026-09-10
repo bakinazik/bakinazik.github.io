@@ -6,8 +6,26 @@
 		</button>
 		<div class="settings-menu-panel" id="settings-menu-panel" role="menu">
 
+		  <div class="settings-accordion" id="settings-accordion">
+			<button type="button" class="settings-accordion-trigger" data-accordion-target="theme-section" aria-expanded="false">
+			  <span data-i18n="theme_label"></span>
+			  {% include social-icon.html icon="chevron-right" %}
+			</button>
+			<button type="button" class="settings-accordion-trigger" data-accordion-target="lang-section" aria-expanded="false">
+			  <span data-i18n="language_label"></span>
+			  {% include social-icon.html icon="chevron-right" %}
+			</button>
+			<button type="button" class="settings-accordion-trigger" data-accordion-target="font-size-section" aria-expanded="false">
+			  <span data-i18n="font_size_label"></span>
+			  {% include social-icon.html icon="chevron-right" %}
+			</button>
+		  </div>
+
 		  <div class="settings-menu-section" id="theme-section">
-			<div class="settings-section-title" data-i18n="theme_label"></div>
+			<div class="settings-section-header">
+			  <button type="button" class="settings-back-btn" data-accordion-back data-i18n-aria-label="back_aria">{% include social-icon.html icon="back" %}</button>
+			  <div class="settings-section-title" data-i18n="theme_label"></div>
+			</div>
 			<div class="settings-options" id="theme-menu-panel">
 			  <button type="button" data-theme-option="system" data-i18n="theme_system"></button>
 			  <button type="button" data-theme-option="dark" data-i18n="theme_dark"></button>
@@ -16,12 +34,18 @@
 		  </div>
 
 		  <div class="settings-menu-section" id="lang-section">
-			<div class="settings-section-title" data-i18n="language_label"></div>
+			<div class="settings-section-header">
+			  <button type="button" class="settings-back-btn" data-accordion-back data-i18n-aria-label="back_aria">{% include social-icon.html icon="back" %}</button>
+			  <div class="settings-section-title" data-i18n="language_label"></div>
+			</div>
 			<div class="settings-options" id="lang-menu-panel"></div>
 		  </div>
 
 		  <div class="settings-menu-section" id="font-size-section">
-			<div class="settings-section-title" data-i18n="font_size_label"></div>
+			<div class="settings-section-header">
+			  <button type="button" class="settings-back-btn" data-accordion-back data-i18n-aria-label="back_aria">{% include social-icon.html icon="back" %}</button>
+			  <div class="settings-section-title" data-i18n="font_size_label"></div>
+			</div>
 			<div class="settings-options" id="font-size-menu-panel">
 			  <button type="button" data-font-size-option="small" data-i18n="font_size_small"></button>
 			  <button type="button" data-font-size-option="normal" data-i18n="font_size_normal"></button>

@@ -657,9 +657,20 @@
       var panel = document.getElementById("settings-menu-panel");
       if (!menu || !trigger || !panel) return;
 
+      function showAccordionRoot() {
+        panel.classList.remove("has-active-section");
+        panel.querySelectorAll(".settings-menu-section.is-active").forEach(function (section) {
+          section.classList.remove("is-active");
+        });
+        panel.querySelectorAll(".settings-accordion-trigger").forEach(function (btn) {
+          btn.setAttribute("aria-expanded", "false");
+        });
+      }
+
       function close() {
         menu.classList.remove("is-open");
         trigger.setAttribute("aria-expanded", "false");
+        showAccordionRoot();
       }
 
       closeSettingsMenu = close;
@@ -670,6 +681,7 @@
         var willOpen = !menu.classList.contains("is-open");
         menu.classList.toggle("is-open", willOpen);
         trigger.setAttribute("aria-expanded", String(willOpen));
+        if (!willOpen) showAccordionRoot();
       });
 
       document.addEventListener("click", function (e) {
@@ -678,6 +690,20 @@
 
       document.addEventListener("keydown", function (e) {
         if (e.key === "Escape") close();
+      });
+
+      panel.querySelectorAll(".settings-accordion-trigger").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var target = document.getElementById(btn.dataset.accordionTarget);
+          if (!target) return;
+          panel.classList.add("has-active-section");
+          target.classList.add("is-active");
+          btn.setAttribute("aria-expanded", "true");
+        });
+      });
+
+      panel.querySelectorAll("[data-accordion-back]").forEach(function (btn) {
+        btn.addEventListener("click", showAccordionRoot);
       });
     }
 
