@@ -83,25 +83,19 @@
     });
   }
 
-  function fetchLanguage(lang) {
-    var base = document.documentElement.getAttribute("data-lang-base") || "/language/";
-    return fetch(base + lang + ".json").then(function (r) {
-      if (!r.ok) throw new Error("missing language file");
-      return r.json();
-    });
+  var i18nData = {};
+  try {
+    var i18nDataEl = document.getElementById("i18n-data");
+    if (i18nDataEl) i18nData = JSON.parse(i18nDataEl.textContent);
+  } catch (e) {
+    i18nData = {};
   }
 
   function setLanguage(lang) {
-    return fetchLanguage(lang)
-      .catch(function () {
-        return lang === "en" ? {} : fetchLanguage("en").catch(function () { return {}; });
-      })
-      .then(function (dict) {
-        i18nDict = dict;
-        currentLang = lang;
-        applyI18n();
-        document.dispatchEvent(new CustomEvent("i18n:changed"));
-      });
+    i18nDict = i18nData[lang] || i18nData.en || {};
+    currentLang = lang;
+    applyI18n();
+    document.dispatchEvent(new CustomEvent("i18n:changed"));
   }
 
   function chooseLanguage(lang) {

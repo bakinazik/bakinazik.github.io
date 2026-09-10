@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" data-lang-base="{{ '/language/' | relative_url }}">
+<html lang="tr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -58,6 +58,7 @@
     {{ content }}
     {% include footer.html %}
   </main>
+  <script type="application/json" id="i18n-data">{"tr": {% include language/tr.json %}, "en": {% include language/en.json %}}</script>
   <script>{% include script.js %}</script>
 </body>
 </html>
