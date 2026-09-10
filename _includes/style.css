@@ -1049,7 +1049,7 @@ body.search-overlay-locked {
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s;
   z-index: 30;
   overflow: hidden;
 }
@@ -1059,6 +1059,7 @@ body.search-overlay-locked {
   visibility: visible;
   pointer-events: auto;
   transform: translateY(0);
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0s;
 }
 
 .settings-accordion {
