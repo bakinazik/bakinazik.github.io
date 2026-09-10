@@ -1024,6 +1024,7 @@ body.search-overlay-locked {
   display: flex;
   flex-direction: column;
   min-width: 220px;
+  max-height: 250px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -1033,6 +1034,8 @@ body.search-overlay-locked {
   pointer-events: none;
   transition: opacity 0.15s ease, transform 0.15s ease;
   z-index: 30;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .settings-menu.is-open .settings-menu-panel {
