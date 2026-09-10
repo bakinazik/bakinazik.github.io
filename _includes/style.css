@@ -1040,8 +1040,9 @@ body.search-overlay-locked {
   transform: translateY(4px);
   display: flex;
   flex-direction: column;
-  width: min(280px, calc(100vw - 32px));
-  height: min(360px, 70vh);
+  width: min(250px, calc(100vw - 32px));
+  height: fit-content;
+  max-height: 250px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 12px;
