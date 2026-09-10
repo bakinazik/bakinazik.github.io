@@ -652,59 +652,34 @@
   var closeSettingsMenu = function () {};
 
   function setupSettingsMenu() {
-    var menu = document.getElementById("settings-menu");
-    var trigger = document.getElementById("settings-menu-trigger");
-    var panel = document.getElementById("settings-menu-panel");
-    if (!menu || !trigger || !panel) return;
+      var menu = document.getElementById("settings-menu");
+      var trigger = document.getElementById("settings-menu-trigger");
+      var panel = document.getElementById("settings-menu-panel");
+      if (!menu || !trigger || !panel) return;
 
-    var items = Array.from(panel.querySelectorAll(".settings-menu-item"));
+      function close() {
+        menu.classList.remove("is-open");
+        trigger.setAttribute("aria-expanded", "false");
+      }
 
-    function closeItems() {
-      items.forEach(function (item) {
-        item.classList.remove("is-open");
-        var row = item.querySelector(".settings-menu-row");
-        if (row) row.setAttribute("aria-expanded", "false");
-      });
-    }
+      closeSettingsMenu = close;
 
-    function close() {
-      menu.classList.remove("is-open");
-      trigger.setAttribute("aria-expanded", "false");
-      closeItems();
-    }
-
-    closeSettingsMenu = close;
-
-    trigger.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var willOpen = !menu.classList.contains("is-open");
-      menu.classList.toggle("is-open", willOpen);
-      trigger.setAttribute("aria-expanded", String(willOpen));
-      if (!willOpen) closeItems();
-    });
-
-    items.forEach(function (item) {
-      var row = item.querySelector(".settings-menu-row");
-      if (!row) return;
-      row.addEventListener("click", function (e) {
+      trigger.addEventListener("click", function (e) {
         e.preventDefault();
         e.stopPropagation();
-        var willOpen = !item.classList.contains("is-open");
-        closeItems();
-        item.classList.toggle("is-open", willOpen);
-        row.setAttribute("aria-expanded", String(willOpen));
+        var willOpen = !menu.classList.contains("is-open");
+        menu.classList.toggle("is-open", willOpen);
+        trigger.setAttribute("aria-expanded", String(willOpen));
       });
-    });
 
-    document.addEventListener("click", function (e) {
-      if (!menu.contains(e.target)) close();
-    });
+      document.addEventListener("click", function (e) {
+        if (!menu.contains(e.target)) close();
+      });
 
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") close();
-    });
-  }
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") close();
+      });
+    }
 
   function setupRssMenu() {
     var menu = document.getElementById("rss-menu");
