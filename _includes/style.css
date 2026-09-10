@@ -1335,4 +1335,12 @@ footer nav{
     width: auto;
     flex: 1;
   }
+  
+  .subscribe-info {
+      justify-content: center;
+  }
+  
+  .subscribe-info p{
+    display: none;
+  }
 }
