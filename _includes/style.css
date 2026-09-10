@@ -154,9 +154,9 @@ header {
 
 @media (max-width: 600px) {
   .header-search { flex-basis: 100%; margin-left: 0; order: 3; }
-  .profile-identity {width: 100%;justify-content: center;}
+  .profile-identity {width: 100%;justify-content: space-between;display: flex;}
   .profile-tab{width: 100%;text-align: center;}
-  .settings-menu { order: 2; margin-left: auto; }
+  .settings-menu { order: 2;}
 }
 
 .search-overlay {
