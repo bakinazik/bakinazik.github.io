@@ -668,6 +668,10 @@ body.search-overlay-locked {
   text-align: center;
   width: 100%;
   padding: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 #search-overlay-empty p {
@@ -944,7 +948,7 @@ body.search-overlay-locked {
 
 .rss-menu-panel {
   position: absolute;
-  top: calc(100% + 10px);
+  bottom: calc(100% + 10px);
   right: 0;
   transform: translateY(4px);
   display: flex;
