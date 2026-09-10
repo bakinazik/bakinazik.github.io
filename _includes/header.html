@@ -1,29 +1,29 @@
 <header class="profile-top">
-  <a href="{{ '/' | relative_url }}" aria-label="{{ site.title }} - Ana Sayfa" class="profile-identity">
+  <a href="{{ '/' | relative_url }}" data-site-title="{{ site.title }}" data-i18n-aria-label="home_aria" class="profile-identity" translate="no">
     <h1 class="profile-name">{{ site.title }}</h1>
   </a>
 
   <div class="header-search" id="header-search">
     <span class="header-search-icon">{% include social-icon.html icon="search" %}</span>
-    <input type="search" id="header-search-trigger" class="header-search-input" placeholder="Ara…" autocomplete="off" readonly>
+    <input type="search" id="header-search-trigger" class="header-search-input" data-i18n-placeholder="search_placeholder" autocomplete="off" readonly>
   </div>
 </header>
 
 <div class="search-overlay" id="search-overlay" aria-hidden="true">
   <div class="search-overlay-backdrop" id="search-overlay-backdrop"></div>
-  <div class="search-overlay-panel" role="dialog" aria-modal="true" aria-label="Arama">
+  <div class="search-overlay-panel" role="dialog" aria-modal="true" data-i18n-aria-label="search_dialog_aria">
     <div class="search-overlay-top">
       <span class="search-overlay-icon">{% include social-icon.html icon="search" %}</span>
-      <input type="search" id="search-overlay-input" class="search-overlay-input" placeholder="Ara…" autocomplete="off">
-      <button type="button" id="search-overlay-clear" class="search-overlay-clear">Temizle</button>
-      <button type="button" id="search-overlay-close" class="search-overlay-close" aria-label="Kapat">{% include social-icon.html icon="close" %}</button>
+      <input type="search" id="search-overlay-input" class="search-overlay-input" data-i18n-placeholder="search_placeholder" autocomplete="off">
+      <button type="button" id="search-overlay-clear" class="search-overlay-clear" data-i18n="clear"></button>
+      <button type="button" id="search-overlay-close" class="search-overlay-close" data-i18n-aria-label="close_aria">{% include social-icon.html icon="close" %}</button>
     </div>
     <div class="search-overlay-body" id="search-overlay-body">
       <div class="search-overlay-placeholder" id="search-overlay-placeholder">{% include social-icon.html icon="search" %}</div>
       <p class="search-overlay-meta" id="search-overlay-meta"></p>
       <div class="post-list-wrapper" id="search-overlay-results"></div>
       <div class="no-result" id="search-overlay-empty">
-        <p>Sonuç bulunamadı.</p>
+        <p data-i18n="no_results"></p>
       </div>
     </div>
   </div>

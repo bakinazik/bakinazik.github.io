@@ -1,7 +1,15 @@
 <footer class="footer" role="contentinfo">
-  <p>&copy; {{ 'now' | date: "%Y" }} {{ site.title }}</p>
+  <p translate="no">&copy; {{ 'now' | date: "%Y" }} {{ site.title }}</p>
 
-  <nav class="links" aria-label="Sosyal medya bağlantıları">
+  <div class="lang-menu" id="lang-menu">
+    <button type="button" id="lang-menu-trigger" class="lang-menu-trigger" data-i18n-aria-label="lang_switcher_aria" aria-haspopup="true" aria-expanded="false">
+      <span class="fi" id="lang-menu-flag"></span>
+      <span id="lang-menu-code"></span>
+    </button>
+    <div class="lang-menu-panel" id="lang-menu-panel" role="menu"></div>
+  </div>
+
+  <nav class="links" data-i18n-aria-label="social_nav_aria">
     {% for item in site.data.social %}
     {% if item.feeds %}
     <div class="rss-menu" id="rss-menu">

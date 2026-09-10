@@ -3,6 +3,7 @@ title: "Örnek Yazı: Başlıklar, Kod ve Alıntılar"
 description: "Jekyll temasındaki post-body stillerini gösteren örnek bir yazı."
 keywords: ["örnek", "jekyll", "markdown"]
 tags: ["jekyll", "örnek"]
+date: 2024-07-14 10:15:00 +0300
 ---
 
 Bu yazı gerçek bir içerik değil, temanın **post-body** stillerinin nasıl göründüğünü göstermek için hazırlandı. Kendi yazılarını `_posts/` klasörüne aynı front matter yapısıyla ekleyebilirsin.

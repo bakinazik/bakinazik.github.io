@@ -9,7 +9,7 @@ permalink: /search.json
   "type": "post",
   "title": {{ post.title | jsonify }},
   "url": {{ post.url | relative_url | jsonify }},
-  "date": {{ post.date | date: "%d %B %Y" | jsonify }},
+  "date": {{ post.date | date_to_xmlschema | jsonify }},
   "description": {{ post.description | default: "" | jsonify }},
   "keywords": {{ post.keywords | default: post.tags | jsonify }},
   "tags": {{ post.tags | jsonify }},

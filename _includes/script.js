@@ -1,6 +1,189 @@
 (function () {
   var CONTACT_EMAIL = "bakinazikk@gmail.com";
 
+  var LANGUAGES = [
+    { code: "en", name: "English", flag: "gb" },
+    { code: "zh", name: "中文", flag: "cn" },
+    { code: "es", name: "Español", flag: "es" },
+    { code: "hi", name: "हिन्दी", flag: "in" },
+    { code: "ar", name: "العربية", flag: "sa" },
+    { code: "pt", name: "Português", flag: "pt" },
+    { code: "bn", name: "বাংলা", flag: "bd" },
+    { code: "ru", name: "Русский", flag: "ru" },
+    { code: "ja", name: "日本語", flag: "jp" },
+    { code: "de", name: "Deutsch", flag: "de" },
+    { code: "fr", name: "Français", flag: "fr" },
+    { code: "tr", name: "Türkçe", flag: "tr" },
+    { code: "ko", name: "한국어", flag: "kr" },
+    { code: "it", name: "Italiano", flag: "it" },
+    { code: "id", name: "Bahasa Indonesia", flag: "id" }
+  ];
+  var SUPPORTED_CODES = LANGUAGES.map(function (l) { return l.code; });
+  var i18nDict = {};
+  var currentLang = "tr";
+
+  function t(key, vars) {
+    var str = i18nDict[key] || "";
+    if (vars) {
+      Object.keys(vars).forEach(function (k) {
+        str = str.split("{" + k + "}").join(vars[k]);
+      });
+    }
+    return str;
+  }
+
+  function findLanguage(code) {
+    for (var i = 0; i < LANGUAGES.length; i++) {
+      if (LANGUAGES[i].code === code) return LANGUAGES[i];
+    }
+    return null;
+  }
+
+  function formatDates() {
+    var formatter = new Intl.DateTimeFormat(currentLang, { day: "2-digit", month: "long", year: "numeric" });
+    document.querySelectorAll("[data-i18n-date]").forEach(function (el) {
+      var iso = el.getAttribute("data-i18n-date");
+      if (!iso) return;
+      var date = new Date(iso);
+      if (isNaN(date.getTime())) return;
+      el.textContent = formatter.format(date);
+    });
+  }
+
+  function applyI18n() {
+    document.documentElement.lang = currentLang;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      el.textContent = t(el.getAttribute("data-i18n"));
+    });
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+      el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
+    });
+    document.querySelectorAll("[data-i18n-value]").forEach(function (el) {
+      el.value = t(el.getAttribute("data-i18n-value"));
+    });
+    document.querySelectorAll("[data-i18n-aria-label]").forEach(function (el) {
+      var text = t(el.getAttribute("data-i18n-aria-label"));
+      var site = el.getAttribute("data-site-title");
+      if (site) text = text.split("{site}").join(site);
+      el.setAttribute("aria-label", text);
+    });
+    formatDates();
+    updateLanguageTrigger();
+  }
+
+  function updateLanguageTrigger() {
+    var flagEl = document.getElementById("lang-menu-flag");
+    var codeEl = document.getElementById("lang-menu-code");
+    if (!flagEl || !codeEl) return;
+    var lang = findLanguage(currentLang) || LANGUAGES[0];
+    flagEl.className = "fi fi-" + lang.flag;
+    codeEl.textContent = lang.code.toUpperCase();
+    document.querySelectorAll("#lang-menu-panel button").forEach(function (btn) {
+      btn.classList.toggle("is-active", btn.dataset.lang === currentLang);
+    });
+  }
+
+  function fetchLanguage(lang) {
+    var base = document.documentElement.getAttribute("data-lang-base") || "/language/";
+    return fetch(base + lang + ".json").then(function (r) {
+      if (!r.ok) throw new Error("missing language file");
+      return r.json();
+    });
+  }
+
+  function setLanguage(lang) {
+    return fetchLanguage(lang)
+      .catch(function () {
+        return lang === "en" ? {} : fetchLanguage("en").catch(function () { return {}; });
+      })
+      .then(function (dict) {
+        i18nDict = dict;
+        currentLang = lang;
+        applyI18n();
+        document.dispatchEvent(new CustomEvent("i18n:changed"));
+      });
+  }
+
+  function chooseLanguage(lang) {
+    localStorage.setItem("lang", lang);
+    setLanguage(lang);
+  }
+
+  function detectInitialLanguage() {
+    var params = new URLSearchParams(window.location.search);
+    var urlLang = params.get("lang");
+    var stored = localStorage.getItem("lang");
+
+    if (urlLang && SUPPORTED_CODES.indexOf(urlLang) !== -1) {
+      localStorage.setItem("lang", urlLang);
+      removeUrlParam("lang");
+      return urlLang;
+    }
+    if (stored && SUPPORTED_CODES.indexOf(stored) !== -1) {
+      return stored;
+    }
+
+    var browserLang = (navigator.language || "tr").slice(0, 2).toLowerCase();
+    var lang = SUPPORTED_CODES.indexOf(browserLang) !== -1 ? browserLang : "tr";
+    localStorage.setItem("lang", lang);
+    params.set("lang", lang);
+    var url = window.location.pathname + "?" + params.toString() + window.location.hash;
+    window.history.replaceState(null, "", url);
+    return lang;
+  }
+
+  function setupLanguageMenu() {
+    var menu = document.getElementById("lang-menu");
+    var trigger = document.getElementById("lang-menu-trigger");
+    var panel = document.getElementById("lang-menu-panel");
+    if (!menu || !trigger || !panel) return;
+
+    LANGUAGES.forEach(function (lang) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("role", "menuitem");
+      btn.dataset.lang = lang.code;
+      var flag = document.createElement("span");
+      flag.className = "fi fi-" + lang.flag;
+      var name = document.createElement("span");
+      name.textContent = lang.name;
+      btn.appendChild(flag);
+      btn.appendChild(name);
+      btn.addEventListener("click", function () {
+        close();
+        chooseLanguage(lang.code);
+      });
+      panel.appendChild(btn);
+    });
+
+    function close() {
+      menu.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+    }
+
+    trigger.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var willOpen = !menu.classList.contains("is-open");
+      menu.classList.toggle("is-open", willOpen);
+      trigger.setAttribute("aria-expanded", String(willOpen));
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!menu.contains(e.target)) close();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+    });
+  }
+
+  function setupI18n() {
+    var lang = detectInitialLanguage();
+    setupLanguageMenu();
+    setLanguage(lang);
+  }
+
   function readListParam(key, fallback) {
     var raw = new URLSearchParams(window.location.search).get(key);
     var n = parseInt(raw, 10);
@@ -306,8 +489,9 @@
       var shown = matches.slice(0, RESULT_LIMIT);
 
       metaBox.textContent = matches.length
-        ? ("\u201C" + query + "\u201D için " + matches.length + " sonuç" +
-            (shown.length < matches.length ? "tan " + shown.length + " tanesi gösteriliyor" : " bulundu"))
+        ? (shown.length < matches.length
+            ? t("search_results_partial", { q: query, total: matches.length, shown: shown.length })
+            : t("search_results_found", { q: query, n: matches.length }))
         : "";
 
       resultsBox.innerHTML = "";
@@ -441,6 +625,10 @@
       showOverlay();
       render(input.value);
     }
+
+    document.addEventListener("i18n:changed", function () {
+      render(input.value);
+    });
   }
 
   function setupRssMenu() {
@@ -471,6 +659,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    setupI18n();
     setupProfileTabs();
     setupLoadMore("posts-list", "posts-load-more", ".post-list-item", 3, "post");
     setupQuoteTarget();

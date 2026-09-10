@@ -2,11 +2,11 @@
 layout: default
 ---
 <div class="profile">
-  <nav class="profile-tabs" role="tablist" aria-label="Profil sekmeleri">
-    <a href="#panel-posts" class="profile-tab is-active" role="tab" data-tab="posts">Yazılar</a>
-    <a href="#panel-quotes" class="profile-tab" role="tab" data-tab="quotes">Sözler</a>
-    <a href="#panel-projects" class="profile-tab" role="tab" data-tab="projects">Projeler</a>
-    <a href="#panel-contact" class="profile-tab" role="tab" data-tab="contact">İletişim</a>
+  <nav class="profile-tabs" role="tablist" data-i18n-aria-label="tabs_aria">
+    <a href="#panel-posts" class="profile-tab is-active" role="tab" data-tab="posts" data-i18n="tab_posts"></a>
+    <a href="#panel-quotes" class="profile-tab" role="tab" data-tab="quotes" data-i18n="tab_quotes"></a>
+    <a href="#panel-projects" class="profile-tab" role="tab" data-tab="projects" data-i18n="tab_projects"></a>
+    <a href="#panel-contact" class="profile-tab" role="tab" data-tab="contact" data-i18n="tab_contact"></a>
   </nav>
 </div>
 
@@ -19,17 +19,17 @@ layout: default
       <div class="post-list-item">
         <a class="post-list-link" href="{{ post.url | relative_url }}">
           <div class="post-list-title">{{ post.title }}</div>
-          <div class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %B %Y" }}</time></div>
+          <div class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" data-i18n-date="{{ post.date | date_to_xmlschema }}"></time></div>
         </a>
       </div>
       {% endfor %}
     </div>
     <div class="panel-toolbar">
-      <button type="button" class="load-more" id="posts-load-more">Daha Fazla Yükle</button>
+      <button type="button" class="load-more" id="posts-load-more" data-i18n="load_more"></button>
     </div>
     {% else %}
     <div class="no-result">
-      <p>Henüz hiç yazı yayınlanmamış.</p>
+      <p data-i18n="no_posts_yet"></p>
     </div>
     {% endif %}
   </section>
@@ -71,9 +71,9 @@ layout: default
     <div class="contact-form-widget">
       <div class="form">
         <form id="contact-form">
-          <input id="contact-form-subject" placeholder="Konu *" type="text" required>
-          <textarea id="contact-form-message" placeholder="İçerik *" rows="6" required></textarea>
-          <input class="contact-form-button-submit" type="submit" value="Gönder">
+          <input id="contact-form-subject" data-i18n-placeholder="subject_placeholder" type="text" required>
+          <textarea id="contact-form-message" data-i18n-placeholder="message_placeholder" rows="6" required></textarea>
+          <input class="contact-form-button-submit" type="submit" data-i18n-value="submit_button">
         </form>
       </div>
     </div>
