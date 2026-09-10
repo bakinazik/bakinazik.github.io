@@ -480,7 +480,27 @@ body.search-overlay-locked {
   gap: 1rem;
 }
 
-.project-actions a,
+.project-actions a{
+  display: flex;
+  font-size: 0.82rem;
+  color: var(--muted);
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  background: var(--primary);
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.project-actions a:hover{
+  color: var(--text);
+  background: var(--secondary);
+  border-color: var(--secondary);
+}
+
 .links a{
   display: flex;
   font-size: 0.82rem;
@@ -498,7 +518,6 @@ body.search-overlay-locked {
   -webkit-user-select: none;
 }
 
-.project-actions a:hover,
 .links a:hover{
   color: var(--text);
   background: var(--secondary);
