@@ -8,15 +8,24 @@
 
 		  <div class="settings-accordion" id="settings-accordion">
 			<button type="button" class="settings-accordion-trigger" data-accordion-target="theme-section" aria-expanded="false">
-			  <span data-i18n="theme_label"></span>
+			  <span class="settings-accordion-trigger-label">
+				{% include social-icon.html icon="palette" %}
+				<span data-i18n="theme_label"></span>
+			  </span>
 			  {% include social-icon.html icon="chevron-right" %}
 			</button>
 			<button type="button" class="settings-accordion-trigger" data-accordion-target="lang-section" aria-expanded="false">
-			  <span data-i18n="language_label"></span>
+			  <span class="settings-accordion-trigger-label">
+				{% include social-icon.html icon="language" %}
+				<span data-i18n="language_label"></span>
+			  </span>
 			  {% include social-icon.html icon="chevron-right" %}
 			</button>
 			<button type="button" class="settings-accordion-trigger" data-accordion-target="font-size-section" aria-expanded="false">
-			  <span data-i18n="font_size_label"></span>
+			  <span class="settings-accordion-trigger-label">
+				{% include social-icon.html icon="text-size" %}
+				<span data-i18n="font_size_label"></span>
+			  </span>
 			  {% include social-icon.html icon="chevron-right" %}
 			</button>
 		  </div>

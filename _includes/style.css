@@ -1097,6 +1097,13 @@ body.search-overlay-locked {
   color: var(--muted);
 }
 
+.settings-accordion-trigger-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
 .settings-accordion-trigger:hover {
   background: var(--secondary);
   color: var(--accent);
