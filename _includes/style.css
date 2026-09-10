@@ -447,13 +447,17 @@ body.search-overlay-locked {
     margin: 5rem 0 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
     font-size: 0.85rem;
     color: var(--muted);
     padding: 20px 0 10px 0;
     border-top: 1px solid var(--border);
+}
+
+.footer .settings-menu-links {
+  padding: 0;
 }
 
 .section-header {
