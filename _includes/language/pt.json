@@ -34,5 +34,7 @@
   "subscribe_submit_aria": "Inscrever-se",
   "not_found_message": "Este conteúdo foi removido ou nunca existiu.",
   "search_results_found": "{n} resultados encontrados para “{q}”",
-  "search_results_partial": "Mostrando {shown} de {total} resultados para “{q}”"
+  "search_results_partial": "Mostrando {shown} de {total} resultados para “{q}”",
+  "prev_post": "ANTERIOR",
+  "next_post": "PRÓXIMO"
 }

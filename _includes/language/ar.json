@@ -34,5 +34,7 @@
   "subscribe_submit_aria": "اشترك",
   "not_found_message": "تمت إزالة هذا المحتوى أو أنه لم يكن موجودًا من قبل.",
   "search_results_found": "تم العثور على {n} نتيجة لـ «{q}»",
-  "search_results_partial": "عرض {shown} من {total} نتيجة لـ «{q}»"
+  "search_results_partial": "عرض {shown} من {total} نتيجة لـ «{q}»",
+  "prev_post": "السابق",
+  "next_post": "التالي"
 }

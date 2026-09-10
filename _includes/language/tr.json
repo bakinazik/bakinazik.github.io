@@ -34,5 +34,7 @@
   "subscribe_submit_aria": "Abone ol",
   "not_found_message": "Bu içerik kaldırıldı ya da daha öncesinde hiç var olmadı.",
   "search_results_found": "“{q}” için {n} sonuç bulundu",
-  "search_results_partial": "“{q}” için {total} sonuçtan {shown} tanesi gösteriliyor"
+  "search_results_partial": "“{q}” için {total} sonuçtan {shown} tanesi gösteriliyor",
+  "prev_post": "ÖNCEKİ",
+  "next_post": "SONRAKİ"
 }

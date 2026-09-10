@@ -34,5 +34,7 @@
   "subscribe_submit_aria": "订阅",
   "not_found_message": "该内容已被删除或从未存在过。",
   "search_results_found": "找到 {n} 条关于“{q}”的结果",
-  "search_results_partial": "显示“{q}”的 {total} 条结果中的 {shown} 条"
+  "search_results_partial": "显示“{q}”的 {total} 条结果中的 {shown} 条",
+  "prev_post": "上一篇",
+  "next_post": "下一篇"
 }

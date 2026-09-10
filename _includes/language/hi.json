@@ -34,5 +34,7 @@
   "subscribe_submit_aria": "सदस्यता लें",
   "not_found_message": "यह सामग्री हटा दी गई है या कभी अस्तित्व में नहीं थी।",
   "search_results_found": "“{q}” के लिए {n} परिणाम मिले",
-  "search_results_partial": "“{q}” के लिए {total} में से {shown} परिणाम दिखाए जा रहे हैं"
+  "search_results_partial": "“{q}” के लिए {total} में से {shown} परिणाम दिखाए जा रहे हैं",
+  "prev_post": "पिछला",
+  "next_post": "अगला"
 }

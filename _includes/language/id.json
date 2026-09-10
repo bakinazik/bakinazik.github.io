@@ -34,5 +34,7 @@
   "subscribe_submit_aria": "Berlangganan",
   "not_found_message": "Konten ini telah dihapus atau tidak pernah ada.",
   "search_results_found": "{n} hasil ditemukan untuk “{q}”",
-  "search_results_partial": "Menampilkan {shown} dari {total} hasil untuk “{q}”"
+  "search_results_partial": "Menampilkan {shown} dari {total} hasil untuk “{q}”",
+  "prev_post": "SEBELUMNYA",
+  "next_post": "BERIKUTNYA"
 }

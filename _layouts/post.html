@@ -16,4 +16,28 @@ layout: default
   <div class="post-body">
     {{ content }}
   </div>
+
+  <nav class="post-nav">
+    {% if page.previous %}
+    <a class="post-nav-item post-nav-prev" href="{{ page.previous.url | relative_url }}">
+      <span class="post-nav-label">‹ <span data-i18n="prev_post"></span></span>
+      <span class="post-nav-title">{{ page.previous.title }}</span>
+    </a>
+    {% else %}
+    <div class="post-nav-item post-nav-prev post-nav-disabled">
+      <span class="post-nav-label">‹ <span data-i18n="prev_post"></span></span>
+    </div>
+    {% endif %}
+
+    {% if page.next %}
+    <a class="post-nav-item post-nav-next" href="{{ page.next.url | relative_url }}">
+      <span class="post-nav-label"><span data-i18n="next_post"></span> ›</span>
+      <span class="post-nav-title">{{ page.next.title }}</span>
+    </a>
+    {% else %}
+    <div class="post-nav-item post-nav-next post-nav-disabled">
+      <span class="post-nav-label"><span data-i18n="next_post"></span> ›</span>
+    </div>
+    {% endif %}
+  </nav>
 </article>

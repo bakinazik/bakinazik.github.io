@@ -34,5 +34,7 @@
   "subscribe_submit_aria": "Iscriviti",
   "not_found_message": "Questo contenuto è stato rimosso o non è mai esistito.",
   "search_results_found": "{n} risultati trovati per “{q}”",
-  "search_results_partial": "Visualizzazione di {shown} su {total} risultati per “{q}”"
+  "search_results_partial": "Visualizzazione di {shown} su {total} risultati per “{q}”",
+  "prev_post": "PRECEDENTE",
+  "next_post": "SUCCESSIVO"
 }
