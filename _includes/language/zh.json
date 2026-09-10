@@ -1,0 +1,23 @@
+{
+  "home_aria": "{site} - 首页",
+  "search_placeholder": "搜索…",
+  "search_dialog_aria": "搜索",
+  "clear": "清除",
+  "close_aria": "关闭",
+  "no_results": "未找到结果。",
+  "social_nav_aria": "社交媒体链接",
+  "lang_switcher_aria": "语言选择",
+  "tabs_aria": "个人资料标签",
+  "tab_posts": "文章",
+  "tab_quotes": "语录",
+  "tab_projects": "项目",
+  "tab_contact": "联系",
+  "load_more": "加载更多",
+  "no_posts_yet": "尚未发布任何文章。",
+  "subject_placeholder": "主题 *",
+  "message_placeholder": "内容 *",
+  "submit_button": "发送",
+  "not_found_message": "该内容已被删除或从未存在过。",
+  "search_results_found": "找到 {n} 条关于“{q}”的结果",
+  "search_results_partial": "显示“{q}”的 {total} 条结果中的 {shown} 条"
+}

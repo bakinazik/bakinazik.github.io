@@ -1,0 +1,23 @@
+{
+  "home_aria": "{site} - होम",
+  "search_placeholder": "खोजें…",
+  "search_dialog_aria": "खोज",
+  "clear": "साफ़ करें",
+  "close_aria": "बंद करें",
+  "no_results": "कोई परिणाम नहीं मिला।",
+  "social_nav_aria": "सोशल मीडिया लिंक",
+  "lang_switcher_aria": "भाषा चयन",
+  "tabs_aria": "प्रोफ़ाइल टैब",
+  "tab_posts": "लेख",
+  "tab_quotes": "उद्धरण",
+  "tab_projects": "प्रोजेक्ट्स",
+  "tab_contact": "संपर्क करें",
+  "load_more": "और लोड करें",
+  "no_posts_yet": "अभी तक कोई लेख प्रकाशित नहीं हुआ है।",
+  "subject_placeholder": "विषय *",
+  "message_placeholder": "संदेश *",
+  "submit_button": "भेजें",
+  "not_found_message": "यह सामग्री हटा दी गई है या कभी अस्तित्व में नहीं थी।",
+  "search_results_found": "“{q}” के लिए {n} परिणाम मिले",
+  "search_results_partial": "“{q}” के लिए {total} में से {shown} परिणाम दिखाए जा रहे हैं"
+}

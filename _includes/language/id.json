@@ -1,0 +1,23 @@
+{
+  "home_aria": "{site} - Beranda",
+  "search_placeholder": "Cari…",
+  "search_dialog_aria": "Pencarian",
+  "clear": "Hapus",
+  "close_aria": "Tutup",
+  "no_results": "Tidak ada hasil ditemukan.",
+  "social_nav_aria": "Tautan media sosial",
+  "lang_switcher_aria": "Pilihan bahasa",
+  "tabs_aria": "Tab profil",
+  "tab_posts": "Tulisan",
+  "tab_quotes": "Kutipan",
+  "tab_projects": "Proyek",
+  "tab_contact": "Kontak",
+  "load_more": "Muat Lebih Banyak",
+  "no_posts_yet": "Belum ada tulisan yang dipublikasikan.",
+  "subject_placeholder": "Subjek *",
+  "message_placeholder": "Pesan *",
+  "submit_button": "Kirim",
+  "not_found_message": "Konten ini telah dihapus atau tidak pernah ada.",
+  "search_results_found": "{n} hasil ditemukan untuk “{q}”",
+  "search_results_partial": "Menampilkan {shown} dari {total} hasil untuk “{q}”"
+}

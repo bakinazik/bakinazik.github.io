@@ -19,6 +19,7 @@
     { code: "id", name: "Bahasa Indonesia", flag: "id" }
   ];
   var SUPPORTED_CODES = LANGUAGES.map(function (l) { return l.code; });
+  var RTL_CODES = ["ar"];
   var i18nDict = {};
   var currentLang = "tr";
 
@@ -52,6 +53,7 @@
 
   function applyI18n() {
     document.documentElement.lang = currentLang;
+    document.documentElement.dir = RTL_CODES.indexOf(currentLang) !== -1 ? "rtl" : "ltr";
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       el.textContent = t(el.getAttribute("data-i18n"));
     });

@@ -1,0 +1,23 @@
+{
+  "home_aria": "{site} - Accueil",
+  "search_placeholder": "Rechercher…",
+  "search_dialog_aria": "Recherche",
+  "clear": "Effacer",
+  "close_aria": "Fermer",
+  "no_results": "Aucun résultat trouvé.",
+  "social_nav_aria": "Liens des réseaux sociaux",
+  "lang_switcher_aria": "Sélection de la langue",
+  "tabs_aria": "Onglets du profil",
+  "tab_posts": "Articles",
+  "tab_quotes": "Citations",
+  "tab_projects": "Projets",
+  "tab_contact": "Contact",
+  "load_more": "Charger plus",
+  "no_posts_yet": "Aucun article publié pour le moment.",
+  "subject_placeholder": "Sujet *",
+  "message_placeholder": "Message *",
+  "submit_button": "Envoyer",
+  "not_found_message": "Ce contenu a été supprimé ou n'a jamais existé.",
+  "search_results_found": "{n} résultats trouvés pour « {q} »",
+  "search_results_partial": "Affichage de {shown} sur {total} résultats pour « {q} »"
+}

@@ -1,0 +1,23 @@
+{
+  "home_aria": "{site} - হোম",
+  "search_placeholder": "অনুসন্ধান করুন…",
+  "search_dialog_aria": "অনুসন্ধান",
+  "clear": "মুছে ফেলুন",
+  "close_aria": "বন্ধ করুন",
+  "no_results": "কোনো ফলাফল পাওয়া যায়নি।",
+  "social_nav_aria": "সামাজিক মাধ্যমের লিঙ্ক",
+  "lang_switcher_aria": "ভাষা নির্বাচন",
+  "tabs_aria": "প্রোফাইল ট্যাব",
+  "tab_posts": "পোস্ট",
+  "tab_quotes": "উক্তি",
+  "tab_projects": "প্রকল্প",
+  "tab_contact": "যোগাযোগ",
+  "load_more": "আরও লোড করুন",
+  "no_posts_yet": "এখনও কোনো পোস্ট প্রকাশিত হয়নি।",
+  "subject_placeholder": "বিষয় *",
+  "message_placeholder": "বার্তা *",
+  "submit_button": "পাঠান",
+  "not_found_message": "এই বিষয়বস্তু সরানো হয়েছে বা কখনও ছিল না।",
+  "search_results_found": "“{q}” এর জন্য {n}টি ফলাফল পাওয়া গেছে",
+  "search_results_partial": "“{q}” এর জন্য {total}টির মধ্যে {shown}টি ফলাফল দেখানো হচ্ছে"
+}

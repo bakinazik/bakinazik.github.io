@@ -1,0 +1,23 @@
+{
+  "home_aria": "{site} - الصفحة الرئيسية",
+  "search_placeholder": "بحث…",
+  "search_dialog_aria": "بحث",
+  "clear": "مسح",
+  "close_aria": "إغلاق",
+  "no_results": "لم يتم العثور على نتائج.",
+  "social_nav_aria": "روابط التواصل الاجتماعي",
+  "lang_switcher_aria": "اختيار اللغة",
+  "tabs_aria": "علامات تبويب الملف الشخصي",
+  "tab_posts": "المقالات",
+  "tab_quotes": "الاقتباسات",
+  "tab_projects": "المشاريع",
+  "tab_contact": "تواصل",
+  "load_more": "تحميل المزيد",
+  "no_posts_yet": "لم يتم نشر أي مقالات بعد.",
+  "subject_placeholder": "الموضوع *",
+  "message_placeholder": "الرسالة *",
+  "submit_button": "إرسال",
+  "not_found_message": "تمت إزالة هذا المحتوى أو أنه لم يكن موجودًا من قبل.",
+  "search_results_found": "تم العثور على {n} نتيجة لـ «{q}»",
+  "search_results_partial": "عرض {shown} من {total} نتيجة لـ «{q}»"
+}

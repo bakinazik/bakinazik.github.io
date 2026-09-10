@@ -1,0 +1,23 @@
+{
+  "home_aria": "{site} - Главная",
+  "search_placeholder": "Поиск…",
+  "search_dialog_aria": "Поиск",
+  "clear": "Очистить",
+  "close_aria": "Закрыть",
+  "no_results": "Результаты не найдены.",
+  "social_nav_aria": "Ссылки на социальные сети",
+  "lang_switcher_aria": "Выбор языка",
+  "tabs_aria": "Вкладки профиля",
+  "tab_posts": "Записи",
+  "tab_quotes": "Цитаты",
+  "tab_projects": "Проекты",
+  "tab_contact": "Контакты",
+  "load_more": "Загрузить ещё",
+  "no_posts_yet": "Записей пока нет.",
+  "subject_placeholder": "Тема *",
+  "message_placeholder": "Сообщение *",
+  "submit_button": "Отправить",
+  "not_found_message": "Этот контент был удалён или никогда не существовал.",
+  "search_results_found": "Найдено {n} результатов по запросу «{q}»",
+  "search_results_partial": "Показано {shown} из {total} результатов по запросу «{q}»"
+}
