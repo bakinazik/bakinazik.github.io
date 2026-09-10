@@ -1,6 +1,37 @@
 <header class="profile-top">
   <a href="{{ '/' | relative_url }}" data-site-title="{{ site.title }}" data-i18n-aria-label="home_aria" class="profile-identity" translate="no">
-    <h1 class="profile-name">{{ site.title }}</h1>
+	  <div class="settings-menu" id="settings-menu">
+		<button type="button" id="settings-menu-trigger" class="settings-menu-trigger" data-i18n-aria-label="settings_menu_aria" aria-haspopup="true" aria-expanded="false">
+		  {% include social-icon.html icon="dots" %}
+		</button>
+		<div class="settings-menu-panel" id="settings-menu-panel" role="menu">
+
+		  <div class="settings-menu-section" id="theme-section">
+			<div class="settings-section-title" data-i18n="theme_label"></div>
+			<div class="settings-options" id="theme-menu-panel">
+			  <button type="button" data-theme-option="system" data-i18n="theme_system"></button>
+			  <button type="button" data-theme-option="dark" data-i18n="theme_dark"></button>
+			  <button type="button" data-theme-option="light" data-i18n="theme_light"></button>
+			</div>
+		  </div>
+
+		  <div class="settings-menu-section" id="lang-section">
+			<div class="settings-section-title" data-i18n="language_label"></div>
+			<div class="settings-options" id="lang-menu-panel"></div>
+		  </div>
+
+		  <div class="settings-menu-section" id="font-size-section">
+			<div class="settings-section-title" data-i18n="font_size_label"></div>
+			<div class="settings-options" id="font-size-menu-panel">
+			  <button type="button" data-font-size-option="small" data-i18n="font_size_small"></button>
+			  <button type="button" data-font-size-option="normal" data-i18n="font_size_normal"></button>
+			  <button type="button" data-font-size-option="large" data-i18n="font_size_large"></button>
+			</div>
+		  </div>
+
+		</div>
+	  </div>
+     <h1 class="profile-name">{{ site.title }}</h1>
   </a>
 
   <div class="header-search" id="header-search">
@@ -8,37 +39,7 @@
     <input type="search" id="header-search-trigger" class="header-search-input" data-i18n-placeholder="search_placeholder" autocomplete="off" readonly>
   </div>
 
-  <div class="settings-menu" id="settings-menu">
-    <button type="button" id="settings-menu-trigger" class="settings-menu-trigger" data-i18n-aria-label="settings_menu_aria" aria-haspopup="true" aria-expanded="false">
-      {% include social-icon.html icon="dots" %}
-    </button>
-    <div class="settings-menu-panel" id="settings-menu-panel" role="menu">
 
-      <div class="settings-menu-section" id="theme-section">
-        <div class="settings-section-title" data-i18n="theme_label"></div>
-        <div class="settings-options" id="theme-menu-panel">
-          <button type="button" data-theme-option="system" data-i18n="theme_system"></button>
-          <button type="button" data-theme-option="dark" data-i18n="theme_dark"></button>
-          <button type="button" data-theme-option="light" data-i18n="theme_light"></button>
-        </div>
-      </div>
-
-      <div class="settings-menu-section" id="lang-section">
-        <div class="settings-section-title" data-i18n="language_label"></div>
-        <div class="settings-options" id="lang-menu-panel"></div>
-      </div>
-
-      <div class="settings-menu-section" id="font-size-section">
-        <div class="settings-section-title" data-i18n="font_size_label"></div>
-        <div class="settings-options" id="font-size-menu-panel">
-          <button type="button" data-font-size-option="small" data-i18n="font_size_small"></button>
-          <button type="button" data-font-size-option="normal" data-i18n="font_size_normal"></button>
-          <button type="button" data-font-size-option="large" data-i18n="font_size_large"></button>
-        </div>
-      </div>
-
-    </div>
-  </div>
 </header>
 
 <div class="search-overlay" id="search-overlay" aria-hidden="true">

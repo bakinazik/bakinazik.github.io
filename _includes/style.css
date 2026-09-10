@@ -1030,7 +1030,7 @@ body.search-overlay-locked {
     color: var(--muted);
     cursor: pointer;
     transition: all 0.2s ease;
-    background: var(--primary);
+    background: transparent;
 }
 
 .settings-menu-trigger:hover {
@@ -1043,7 +1043,7 @@ body.search-overlay-locked {
 .settings-menu-panel {
   position: absolute;
   top: calc(100% + 10px);
-  right: 0;
+  left: 0;
   transform: translateY(4px);
   display: flex;
   flex-direction: column;
