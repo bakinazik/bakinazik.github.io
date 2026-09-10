@@ -1244,13 +1244,15 @@ footer nav{
 }
 
 .subscribe-box {
-  display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  margin: 5rem 0 0;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
+  padding: 20px 20px;
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 2rem 0 0;
 }
 
 .subscribe-info {
