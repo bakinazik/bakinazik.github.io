@@ -455,10 +455,6 @@ body.search-overlay-locked {
     border-top: 1px solid var(--border);
 }
 
-.footer .settings-menu-links {
-  padding: 0;
-}
-
 .section-header {
   display: flex;
   align-items: center;
@@ -1017,7 +1013,6 @@ body.search-overlay-locked {
 }
 
 
-
 .settings-menu-panel {
   position: absolute;
   top: calc(100% + 10px);
@@ -1092,11 +1087,8 @@ body.search-overlay-locked {
   flex: 1;
 }
 
-.settings-menu-links a {
-  height: 40px;
-  padding: 0;
-  border-radius: 15px;
-  display: flex;
-  align-items: center;
-  width: 40px;
+footer nav{
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
