@@ -570,11 +570,13 @@ body.search-overlay-locked {
 
 .post-nav-prev {
   border-right: 1px solid var(--border);
+  text-align: right;
+  align-items: flex-end;
 }
 
 .post-nav-next {
-  text-align: right;
-  align-items: flex-end;
+  text-align: left;
+  align-items: flex-start;
 }
 
 a.post-nav-item:hover {
