@@ -130,7 +130,7 @@ header {
   padding: 0 16px 0 42px;
   border: 1px solid var(--border);
   border-radius: 21px;
-  background: transparent;
+  background: var(--primary);
   color: var(--text);
   font-family: inherit;
   font-size: 0.9rem;
@@ -1012,18 +1012,18 @@ body.search-overlay-locked {
 }
 
 .settings-menu-trigger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 42px;
-    height: 42px;
-    padding: 0;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    color: var(--muted);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  background: var(--primary);
 }
 
 .settings-menu-trigger:hover {
