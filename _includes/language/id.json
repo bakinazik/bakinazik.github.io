@@ -28,6 +28,10 @@
   "subject_placeholder": "Subjek *",
   "message_placeholder": "Pesan *",
   "submit_button": "Kirim",
+  "subscribe_title": "Ingin berlangganan?",
+  "subscribe_description": "Dapatkan postingan baru langsung ke email Anda.",
+  "subscribe_email_placeholder": "Email Anda",
+  "subscribe_submit_aria": "Berlangganan",
   "not_found_message": "Konten ini telah dihapus atau tidak pernah ada.",
   "search_results_found": "{n} hasil ditemukan untuk “{q}”",
   "search_results_partial": "Menampilkan {shown} dari {total} hasil untuk “{q}”"

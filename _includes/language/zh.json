@@ -28,6 +28,10 @@
   "subject_placeholder": "主题 *",
   "message_placeholder": "内容 *",
   "submit_button": "发送",
+  "subscribe_title": "想订阅吗？",
+  "subscribe_description": "让新文章直接发送到你的邮箱。",
+  "subscribe_email_placeholder": "你的邮箱",
+  "subscribe_submit_aria": "订阅",
   "not_found_message": "该内容已被删除或从未存在过。",
   "search_results_found": "找到 {n} 条关于“{q}”的结果",
   "search_results_partial": "显示“{q}”的 {total} 条结果中的 {shown} 条"

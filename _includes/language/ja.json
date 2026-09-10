@@ -28,6 +28,10 @@
   "subject_placeholder": "件名 *",
   "message_placeholder": "内容 *",
   "submit_button": "送信",
+  "subscribe_title": "購読しますか？",
+  "subscribe_description": "新しい記事をメールで直接受け取れます。",
+  "subscribe_email_placeholder": "メールアドレス",
+  "subscribe_submit_aria": "購読する",
   "not_found_message": "このコンテンツは削除されたか、存在しませんでした。",
   "search_results_found": "「{q}」の検索結果が{n}件見つかりました",
   "search_results_partial": "「{q}」の{total}件中{shown}件を表示しています"

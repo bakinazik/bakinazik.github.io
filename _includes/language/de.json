@@ -28,6 +28,10 @@
   "subject_placeholder": "Betreff *",
   "message_placeholder": "Nachricht *",
   "submit_button": "Senden",
+  "subscribe_title": "Möchtest du dich anmelden?",
+  "subscribe_description": "Erhalte neue Beiträge direkt per E-Mail.",
+  "subscribe_email_placeholder": "Deine E-Mail-Adresse",
+  "subscribe_submit_aria": "Abonnieren",
   "not_found_message": "Dieser Inhalt wurde entfernt oder hat nie existiert.",
   "search_results_found": "{n} Ergebnisse gefunden für „{q}“",
   "search_results_partial": "{shown} von {total} Ergebnissen für „{q}“ werden angezeigt"

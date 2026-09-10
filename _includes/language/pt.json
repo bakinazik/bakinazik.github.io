@@ -28,6 +28,10 @@
   "subject_placeholder": "Assunto *",
   "message_placeholder": "Mensagem *",
   "submit_button": "Enviar",
+  "subscribe_title": "Quer se inscrever?",
+  "subscribe_description": "Receba novas publicações diretamente no seu e-mail.",
+  "subscribe_email_placeholder": "Seu e-mail",
+  "subscribe_submit_aria": "Inscrever-se",
   "not_found_message": "Este conteúdo foi removido ou nunca existiu.",
   "search_results_found": "{n} resultados encontrados para “{q}”",
   "search_results_partial": "Mostrando {shown} de {total} resultados para “{q}”"

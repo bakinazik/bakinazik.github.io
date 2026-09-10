@@ -28,6 +28,10 @@
   "subject_placeholder": "विषय *",
   "message_placeholder": "संदेश *",
   "submit_button": "भेजें",
+  "subscribe_title": "सदस्यता लेना चाहते हैं?",
+  "subscribe_description": "नई पोस्ट सीधे आपके ईमेल पर पाएं।",
+  "subscribe_email_placeholder": "आपका ईमेल",
+  "subscribe_submit_aria": "सदस्यता लें",
   "not_found_message": "यह सामग्री हटा दी गई है या कभी अस्तित्व में नहीं थी।",
   "search_results_found": "“{q}” के लिए {n} परिणाम मिले",
   "search_results_partial": "“{q}” के लिए {total} में से {shown} परिणाम दिखाए जा रहे हैं"

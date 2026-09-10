@@ -28,6 +28,10 @@
   "subject_placeholder": "Konu *",
   "message_placeholder": "İçerik *",
   "submit_button": "Gönder",
+  "subscribe_title": "Abone olmak ister misin?",
+  "subscribe_description": "Yeni yazılar doğrudan e-posta adresine gelsin.",
+  "subscribe_email_placeholder": "E-posta adresin",
+  "subscribe_submit_aria": "Abone ol",
   "not_found_message": "Bu içerik kaldırıldı ya da daha öncesinde hiç var olmadı.",
   "search_results_found": "“{q}” için {n} sonuç bulundu",
   "search_results_partial": "“{q}” için {total} sonuçtan {shown} tanesi gösteriliyor"

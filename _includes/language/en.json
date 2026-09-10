@@ -28,6 +28,10 @@
   "subject_placeholder": "Subject *",
   "message_placeholder": "Message *",
   "submit_button": "Send",
+  "subscribe_title": "Want to subscribe?",
+  "subscribe_description": "Get new posts delivered straight to your inbox.",
+  "subscribe_email_placeholder": "Your email",
+  "subscribe_submit_aria": "Subscribe",
   "not_found_message": "This content was removed or never existed.",
   "search_results_found": "{n} results found for “{q}”",
   "search_results_partial": "Showing {shown} of {total} results for “{q}”"

@@ -28,6 +28,10 @@
   "subject_placeholder": "제목 *",
   "message_placeholder": "내용 *",
   "submit_button": "보내기",
+  "subscribe_title": "구독하시겠어요?",
+  "subscribe_description": "새 글을 이메일로 바로 받아보세요.",
+  "subscribe_email_placeholder": "이메일 주소",
+  "subscribe_submit_aria": "구독하기",
   "not_found_message": "이 콘텐츠는 삭제되었거나 존재한 적이 없습니다.",
   "search_results_found": "“{q}”에 대한 검색 결과 {n}개를 찾았습니다",
   "search_results_partial": "“{q}”에 대한 {total}개 중 {shown}개 결과를 표시하고 있습니다"

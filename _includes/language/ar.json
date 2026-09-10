@@ -28,6 +28,10 @@
   "subject_placeholder": "الموضوع *",
   "message_placeholder": "الرسالة *",
   "submit_button": "إرسال",
+  "subscribe_title": "هل تريد الاشتراك؟",
+  "subscribe_description": "احصل على المقالات الجديدة مباشرة في بريدك الإلكتروني.",
+  "subscribe_email_placeholder": "بريدك الإلكتروني",
+  "subscribe_submit_aria": "اشترك",
   "not_found_message": "تمت إزالة هذا المحتوى أو أنه لم يكن موجودًا من قبل.",
   "search_results_found": "تم العثور على {n} نتيجة لـ «{q}»",
   "search_results_partial": "عرض {shown} من {total} نتيجة لـ «{q}»"

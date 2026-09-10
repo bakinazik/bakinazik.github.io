@@ -28,6 +28,10 @@
   "subject_placeholder": "Тема *",
   "message_placeholder": "Сообщение *",
   "submit_button": "Отправить",
+  "subscribe_title": "Хотите подписаться?",
+  "subscribe_description": "Получайте новые статьи прямо на почту.",
+  "subscribe_email_placeholder": "Ваш email",
+  "subscribe_submit_aria": "Подписаться",
   "not_found_message": "Этот контент был удалён или никогда не существовал.",
   "search_results_found": "Найдено {n} результатов по запросу «{q}»",
   "search_results_partial": "Показано {shown} из {total} результатов по запросу «{q}»"
