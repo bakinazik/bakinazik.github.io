@@ -1,5 +1,5 @@
 <header class="profile-top">
-  <a href="{{ '/' | relative_url }}" data-site-title="{{ site.title }}" data-i18n-aria-label="home_aria" class="profile-identity" translate="no">
+  <div class="profile-identity" translate="no">
 	  <div class="settings-menu" id="settings-menu">
 		<button type="button" id="settings-menu-trigger" class="settings-menu-trigger" data-i18n-aria-label="settings_menu_aria" aria-haspopup="true" aria-expanded="false">
 		  {% include social-icon.html icon="dots" %}
@@ -31,8 +31,8 @@
 
 		</div>
 	  </div>
-     <h1 class="profile-name">{{ site.title }}</h1>
-  </a>
+      <a href="{{ '/' | relative_url }}" data-site-title="{{ site.title }}" data-i18n-aria-label="home_aria" translate="no"><h1 class="profile-name">{{ site.title }}</h1></a>
+  </div>
 
   <div class="header-search" id="header-search">
     <span class="header-search-icon">{% include social-icon.html icon="search" %}</span>
