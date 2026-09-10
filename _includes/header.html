@@ -7,6 +7,59 @@
     <span class="header-search-icon">{% include social-icon.html icon="search" %}</span>
     <input type="search" id="header-search-trigger" class="header-search-input" data-i18n-placeholder="search_placeholder" autocomplete="off" readonly>
   </div>
+
+  <div class="settings-menu" id="settings-menu">
+    <button type="button" id="settings-menu-trigger" class="settings-menu-trigger" data-i18n-aria-label="settings_menu_aria" aria-haspopup="true" aria-expanded="false">
+      {% include social-icon.html icon="dots" %}
+    </button>
+    <div class="settings-menu-panel" id="settings-menu-panel" role="menu">
+
+      <div class="settings-menu-item" id="theme-menu-item">
+        <button type="button" class="settings-menu-row" data-i18n="theme_label" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="settings-submenu-panel" id="theme-menu-panel" role="menu">
+          <button type="button" data-theme-option="system" data-i18n="theme_system"></button>
+          <button type="button" data-theme-option="dark" data-i18n="theme_dark"></button>
+          <button type="button" data-theme-option="light" data-i18n="theme_light"></button>
+        </div>
+      </div>
+
+      <div class="settings-menu-item" id="lang-menu-item">
+        <button type="button" class="settings-menu-row" data-i18n="language_label" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="settings-submenu-panel" id="lang-menu-panel" role="menu"></div>
+      </div>
+
+      <div class="settings-menu-item" id="font-size-menu-item">
+        <button type="button" class="settings-menu-row" data-i18n="font_size_label" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="settings-submenu-panel" id="font-size-menu-panel" role="menu">
+          <button type="button" data-font-size-option="small" data-i18n="font_size_small"></button>
+          <button type="button" data-font-size-option="normal" data-i18n="font_size_normal"></button>
+          <button type="button" data-font-size-option="large" data-i18n="font_size_large"></button>
+        </div>
+      </div>
+
+      <nav class="settings-menu-links links" data-i18n-aria-label="social_nav_aria">
+        {% for item in site.data.social %}
+        {% if item.feeds %}
+        <div class="rss-menu" id="rss-menu">
+          <a href="{{ item.feeds[0].url | relative_url }}" id="rss-menu-trigger" aria-label="{{ item.label }}" aria-haspopup="true" aria-expanded="false">
+            {% include social-icon.html icon=item.icon %}
+          </a>
+          <div class="rss-menu-panel" id="rss-menu-panel" role="menu">
+            {% for feed in item.feeds %}
+            <a href="{{ feed.url | relative_url }}" role="menuitem">{{ feed.label }}</a>
+            {% endfor %}
+          </div>
+        </div>
+        {% else %}
+        <a href="{{ item.url }}" aria-label="{{ item.label }}" target="_blank" rel="noopener noreferrer">
+          {% include social-icon.html icon=item.icon %}
+        </a>
+        {% endif %}
+        {% endfor %}
+      </nav>
+
+    </div>
+  </div>
 </header>
 
 <div class="search-overlay" id="search-overlay" aria-hidden="true">

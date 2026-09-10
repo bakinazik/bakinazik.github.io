@@ -74,12 +74,6 @@
   }
 
   function updateLanguageTrigger() {
-    var flagEl = document.getElementById("lang-menu-flag");
-    var codeEl = document.getElementById("lang-menu-code");
-    if (!flagEl || !codeEl) return;
-    var lang = findLanguage(currentLang) || LANGUAGES[0];
-    flagEl.className = "fi fi-" + lang.flag;
-    codeEl.textContent = lang.code.toUpperCase();
     document.querySelectorAll("#lang-menu-panel button").forEach(function (btn) {
       btn.classList.toggle("is-active", btn.dataset.lang === currentLang);
     });
@@ -129,10 +123,8 @@
   }
 
   function setupLanguageMenu() {
-    var menu = document.getElementById("lang-menu");
-    var trigger = document.getElementById("lang-menu-trigger");
     var panel = document.getElementById("lang-menu-panel");
-    if (!menu || !trigger || !panel) return;
+    if (!panel) return;
 
     LANGUAGES.forEach(function (lang) {
       var btn = document.createElement("button");
@@ -146,31 +138,10 @@
       btn.appendChild(flag);
       btn.appendChild(name);
       btn.addEventListener("click", function () {
-        close();
+        closeSettingsMenu();
         chooseLanguage(lang.code);
       });
       panel.appendChild(btn);
-    });
-
-    function close() {
-      menu.classList.remove("is-open");
-      trigger.setAttribute("aria-expanded", "false");
-    }
-
-    trigger.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var willOpen = !menu.classList.contains("is-open");
-      menu.classList.toggle("is-open", willOpen);
-      trigger.setAttribute("aria-expanded", String(willOpen));
-    });
-
-    document.addEventListener("click", function (e) {
-      if (!menu.contains(e.target)) close();
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") close();
     });
   }
 
@@ -627,6 +598,114 @@
     });
   }
 
+  var THEMES = ["system", "dark", "light"];
+  var FONT_SIZES = ["small", "normal", "large"];
+
+  function setTheme(theme) {
+    localStorage.setItem("theme", theme);
+    if (theme === "system") {
+      document.documentElement.removeAttribute("data-theme");
+    } else {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
+    document.querySelectorAll("#theme-menu-panel button").forEach(function (btn) {
+      btn.classList.toggle("is-active", btn.dataset.themeOption === theme);
+    });
+  }
+
+  function setupThemeMenu() {
+    var panel = document.getElementById("theme-menu-panel");
+    if (!panel) return;
+    var stored = localStorage.getItem("theme");
+    var theme = THEMES.indexOf(stored) !== -1 ? stored : "system";
+    panel.querySelectorAll("button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        closeSettingsMenu();
+        setTheme(btn.dataset.themeOption);
+      });
+    });
+    setTheme(theme);
+  }
+
+  function setFontSize(size) {
+    localStorage.setItem("fontSize", size);
+    document.documentElement.setAttribute("data-font-size", size);
+    document.querySelectorAll("#font-size-menu-panel button").forEach(function (btn) {
+      btn.classList.toggle("is-active", btn.dataset.fontSizeOption === size);
+    });
+  }
+
+  function setupFontSizeMenu() {
+    var panel = document.getElementById("font-size-menu-panel");
+    if (!panel) return;
+    var stored = localStorage.getItem("fontSize");
+    var size = FONT_SIZES.indexOf(stored) !== -1 ? stored : "normal";
+    panel.querySelectorAll("button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        closeSettingsMenu();
+        setFontSize(btn.dataset.fontSizeOption);
+      });
+    });
+    setFontSize(size);
+  }
+
+  var closeSettingsMenu = function () {};
+
+  function setupSettingsMenu() {
+    var menu = document.getElementById("settings-menu");
+    var trigger = document.getElementById("settings-menu-trigger");
+    var panel = document.getElementById("settings-menu-panel");
+    if (!menu || !trigger || !panel) return;
+
+    var items = Array.from(panel.querySelectorAll(".settings-menu-item"));
+
+    function closeItems() {
+      items.forEach(function (item) {
+        item.classList.remove("is-open");
+        var row = item.querySelector(".settings-menu-row");
+        if (row) row.setAttribute("aria-expanded", "false");
+      });
+    }
+
+    function close() {
+      menu.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+      closeItems();
+    }
+
+    closeSettingsMenu = close;
+
+    trigger.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var willOpen = !menu.classList.contains("is-open");
+      menu.classList.toggle("is-open", willOpen);
+      trigger.setAttribute("aria-expanded", String(willOpen));
+      if (!willOpen) closeItems();
+    });
+
+    items.forEach(function (item) {
+      var row = item.querySelector(".settings-menu-row");
+      if (!row) return;
+      row.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var willOpen = !item.classList.contains("is-open");
+        closeItems();
+        item.classList.toggle("is-open", willOpen);
+        row.setAttribute("aria-expanded", String(willOpen));
+      });
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!menu.contains(e.target)) close();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+    });
+  }
+
   function setupRssMenu() {
     var menu = document.getElementById("rss-menu");
     var trigger = document.getElementById("rss-menu-trigger");
@@ -662,5 +741,8 @@
     setupContactForm();
     setupSearchOverlay();
     setupRssMenu();
+    setupSettingsMenu();
+    setupThemeMenu();
+    setupFontSizeMenu();
   });
 })();
