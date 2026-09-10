@@ -993,18 +993,18 @@ body.search-overlay-locked {
 }
 
 .settings-menu-trigger {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  padding: 0;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--primary);
 }
 
 .settings-menu-trigger:hover {
