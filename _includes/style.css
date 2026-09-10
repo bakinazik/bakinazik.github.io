@@ -152,14 +152,6 @@ header {
   caret-color: transparent;
 }
 
-@media (max-width: 600px) {
-  .header-search { flex-basis: 100%; margin-left: 0; order: 3; }
-  .profile-identity {width: 100%;justify-content: space-between;display: flex;}
-  .profile-tab{width: 100%;text-align: center;}
-  .settings-menu { order: 2;}
-  .settings-menu-panel{left: auto;right: 0;}
-}
-
 .search-overlay {
   position: fixed;
   inset: 0;
@@ -1122,4 +1114,12 @@ footer nav{
     display: flex;
     gap: 8px;
     align-items: center;
+}
+
+@media (max-width: 600px) {
+  .header-search { flex-basis: 100%; margin-left: 0; order: 3; }
+  .profile-identity {width: 100%;justify-content: space-between;display: flex;}
+  .profile-tab{width: 100%;text-align: center;}
+  .settings-menu { order: 2;}
+  .settings-menu-panel{left: auto;right: 0;}
 }
