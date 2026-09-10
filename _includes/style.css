@@ -1209,3 +1209,96 @@ footer nav{
   .settings-menu { order: 2;}
   .settings-menu-panel{left: auto;right: 0;}
 }
+
+.subscribe-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 5rem 0 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.subscribe-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.subscribe-info svg {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.subscribe-info h5 {
+  color: var(--title);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.subscribe-info p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.subscribe-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.subscribe-form input {
+  width: 240px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 21px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.subscribe-form input::placeholder {
+  color: var(--muted);
+}
+
+.subscribe-form input:focus {
+  border-color: var(--muted);
+}
+
+.subscribe-form button {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: var(--primary);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.subscribe-form button:hover {
+  background: var(--secondary);
+}
+
+@media (max-width: 600px) {
+  .subscribe-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .subscribe-form input {
+    width: auto;
+    flex: 1;
+  }
+}
