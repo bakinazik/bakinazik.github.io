@@ -500,6 +500,7 @@ body.search-overlay-locked {
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
+  overflow-y: scroll;
 }
 
 .post-list-item {
