@@ -1253,6 +1253,7 @@ footer nav{
   border-radius: 16px;
   overflow: hidden;
   margin: 2rem 0 0;
+  background: repeating-linear-gradient(-45deg, transparent 0, transparent 8px, var(--border) 8px, var(--border) 9px);
 }
 
 .subscribe-info {
