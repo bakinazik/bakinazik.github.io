@@ -386,8 +386,9 @@
   function buildResultItem(post, normalizedQuery, showDate) {
     var item = document.createElement("div");
     item.className = "post-list-item";
+    item.dataset.postType = post.type === "quote" ? "quote" : "post";
     var link = document.createElement("a");
-    link.className = "post-list-link";
+    link.className = post.type === "quote" ? "post-list-link post-list-quote" : "post-list-link";
     link.href = post.url;
     var title = document.createElement("div");
     title.className = "post-list-title";
