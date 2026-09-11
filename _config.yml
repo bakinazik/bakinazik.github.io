@@ -28,6 +28,7 @@ defaults:
       type: posts
     values:
       layout: post
+      post-type: post
 
 exclude:
   - Gemfile
