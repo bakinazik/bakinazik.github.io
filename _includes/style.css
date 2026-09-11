@@ -990,6 +990,10 @@ a.post-nav-item:hover {
   display: none;
 }
 
+.quote-hidden {
+  display: none;
+}
+
 .rss-menu {
   position: relative;
 }

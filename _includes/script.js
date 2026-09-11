@@ -220,6 +220,7 @@
 
   var quoteTargetEl = null;
   var quoteTargetNextSibling = null;
+  var quoteTargetWasHidden = false;
   var activateTab = null;
 
   function clearQuoteTarget() {
@@ -234,8 +235,10 @@
           quotesList.appendChild(quoteTargetEl);
         }
       }
+      if (quoteTargetWasHidden) quoteTargetEl.classList.add("quote-hidden");
       quoteTargetEl = null;
       quoteTargetNextSibling = null;
+      quoteTargetWasHidden = false;
     }
     if (featured) {
       featured.innerHTML = "";
@@ -251,6 +254,8 @@
 
     quoteTargetEl = source;
     quoteTargetNextSibling = source.nextSibling;
+    quoteTargetWasHidden = source.classList.contains("quote-hidden");
+    source.classList.remove("quote-hidden");
     featured.appendChild(source);
     featured.style.display = "block";
   }
@@ -289,6 +294,31 @@
     activate(startTab, false);
 
     document.querySelector(".profile-tabs").classList.add("is-interactive");
+  }
+
+  function setupQuotesLoadMore() {
+    var container = document.getElementById("quotes-list");
+    var button = document.getElementById("quotes-load-more");
+    if (!container || !button) return;
+    var items = Array.from(container.querySelectorAll(".quote-item"));
+    if (!items.length) return;
+
+    var batchSize = parseInt(button.getAttribute("data-batch-size"), 10) || items.length;
+    var visible = Math.min(batchSize, items.length);
+
+    function render() {
+      items.forEach(function (item, i) {
+        item.classList.toggle("quote-hidden", i >= visible);
+      });
+      button.style.display = visible < items.length ? "flex" : "none";
+    }
+
+    render();
+
+    button.addEventListener("click", function () {
+      visible = Math.min(visible + batchSize, items.length);
+      render();
+    });
   }
 
   function setupQuoteTarget() {
@@ -746,6 +776,7 @@
     setupI18n();
     setupProfileTabs();
     setupPostsLoadMore();
+    setupQuotesLoadMore();
     setupQuoteTarget();
     setupContactForm();
     setupSearchOverlay();

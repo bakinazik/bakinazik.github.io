@@ -46,6 +46,11 @@ layout: default
       </p>
       {% endfor %}
     </div>
+    {% if site.data.quotes.size > site.paginate %}
+    <div class="panel-toolbar">
+      <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
+    </div>
+    {% endif %}
   </section>
 
   <section class="profile-panel" id="panel-projects" role="tabpanel">
