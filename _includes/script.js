@@ -444,8 +444,39 @@
     return html;
   }
 
+  function buildResultItem(post, normalizedQuery, showDate) {
+    var item = document.createElement("div");
+    item.className = "post-list-item";
+    var link = document.createElement("a");
+    link.className = "post-list-link";
+    link.href = post.url;
+    var title = document.createElement("div");
+    title.className = "post-list-title";
+    title.innerHTML = markMatches(post.title || "", normalizeTr(post.title || ""), normalizedQuery);
+    link.appendChild(title);
+    if (post.type !== "quote") {
+      if (showDate && post.date) {
+        var date = document.createElement("div");
+        date.className = "post-list-date";
+        var time = document.createElement("time");
+        time.setAttribute("datetime", post.date);
+        time.setAttribute("data-i18n-date", post.date);
+        date.appendChild(time);
+        link.appendChild(date);
+      } else {
+        var snippet = document.createElement("div");
+        snippet.className = "post-list-snippet";
+        snippet.innerHTML = buildSnippet(post.content || "", normalizeTr(post.content || ""), normalizedQuery);
+        link.appendChild(snippet);
+      }
+    }
+    item.appendChild(link);
+    return item;
+  }
+
   function setupSearchOverlay() {
     var RESULT_LIMIT = 20;
+    var DEFAULT_LIMIT = 3;
     var overlay = document.getElementById("search-overlay");
     var backdrop = document.getElementById("search-overlay-backdrop");
     var trigger = document.getElementById("header-search-trigger");
@@ -453,7 +484,11 @@
     var clearBtn = document.getElementById("search-overlay-clear");
     var closeBtn = document.getElementById("search-overlay-close");
     var body = document.getElementById("search-overlay-body");
-    var placeholder = document.getElementById("search-overlay-placeholder");
+    var defaultBox = document.getElementById("search-overlay-default");
+    var defaultPostsSection = document.getElementById("search-overlay-default-posts-section");
+    var defaultPostsBox = document.getElementById("search-overlay-default-posts");
+    var defaultQuotesSection = document.getElementById("search-overlay-default-quotes-section");
+    var defaultQuotesBox = document.getElementById("search-overlay-default-quotes");
     var metaBox = document.getElementById("search-overlay-meta");
     var resultsBox = document.getElementById("search-overlay-results");
     var emptyBox = document.getElementById("search-overlay-empty");
@@ -479,17 +514,43 @@
       });
     }
 
+    function renderDefault() {
+      var latestPosts = posts
+        .filter(function (post) { return post.type !== "quote"; })
+        .slice()
+        .sort(function (a, b) { return new Date(b.date) - new Date(a.date); })
+        .slice(0, DEFAULT_LIMIT);
+      var quotes = posts
+        .filter(function (post) { return post.type === "quote"; })
+        .slice(0, DEFAULT_LIMIT);
+
+      defaultPostsBox.innerHTML = "";
+      latestPosts.forEach(function (post) {
+        defaultPostsBox.appendChild(buildResultItem(post, "", true));
+      });
+      defaultQuotesBox.innerHTML = "";
+      quotes.forEach(function (post) {
+        defaultQuotesBox.appendChild(buildResultItem(post, "", true));
+      });
+
+      defaultPostsSection.style.display = latestPosts.length ? "" : "none";
+      defaultQuotesSection.style.display = quotes.length ? "" : "none";
+      formatDates();
+    }
+
     function render(rawQuery) {
       var query = rawQuery.trim();
       clearBtn.style.display = query ? "flex" : "none";
-      placeholder.style.display = query ? "none" : "flex";
       if (!query) {
         metaBox.textContent = "";
         resultsBox.innerHTML = "";
         resultsBox.style.display = "none";
         emptyBox.style.display = "none";
+        defaultBox.style.display = "";
+        renderDefault();
         return;
       }
+      defaultBox.style.display = "none";
 
       var normalizedQuery = normalizeTr(query);
       var matches = filterPosts(posts, query);
@@ -503,23 +564,7 @@
 
       resultsBox.innerHTML = "";
       shown.forEach(function (post) {
-        var item = document.createElement("div");
-        item.className = "post-list-item";
-        var link = document.createElement("a");
-        link.className = "post-list-link";
-        link.href = post.url;
-        var title = document.createElement("div");
-        title.className = "post-list-title";
-        title.innerHTML = markMatches(post.title || "", normalizeTr(post.title || ""), normalizedQuery);
-        link.appendChild(title);
-        if (post.type !== "quote") {
-          var snippet = document.createElement("div");
-          snippet.className = "post-list-snippet";
-          snippet.innerHTML = buildSnippet(post.content || "", normalizeTr(post.content || ""), normalizedQuery);
-          link.appendChild(snippet);
-        }
-        item.appendChild(link);
-        resultsBox.appendChild(item);
+        resultsBox.appendChild(buildResultItem(post, normalizedQuery, false));
       });
 
       resultsBox.style.display = matches.length ? "" : "none";

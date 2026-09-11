@@ -85,7 +85,16 @@
       <button type="button" id="search-overlay-close" class="search-overlay-close" data-i18n-aria-label="close_aria">{% include social-icon.html icon="close" %}</button>
     </div>
     <div class="search-overlay-body" id="search-overlay-body">
-      <div class="search-overlay-placeholder" id="search-overlay-placeholder">{% include social-icon.html icon="search" %}</div>
+      <div class="search-overlay-default" id="search-overlay-default">
+        <div class="search-overlay-default-section" id="search-overlay-default-posts-section">
+          <p class="search-overlay-default-title" data-i18n="tab_posts"></p>
+          <div class="post-list-wrapper" id="search-overlay-default-posts"></div>
+        </div>
+        <div class="search-overlay-default-section" id="search-overlay-default-quotes-section">
+          <p class="search-overlay-default-title" data-i18n="tab_quotes"></p>
+          <div class="post-list-wrapper" id="search-overlay-default-quotes"></div>
+        </div>
+      </div>
       <p class="search-overlay-meta" id="search-overlay-meta"></p>
       <div class="post-list-wrapper" id="search-overlay-results"></div>
       <div class="no-result" id="search-overlay-empty">

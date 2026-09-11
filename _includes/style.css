@@ -167,7 +167,9 @@ header {
 .search-overlay-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, .6);
+  background: rgba(6, 6, 8, .78);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   opacity: 0;
   transition: opacity .25s ease;
 }
@@ -262,18 +264,17 @@ header {
   border-top: 1px solid var(--border);
 }
 
-.search-overlay-placeholder {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
+.search-overlay-default-section + .search-overlay-default-section {
+  margin-top: 24px;
 }
 
-.search-overlay-placeholder svg {
-  width: 56px;
-  height: 56px;
-  opacity: .35;
+.search-overlay-default-title {
+  font-size: .78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--muted);
+  margin-bottom: 10px;
 }
 
 .search-overlay-meta {
