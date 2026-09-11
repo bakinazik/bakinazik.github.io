@@ -168,7 +168,8 @@
     window.history.replaceState(null, "", url);
   }
 
-  var postsPaging = { nextPath: null, pageSize: 0, loading: false };
+  var postsPaging = { nextPath: null, pageSize: 5, loading: false };
+  var revealCounts = { all: 5, post: 5, quote: 5 };
 
   function setupPostsLoadMore() {
     var container = document.getElementById("posts-list");
@@ -176,20 +177,22 @@
     if (!container || !button) return;
 
     postsPaging.nextPath = button.getAttribute("data-next");
-    postsPaging.pageSize = parseInt(container.getAttribute("data-page-size"), 10) || 0;
-    button.style.display = postsPaging.nextPath ? "flex" : "none";
+    postsPaging.pageSize = parseInt(container.getAttribute("data-page-size"), 10) || 5;
+    revealCounts.all = postsPaging.pageSize;
+    revealCounts.post = postsPaging.pageSize;
+    revealCounts.quote = postsPaging.pageSize;
 
     button.addEventListener("click", function () {
-      if (button.disabled || !postsPaging.nextPath) return;
+      if (button.disabled) return;
+      var activeFilterTab = document.querySelector(".profile-tab.is-active[data-tab=\"posts\"]");
+      var filter = activeFilterTab ? activeFilterTab.dataset.filter || "all" : "all";
+      revealCounts[filter] = (revealCounts[filter] || postsPaging.pageSize) + postsPaging.pageSize;
       var originalText = button.textContent;
       button.disabled = true;
       button.textContent = "Yükleniyor...";
-      loadNextPostsPage().then(function () {
-        button.style.display = postsPaging.nextPath ? "flex" : "none";
+      fillFilter(filter).then(function () {
         button.textContent = originalText;
         button.disabled = false;
-        var activeFilterTab = document.querySelector(".profile-tab.is-active[data-tab=\"posts\"]");
-        applyPostFilter(activeFilterTab ? activeFilterTab.dataset.filter || "all" : "all");
       });
     });
   }
@@ -222,7 +225,7 @@
       });
   }
 
-  function countVisibleForFilter(filter) {
+  function matchingItemCount(filter) {
     var items = document.querySelectorAll("#posts-list .post-list-item");
     var count = 0;
     items.forEach(function (item) {
@@ -231,26 +234,38 @@
     return count;
   }
 
-  function ensureFilterFilled(filter) {
-    var button = document.getElementById("posts-load-more");
-    var threshold = postsPaging.pageSize || 5;
-    if (filter === "all" || countVisibleForFilter(filter) >= threshold || !postsPaging.nextPath) {
-      applyPostFilter(filter);
-      return;
-    }
-    if (button) {
-      button.disabled = true;
-      button.textContent = "Yükleniyor...";
-    }
-    loadNextPostsPage().then(function (loaded) {
-      applyPostFilter(filter);
-      if (button) {
-        button.style.display = postsPaging.nextPath ? "flex" : "none";
-        button.textContent = t("load_more");
-        button.disabled = false;
-      }
-      if (loaded) ensureFilterFilled(filter);
+  function renderFilter(filter) {
+    var items = document.querySelectorAll("#posts-list .post-list-item");
+    var limit = revealCounts[filter] || postsPaging.pageSize;
+    var shown = 0;
+    items.forEach(function (item) {
+      var match = filter === "all" || item.dataset.postType === filter;
+      var hide = !match || shown >= limit;
+      item.classList.toggle("post-filtered-out", hide);
+      if (match && !hide) shown++;
     });
+    var empty = document.getElementById("posts-filter-empty");
+    if (empty) empty.style.display = shown === 0 ? "" : "none";
+    var button = document.getElementById("posts-load-more");
+    if (button) {
+      var moreAvailable = matchingItemCount(filter) > limit || !!postsPaging.nextPath;
+      button.style.display = moreAvailable ? "flex" : "none";
+    }
+  }
+
+  function fillFilter(filter) {
+    var limit = revealCounts[filter] || postsPaging.pageSize;
+    function step() {
+      if (matchingItemCount(filter) >= limit || !postsPaging.nextPath) {
+        renderFilter(filter);
+        return Promise.resolve();
+      }
+      return loadNextPostsPage().then(function (loaded) {
+        if (loaded) return step();
+        renderFilter(filter);
+      });
+    }
+    return step();
   }
 
   function removeUrlParam(key) {
@@ -260,18 +275,6 @@
     var query = params.toString();
     var url = window.location.pathname + (query ? "?" + query : "") + window.location.hash;
     window.history.replaceState(null, "", url);
-  }
-
-  function applyPostFilter(filter) {
-    var items = document.querySelectorAll("#posts-list .post-list-item");
-    var visibleCount = 0;
-    items.forEach(function (item) {
-      var match = filter === "all" || item.dataset.postType === filter;
-      item.classList.toggle("post-filtered-out", !match);
-      if (match) visibleCount++;
-    });
-    var empty = document.getElementById("posts-filter-empty");
-    if (empty) empty.style.display = items.length && !visibleCount ? "" : "none";
   }
 
   function setupProfileTabs() {
@@ -293,7 +296,7 @@
       panels.forEach(function (panel) {
         panel.classList.toggle("is-active", panel.id === "panel-" + name);
       });
-      if (name === "posts") ensureFilterFilled(filter);
+      if (name === "posts") fillFilter(filter);
       if (sync) {
         syncListParam("tab", name, defaultTab);
         syncListParam("filter", filter, defaultFilter);
