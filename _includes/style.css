@@ -863,7 +863,8 @@ a.post-nav-item:hover {
   
   
 .quotes {
-  border: none;
+  border: 1px solid var(--border);
+  border-radius: 14px;
   padding: 0;
   position: relative;
   max-height: 350px;
@@ -871,7 +872,7 @@ a.post-nav-item:hover {
   transition: max-height 0.2s ease;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0;
 }
 
 .quotes:focus-within {
@@ -907,51 +908,49 @@ a.post-nav-item:hover {
 
 .quote-item {
   margin: 0;
-  padding: 16px 18px 12px;
+  padding: 14px 18px;
   color: var(--muted2);
   line-height: 1.6;
   user-select: auto;
   -webkit-user-select: auto;
   pointer-events: auto;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--primary);
+  border-bottom: 1px solid var(--border);
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: border-color .2s ease, background .2s ease;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 
-.quote-item:hover {
-  border-color: var(--accent);
-  background: var(--secondary);
+.quote-item:last-child {
+  border-bottom: none;
 }
 
 .quote-item .text {
+  flex: 1;
   font-size: calc(.96rem * var(--font-scale));
   font-weight: 400;
   line-height: 1.5;
   overflow-wrap: break-word;
   word-break: break-word;
   color: var(--text);
+  border-right: 1px solid var(--border);
+  padding-right: 15px;
 }
 
 .quote-item .date {
-  align-self: flex-end;
-  width: 100%;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
+  flex-shrink: 0;
   font-size: calc(0.8rem * var(--font-scale));
   color: var(--muted);
   white-space: nowrap;
-  text-align: right;
 }
 
 @media (max-width: 480px) {
   .quote-item {
-    padding: 12px 14px 10px;
+    padding: 12px 14px;
     font-size: calc(0.95rem * var(--font-scale));
-    gap: 8px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
   
  .quote-item .date {
@@ -961,14 +960,10 @@ a.post-nav-item:hover {
 
 .quote-featured {
   display: none;
-  border: none;
-  border-radius: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
   overflow: hidden;
   margin-bottom: 1rem;
-}
-
-.quote-featured .quote-item {
-  border-color: var(--accent);
 }
   
 @media (max-width:640px){
@@ -1256,6 +1251,7 @@ footer nav{
   .profile-tab{width: 100%;text-align: center;}
   .settings-menu { order: 2;}
   .settings-menu-panel{left: auto;right: 0;}
+  .quote-item .text {border-right: none;padding-right: none;}
 }
 
 .subscribe-box {
