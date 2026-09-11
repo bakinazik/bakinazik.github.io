@@ -3,7 +3,6 @@ description: "Kişisel blog: yazılım, teknoloji ve günlük düşünceler."
 url: "https://bakinazik.github.io"
 baseurl: ""
 author: Baki Nazik
-avatar: /assets/img/avatar.png
 
 permalink: /:year/:month/:title.html
 
