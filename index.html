@@ -3,9 +3,8 @@ layout: default
 ---
 <div class="profile">
   <nav class="profile-tabs" role="tablist" data-i18n-aria-label="tabs_aria">
-    <a href="#panel-posts" class="profile-tab is-active" role="tab" data-tab="posts" data-filter="all" data-i18n="tab_all"></a>
-    <a href="#panel-posts" class="profile-tab" role="tab" data-tab="posts" data-filter="post" data-i18n="tab_posts"></a>
-    <a href="#panel-posts" class="profile-tab" role="tab" data-tab="posts" data-filter="quote" data-i18n="tab_quotes"></a>
+    <a href="#panel-posts" class="profile-tab is-active" role="tab" data-tab="posts" data-i18n="tab_posts"></a>
+    <a href="#panel-quotes" class="profile-tab" role="tab" data-tab="quotes" data-i18n="tab_quotes"></a>
     <a href="#panel-projects" class="profile-tab" role="tab" data-tab="projects" data-i18n="tab_projects"></a>
     <a href="#panel-contact" class="profile-tab" role="tab" data-tab="contact" data-i18n="tab_contact"></a>
   </nav>
@@ -14,35 +13,42 @@ layout: default
 <div class="profile-panels">
 
   <section class="profile-panel is-active" id="panel-posts" role="tabpanel">
-    {% if site.posts.size > 0 %}
-    <div class="post-list-wrapper" id="posts-list" data-batch-size="{{ site.posts_batch_size }}">
-      {% for post in site.posts %}
-      {% if post.post-type == "quote" %}
-      <div class="post-list-item" data-post-type="quote">
-        <div class="post-list-link post-list-quote">
-          <div class="post-list-title">{{ post.content | strip_html | strip }}</div>
-          <div class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" data-i18n-date="{{ post.date | date_to_xmlschema }}"></time></div>
-        </div>
-      </div>
-      {% else %}
-      <div class="post-list-item" data-post-type="post">
+    {% if paginator.posts.size > 0 %}
+    <div class="post-list-wrapper" id="posts-list">
+      {% for post in paginator.posts %}
+      <div class="post-list-item">
         <a class="post-list-link" href="{{ post.url | relative_url }}">
           <div class="post-list-title">{{ post.title }}</div>
           <div class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" data-i18n-date="{{ post.date | date_to_xmlschema }}"></time></div>
         </a>
       </div>
-      {% endif %}
       {% endfor %}
     </div>
-    <div class="no-result" id="posts-filter-empty">
-      <p data-i18n="no_filter_results"></p>
-    </div>
+    {% if paginator.next_page_path %}
     <div class="panel-toolbar">
-      <button type="button" class="load-more" id="posts-load-more" data-i18n="load_more"></button>
+      <button type="button" class="load-more" id="posts-load-more" data-i18n="load_more" data-next="{{ paginator.next_page_path | relative_url }}"></button>
     </div>
+    {% endif %}
     {% else %}
     <div class="no-result">
       <p data-i18n="no_posts_yet"></p>
+    </div>
+    {% endif %}
+  </section>
+
+  <section class="profile-panel" id="panel-quotes" role="tabpanel">
+    <div class="quote-featured" id="quote-featured"></div>
+    <div class="quotes" id="quotes-list" tabindex="0">
+      {% for quote in site.data.quotes %}
+      <p id="quote-{{ forloop.index0 }}" class="quote-item">
+        <span class="text">{{ quote.text }}</span>
+        <span class="date">{{ quote.date }}</span>
+      </p>
+      {% endfor %}
+    </div>
+    {% if site.data.quotes.size > site.paginate %}
+    <div class="panel-toolbar">
+      <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
     </div>
     {% endif %}
   </section>

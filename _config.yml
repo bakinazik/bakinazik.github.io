@@ -8,8 +8,10 @@ permalink: /:year/:month/:title.html
 
 plugins:
   - jekyll-feed
+  - jekyll-paginate
 
-posts_batch_size: 5
+paginate: 5
+paginate_path: "/page:num/"
 
 markdown: kramdown
 kramdown:
@@ -26,7 +28,6 @@ defaults:
       type: posts
     values:
       layout: post
-      post-type: post
 
 exclude:
   - Gemfile
