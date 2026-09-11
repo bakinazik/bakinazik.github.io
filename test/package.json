@@ -1,6 +1,0 @@
-{
-  "name": "load-more-test",
-  "private": true,
-  "scripts": { "test": "node test_load_more.js" },
-  "devDependencies": { "jsdom": "^25.0.0" }
-}
