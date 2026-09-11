@@ -168,104 +168,45 @@
     window.history.replaceState(null, "", url);
   }
 
-  var postsPaging = { nextPath: null, pageSize: 5, loading: false };
-  var revealCounts = { all: 5, post: 5, quote: 5 };
-
   function setupPostsLoadMore() {
     var container = document.getElementById("posts-list");
     var button = document.getElementById("posts-load-more");
     if (!container || !button) return;
 
-    postsPaging.nextPath = button.getAttribute("data-next");
-    postsPaging.pageSize = parseInt(container.getAttribute("data-page-size"), 10) || 5;
-    revealCounts.all = postsPaging.pageSize;
-    revealCounts.post = postsPaging.pageSize;
-    revealCounts.quote = postsPaging.pageSize;
+    var nextPath = button.getAttribute("data-next");
+    button.style.display = nextPath ? "flex" : "none";
 
     button.addEventListener("click", function () {
-      if (button.disabled) return;
-      var activeFilterTab = document.querySelector(".profile-tab.is-active[data-tab=\"posts\"]");
-      var filter = activeFilterTab ? activeFilterTab.dataset.filter || "all" : "all";
-      revealCounts[filter] = (revealCounts[filter] || postsPaging.pageSize) + postsPaging.pageSize;
+      if (button.disabled || !nextPath) return;
+
       var originalText = button.textContent;
       button.disabled = true;
       button.textContent = "Yükleniyor...";
-      fillFilter(filter).then(function () {
-        button.textContent = originalText;
-        button.disabled = false;
-      });
+
+      fetch(nextPath)
+        .then(function (res) {
+          if (!res.ok) throw new Error("bad response");
+          return res.text();
+        })
+        .then(function (html) {
+          var doc = new DOMParser().parseFromString(html, "text/html");
+          var newList = doc.getElementById("posts-list");
+          if (newList) {
+            newList.querySelectorAll(".post-list-item").forEach(function (item) {
+              container.appendChild(item);
+            });
+          }
+          var newButton = doc.getElementById("posts-load-more");
+          nextPath = newButton ? newButton.getAttribute("data-next") : null;
+          button.style.display = nextPath ? "flex" : "none";
+          button.textContent = originalText;
+          button.disabled = false;
+        })
+        .catch(function () {
+          button.textContent = originalText;
+          button.disabled = false;
+        });
     });
-  }
-
-  function loadNextPostsPage() {
-    var container = document.getElementById("posts-list");
-    if (!container || !postsPaging.nextPath || postsPaging.loading) return Promise.resolve(false);
-    postsPaging.loading = true;
-    return fetch(postsPaging.nextPath)
-      .then(function (res) {
-        if (!res.ok) throw new Error("bad response");
-        return res.text();
-      })
-      .then(function (html) {
-        var doc = new DOMParser().parseFromString(html, "text/html");
-        var newList = doc.getElementById("posts-list");
-        if (newList) {
-          newList.querySelectorAll(".post-list-item").forEach(function (item) {
-            container.appendChild(item);
-          });
-        }
-        var newButton = doc.getElementById("posts-load-more");
-        postsPaging.nextPath = newButton ? newButton.getAttribute("data-next") : null;
-        postsPaging.loading = false;
-        return true;
-      })
-      .catch(function () {
-        postsPaging.loading = false;
-        return false;
-      });
-  }
-
-  function matchingItemCount(filter) {
-    var items = document.querySelectorAll("#posts-list .post-list-item");
-    var count = 0;
-    items.forEach(function (item) {
-      if (filter === "all" || item.dataset.postType === filter) count++;
-    });
-    return count;
-  }
-
-  function renderFilter(filter) {
-    var items = document.querySelectorAll("#posts-list .post-list-item");
-    var limit = revealCounts[filter] || postsPaging.pageSize;
-    var shown = 0;
-    items.forEach(function (item) {
-      var match = filter === "all" || item.dataset.postType === filter;
-      var hide = !match || shown >= limit;
-      item.classList.toggle("post-filtered-out", hide);
-      if (match && !hide) shown++;
-    });
-    var empty = document.getElementById("posts-filter-empty");
-    if (empty) empty.style.display = shown === 0 ? "" : "none";
-    var button = document.getElementById("posts-load-more");
-    if (button) {
-      var moreAvailable = matchingItemCount(filter) > limit || !!postsPaging.nextPath;
-      button.style.display = moreAvailable ? "flex" : "none";
-    }
-  }
-
-  function fillFilter(filter) {
-    var limit = revealCounts[filter] || postsPaging.pageSize;
-    function step() {
-      if (matchingItemCount(filter) >= limit || !postsPaging.nextPath) {
-        renderFilter(filter);
-        return Promise.resolve();
-      }
-      return loadNextPostsPage().then(function (loaded) {
-        if (loaded) return step();
-        renderFilter(filter);
-      });
-    }
-    return step();
   }
 
   function removeUrlParam(key) {
@@ -277,6 +218,48 @@
     window.history.replaceState(null, "", url);
   }
 
+  var quoteTargetEl = null;
+  var quoteTargetNextSibling = null;
+  var quoteTargetWasHidden = false;
+  var activateTab = null;
+
+  function clearQuoteTarget() {
+    removeUrlParam("target");
+    var featured = document.getElementById("quote-featured");
+    if (quoteTargetEl) {
+      var quotesList = document.getElementById("quotes-list");
+      if (quotesList) {
+        if (quoteTargetNextSibling && quoteTargetNextSibling.parentNode === quotesList) {
+          quotesList.insertBefore(quoteTargetEl, quoteTargetNextSibling);
+        } else {
+          quotesList.appendChild(quoteTargetEl);
+        }
+      }
+      if (quoteTargetWasHidden) quoteTargetEl.classList.add("quote-hidden");
+      quoteTargetEl = null;
+      quoteTargetNextSibling = null;
+      quoteTargetWasHidden = false;
+    }
+    if (featured) {
+      featured.innerHTML = "";
+      featured.style.display = "none";
+    }
+  }
+
+  function focusQuoteTarget(targetId) {
+    clearQuoteTarget();
+    var source = document.getElementById(targetId);
+    var featured = document.getElementById("quote-featured");
+    if (!source || !featured) return;
+
+    quoteTargetEl = source;
+    quoteTargetNextSibling = source.nextSibling;
+    quoteTargetWasHidden = source.classList.contains("quote-hidden");
+    source.classList.remove("quote-hidden");
+    featured.appendChild(source);
+    featured.style.display = "block";
+  }
+
   function setupProfileTabs() {
     var tabs = Array.from(document.querySelectorAll(".profile-tab"));
     var panels = Array.from(document.querySelectorAll(".profile-panel"));
@@ -285,39 +268,65 @@
     document.documentElement.classList.add("js-ready");
 
     var defaultTab = tabs[0].dataset.tab;
-    var defaultFilter = tabs[0].dataset.filter || "all";
     var tabNames = tabs.map(function (tab) { return tab.dataset.tab; });
 
-    function activate(name, filter, sync) {
+    function activate(name, sync) {
       tabs.forEach(function (tab) {
-        var tabFilter = tab.dataset.filter || "all";
-        tab.classList.toggle("is-active", tab.dataset.tab === name && (name !== "posts" || tabFilter === filter));
+        tab.classList.toggle("is-active", tab.dataset.tab === name);
       });
       panels.forEach(function (panel) {
         panel.classList.toggle("is-active", panel.id === "panel-" + name);
       });
-      if (name === "posts") fillFilter(filter);
-      if (sync) {
-        syncListParam("tab", name, defaultTab);
-        syncListParam("filter", filter, defaultFilter);
-      }
+      if (sync) syncListParam("tab", name, defaultTab);
     }
+    activateTab = activate;
 
     tabs.forEach(function (tab) {
       tab.addEventListener("click", function (e) {
         e.preventDefault();
-        activate(tab.dataset.tab, tab.dataset.filter || "all", true);
+        clearQuoteTarget();
+        activate(tab.dataset.tab, true);
       });
     });
 
-    var params = new URLSearchParams(window.location.search);
-    var requestedTab = params.get("tab");
-    var requestedFilter = params.get("filter");
-    var startTab = tabNames.indexOf(requestedTab) !== -1 ? requestedTab : defaultTab;
-    var startFilter = requestedFilter || defaultFilter;
-    activate(startTab, startFilter, false);
+    var requested = new URLSearchParams(window.location.search).get("tab");
+    var startTab = tabNames.indexOf(requested) !== -1 ? requested : defaultTab;
+    activate(startTab, false);
 
     document.querySelector(".profile-tabs").classList.add("is-interactive");
+  }
+
+  function setupQuotesLoadMore() {
+    var container = document.getElementById("quotes-list");
+    var button = document.getElementById("quotes-load-more");
+    if (!container || !button) return;
+    var items = Array.from(container.querySelectorAll(".quote-item"));
+    if (!items.length) return;
+
+    var batchSize = parseInt(button.getAttribute("data-batch-size"), 10) || items.length;
+    var visible = Math.min(batchSize, items.length);
+
+    function render() {
+      items.forEach(function (item, i) {
+        item.classList.toggle("quote-hidden", i >= visible);
+      });
+      button.style.display = visible < items.length ? "flex" : "none";
+    }
+
+    render();
+
+    button.addEventListener("click", function () {
+      visible = Math.min(visible + batchSize, items.length);
+      render();
+    });
+  }
+
+  function setupQuoteTarget() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("tab") !== "quotes") return;
+    var targetId = params.get("target");
+    if (!targetId) return;
+    focusQuoteTarget(targetId);
   }
 
   function setupContactForm() {
@@ -614,6 +623,25 @@
       open(decodeURIComponent(query));
     });
 
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest('a[href*="tab=quotes"]');
+      if (!link) return;
+      var url = new URL(link.getAttribute("href"), window.location.href);
+      if (url.pathname !== window.location.pathname) return;
+      var targetId = url.searchParams.get("target");
+      if (!targetId) return;
+      e.preventDefault();
+      hideOverlay();
+      var params = new URLSearchParams();
+      params.set("tab", "quotes");
+      params.set("target", targetId);
+      window.history.pushState(null, "", window.location.pathname + "?" + params.toString());
+      if (activateTab) activateTab("quotes", false);
+      focusQuoteTarget(targetId);
+      var el = document.getElementById(targetId);
+      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
     input.addEventListener("input", function () {
       render(input.value);
       if (isOpen) window.history.replaceState({ searchOverlay: true }, "", urlFor(input.value));
@@ -791,8 +819,10 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     setupI18n();
-    setupPostsLoadMore();
     setupProfileTabs();
+    setupPostsLoadMore();
+    setupQuotesLoadMore();
+    setupQuoteTarget();
     setupContactForm();
     setupSearchOverlay();
     setupRssMenu();

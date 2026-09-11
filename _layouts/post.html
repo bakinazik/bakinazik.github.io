@@ -3,9 +3,7 @@ layout: default
 ---
 <article id="post-{{ page.slug }}">
   <div class="post-header">
-    {% unless page.post-type == "quote" %}
     <h1 class="post-title">{{ page.title }}</h1>
-    {% endunless %}
     <div class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}" data-i18n-date="{{ page.date | date_to_xmlschema }}"></time>
       {% if page.tags.size > 0 %}
@@ -23,7 +21,7 @@ layout: default
     {% if page.next %}
     <a class="post-nav-item post-nav-next" href="{{ page.next.url | relative_url }}">
       <span class="post-nav-label">‹ <span data-i18n="next_post"></span></span>
-      <span class="post-nav-title">{{ page.next.title | default: page.next.content | strip_html | truncate: 60 }}</span>
+      <span class="post-nav-title">{{ page.next.title }}</span>
     </a>
     {% else %}
     <div class="post-nav-item post-nav-next post-nav-disabled">
@@ -35,7 +33,7 @@ layout: default
     {% if page.previous %}
     <a class="post-nav-item post-nav-prev" href="{{ page.previous.url | relative_url }}">
       <span class="post-nav-label"><span data-i18n="prev_post"></span> ›</span>
-      <span class="post-nav-title">{{ page.previous.title | default: page.previous.content | strip_html | truncate: 60 }}</span>
+      <span class="post-nav-title">{{ page.previous.title }}</span>
     </a>
     {% else %}
     <div class="post-nav-item post-nav-prev post-nav-disabled">

@@ -520,7 +520,7 @@ body.search-overlay-locked {
   background: var(--border);
 }
 
-.post-list-item .post-list-link {
+.post-list-item a.post-list-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -553,19 +553,6 @@ body.search-overlay-locked {
     margin: 0 0 5rem;
     font-weight: 400;
 }
-
-.post-list-item.post-filtered-out {
-  display: none;
-}
-
-#posts-filter-empty {
-  display: none;
-}
-
-.post-list-quote {
-  cursor: default;
-}
-
 
 .post-nav {
   display: flex;
@@ -624,7 +611,7 @@ a.post-nav-item:hover {
 }
 
 @media (max-width: 600px) {
-  .post-list-item .post-list-link {
+  .post-list-item a.post-list-link {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
@@ -876,6 +863,110 @@ a.post-nav-item:hover {
 }
   
   
+.quotes {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0;
+  position: relative;
+  max-height: 350px;
+  overflow: hidden;
+  transition: max-height 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.quotes:focus-within {
+    max-height: 8000px;
+}
+
+.quotes:not(:focus-within)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: linear-gradient(to top, var(--bg), transparent);
+  pointer-events: none;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.quotes:not(:focus-within)::before {
+  content: "tamamını görüntülemek için üzerine tıkla";
+  position: absolute;
+  bottom: 10px;
+  font-size: .82rem;
+  color: var(--text);
+  pointer-events: none;
+  z-index: 3;
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.quote-item {
+  margin: 0;
+  padding: 14px 18px;
+  color: var(--muted2);
+  line-height: 1.6;
+  user-select: auto;
+  -webkit-user-select: auto;
+  pointer-events: auto;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.quote-item:last-child {
+  border-bottom: none;
+}
+
+.quote-item .text {
+  flex: 1;
+  font-size: calc(.96rem * var(--font-scale));
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  color: var(--text);
+  border-right: 1px solid var(--border);
+  padding-right: 15px;
+}
+
+.quote-item .date {
+  flex-shrink: 0;
+  font-size: calc(0.8rem * var(--font-scale));
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+  .quote-item {
+    padding: 12px 14px;
+    font-size: calc(0.95rem * var(--font-scale));
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+ .quote-item .date {
+    font-size: calc(.74rem * var(--font-scale));
+  }
+}
+
+.quote-featured {
+  display: none;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+  
 @media (max-width:640px){
     .project-item{
         flex-direction:column;
@@ -892,6 +983,20 @@ a.post-nav-item:hover {
         flex:1;
         text-align:center;
     }
+}
+
+.js-ready .quotes {
+  max-height: none;
+  overflow: visible;
+  pointer-events: auto;
+}
+.js-ready .quotes::before,
+.js-ready .quotes::after {
+  display: none;
+}
+
+.quote-hidden {
+  display: none;
 }
 
 .rss-menu {
@@ -1147,6 +1252,7 @@ footer nav{
   .profile-tab{width: 100%;text-align: center;}
   .settings-menu { order: 2;}
   .settings-menu-panel{left: auto;right: 0;}
+  .quote-item .text {border-right: none;padding-right: none;}
 }
 
 .subscribe-box {
