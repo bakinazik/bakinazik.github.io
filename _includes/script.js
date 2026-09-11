@@ -168,33 +168,44 @@
     window.history.replaceState(null, "", url);
   }
 
-  function setupLoadMore(containerId, buttonId, itemSelector, perPage, paramKey) {
-    var container = document.getElementById(containerId);
-    var button = document.getElementById(buttonId);
+  function setupPostsLoadMore() {
+    var container = document.getElementById("posts-list");
+    var button = document.getElementById("posts-load-more");
     if (!container || !button) return;
-    var items = Array.from(container.querySelectorAll(itemSelector));
-    if (!items.length) return;
 
-    document.documentElement.classList.add("js-ready");
-    container.removeAttribute("tabindex");
-
-    var initial = Math.min(perPage, items.length);
-    var visible = Math.min(Math.max(readListParam(paramKey, initial), initial), items.length);
-
-    function render() {
-      items.forEach(function (item, i) {
-        item.style.display = i < visible ? "" : "none";
-      });
-      button.style.display = visible < items.length ? "flex" : "none";
-    }
-
-    render();
-    syncListParam(paramKey, visible, initial);
+    var nextPath = button.getAttribute("data-next");
+    button.style.display = nextPath ? "flex" : "none";
 
     button.addEventListener("click", function () {
-      visible = Math.min(visible + perPage, items.length);
-      render();
-      syncListParam(paramKey, visible, initial);
+      if (button.disabled || !nextPath) return;
+
+      var originalText = button.textContent;
+      button.disabled = true;
+      button.textContent = "Yükleniyor...";
+
+      fetch(nextPath)
+        .then(function (res) {
+          if (!res.ok) throw new Error("bad response");
+          return res.text();
+        })
+        .then(function (html) {
+          var doc = new DOMParser().parseFromString(html, "text/html");
+          var newList = doc.getElementById("posts-list");
+          if (newList) {
+            newList.querySelectorAll(".post-list-item").forEach(function (item) {
+              container.appendChild(item);
+            });
+          }
+          var newButton = doc.getElementById("posts-load-more");
+          nextPath = newButton ? newButton.getAttribute("data-next") : null;
+          button.style.display = nextPath ? "flex" : "none";
+          button.textContent = originalText;
+          button.disabled = false;
+        })
+        .catch(function () {
+          button.textContent = originalText;
+          button.disabled = false;
+        });
     });
   }
 
@@ -734,7 +745,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     setupI18n();
     setupProfileTabs();
-    setupLoadMore("posts-list", "posts-load-more", ".post-list-item", 3, "post");
+    setupPostsLoadMore();
     setupQuoteTarget();
     setupContactForm();
     setupSearchOverlay();
