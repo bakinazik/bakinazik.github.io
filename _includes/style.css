@@ -500,6 +500,9 @@ body.search-overlay-locked {
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
+}
+
+#search-overlay-results{
   overflow-y: scroll;
 }
 
