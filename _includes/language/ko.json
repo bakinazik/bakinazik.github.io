@@ -36,5 +36,7 @@
   "search_results_found": "“{q}”에 대한 검색 결과 {n}개를 찾았습니다",
   "search_results_partial": "“{q}”에 대한 {total}개 중 {shown}개 결과를 표시하고 있습니다",
   "prev_post": "이전",
-  "next_post": "다음"
+  "next_post": "다음",
+  "no_next_post": "더 최신 글이 없습니다.",
+  "no_prev_post": "더 오래된 글이 없습니다."
 }

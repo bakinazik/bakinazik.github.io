@@ -36,5 +36,7 @@
   "search_results_found": "“{q}” için {n} sonuç bulundu",
   "search_results_partial": "“{q}” için {total} sonuçtan {shown} tanesi gösteriliyor",
   "prev_post": "ÖNCEKİ",
-  "next_post": "SONRAKİ"
+  "next_post": "SONRAKİ",
+  "no_next_post": "Daha yeni bir yazı yok.",
+  "no_prev_post": "Daha eski bir yazı yok."
 }

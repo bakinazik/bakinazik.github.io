@@ -36,5 +36,7 @@
   "search_results_found": "تم العثور على {n} نتيجة لـ «{q}»",
   "search_results_partial": "عرض {shown} من {total} نتيجة لـ «{q}»",
   "prev_post": "السابق",
-  "next_post": "التالي"
+  "next_post": "التالي",
+  "no_next_post": "لا يوجد منشور أحدث.",
+  "no_prev_post": "لا يوجد منشور أقدم."
 }

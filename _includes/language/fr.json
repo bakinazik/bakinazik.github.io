@@ -36,5 +36,7 @@
   "search_results_found": "{n} résultats trouvés pour « {q} »",
   "search_results_partial": "Affichage de {shown} sur {total} résultats pour « {q} »",
   "prev_post": "PRÉCÉDENT",
-  "next_post": "SUIVANT"
+  "next_post": "SUIVANT",
+  "no_next_post": "Il n'y a pas d'article plus récent.",
+  "no_prev_post": "Il n'y a pas d'article plus ancien."
 }

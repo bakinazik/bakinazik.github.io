@@ -36,5 +36,7 @@
   "search_results_found": "找到 {n} 条关于“{q}”的结果",
   "search_results_partial": "显示“{q}”的 {total} 条结果中的 {shown} 条",
   "prev_post": "上一篇",
-  "next_post": "下一篇"
+  "next_post": "下一篇",
+  "no_next_post": "没有更新的文章了。",
+  "no_prev_post": "没有更旧的文章了。"
 }

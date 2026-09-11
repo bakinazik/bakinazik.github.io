@@ -36,5 +36,7 @@
   "search_results_found": "{n} hasil ditemukan untuk “{q}”",
   "search_results_partial": "Menampilkan {shown} dari {total} hasil untuk “{q}”",
   "prev_post": "SEBELUMNYA",
-  "next_post": "BERIKUTNYA"
+  "next_post": "BERIKUTNYA",
+  "no_next_post": "Tidak ada postingan yang lebih baru.",
+  "no_prev_post": "Tidak ada postingan yang lebih lama."
 }

@@ -36,5 +36,7 @@
   "search_results_found": "“{q}” के लिए {n} परिणाम मिले",
   "search_results_partial": "“{q}” के लिए {total} में से {shown} परिणाम दिखाए जा रहे हैं",
   "prev_post": "पिछला",
-  "next_post": "अगला"
+  "next_post": "अगला",
+  "no_next_post": "इससे नई कोई पोस्ट नहीं है।",
+  "no_prev_post": "इससे पुरानी कोई पोस्ट नहीं है।"
 }

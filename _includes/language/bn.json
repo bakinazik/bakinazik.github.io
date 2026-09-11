@@ -36,5 +36,7 @@
   "search_results_found": "“{q}” এর জন্য {n}টি ফলাফল পাওয়া গেছে",
   "search_results_partial": "“{q}” এর জন্য {total}টির মধ্যে {shown}টি ফলাফল দেখানো হচ্ছে",
   "prev_post": "পূর্ববর্তী",
-  "next_post": "পরবর্তী"
+  "next_post": "পরবর্তী",
+  "no_next_post": "এর চেয়ে নতুন কোনো পোস্ট নেই।",
+  "no_prev_post": "এর চেয়ে পুরনো কোনো পোস্ট নেই।"
 }

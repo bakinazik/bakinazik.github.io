@@ -36,5 +36,7 @@
   "search_results_found": "Найдено {n} результатов по запросу «{q}»",
   "search_results_partial": "Показано {shown} из {total} результатов по запросу «{q}»",
   "prev_post": "ПРЕДЫДУЩАЯ",
-  "next_post": "СЛЕДУЮЩАЯ"
+  "next_post": "СЛЕДУЮЩАЯ",
+  "no_next_post": "Более новой записи нет.",
+  "no_prev_post": "Более старой записи нет."
 }
