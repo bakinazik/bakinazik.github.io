@@ -520,7 +520,7 @@ body.search-overlay-locked {
   background: var(--border);
 }
 
-.post-list-item a.post-list-link {
+.post-list-item .post-list-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -624,7 +624,7 @@ a.post-nav-item:hover {
 }
 
 @media (max-width: 600px) {
-  .post-list-item a.post-list-link {
+  .post-list-item .post-list-link {
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;

@@ -15,7 +15,7 @@ layout: default
 
   <section class="profile-panel is-active" id="panel-posts" role="tabpanel">
     {% if paginator.posts.size > 0 %}
-    <div class="post-list-wrapper" id="posts-list">
+    <div class="post-list-wrapper" id="posts-list" data-page-size="{{ site.paginate }}">
       {% for post in paginator.posts %}
       {% if post.post-type == "quote" %}
       <div class="post-list-item" data-post-type="quote">

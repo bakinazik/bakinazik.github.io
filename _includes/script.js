@@ -168,46 +168,88 @@
     window.history.replaceState(null, "", url);
   }
 
+  var postsPaging = { nextPath: null, pageSize: 0, loading: false };
+
   function setupPostsLoadMore() {
     var container = document.getElementById("posts-list");
     var button = document.getElementById("posts-load-more");
     if (!container || !button) return;
 
-    var nextPath = button.getAttribute("data-next");
-    button.style.display = nextPath ? "flex" : "none";
+    postsPaging.nextPath = button.getAttribute("data-next");
+    postsPaging.pageSize = parseInt(container.getAttribute("data-page-size"), 10) || 0;
+    button.style.display = postsPaging.nextPath ? "flex" : "none";
 
     button.addEventListener("click", function () {
-      if (button.disabled || !nextPath) return;
-
+      if (button.disabled || !postsPaging.nextPath) return;
       var originalText = button.textContent;
       button.disabled = true;
       button.textContent = "Yükleniyor...";
+      loadNextPostsPage().then(function () {
+        button.style.display = postsPaging.nextPath ? "flex" : "none";
+        button.textContent = originalText;
+        button.disabled = false;
+        var activeFilterTab = document.querySelector(".profile-tab.is-active[data-tab=\"posts\"]");
+        applyPostFilter(activeFilterTab ? activeFilterTab.dataset.filter || "all" : "all");
+      });
+    });
+  }
 
-      fetch(nextPath)
-        .then(function (res) {
-          if (!res.ok) throw new Error("bad response");
-          return res.text();
-        })
-        .then(function (html) {
-          var doc = new DOMParser().parseFromString(html, "text/html");
-          var newList = doc.getElementById("posts-list");
-          if (newList) {
-            newList.querySelectorAll(".post-list-item").forEach(function (item) {
-              container.appendChild(item);
-            });
-          }
-          var newButton = doc.getElementById("posts-load-more");
-          nextPath = newButton ? newButton.getAttribute("data-next") : null;
-          button.style.display = nextPath ? "flex" : "none";
-          button.textContent = originalText;
-          button.disabled = false;
-          var activeFilterTab = document.querySelector(".profile-tab.is-active[data-tab=\"posts\"]");
-          applyPostFilter(activeFilterTab ? activeFilterTab.dataset.filter || "all" : "all");
-        })
-        .catch(function () {
-          button.textContent = originalText;
-          button.disabled = false;
-        });
+  function loadNextPostsPage() {
+    var container = document.getElementById("posts-list");
+    if (!container || !postsPaging.nextPath || postsPaging.loading) return Promise.resolve(false);
+    postsPaging.loading = true;
+    return fetch(postsPaging.nextPath)
+      .then(function (res) {
+        if (!res.ok) throw new Error("bad response");
+        return res.text();
+      })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        var newList = doc.getElementById("posts-list");
+        if (newList) {
+          newList.querySelectorAll(".post-list-item").forEach(function (item) {
+            container.appendChild(item);
+          });
+        }
+        var newButton = doc.getElementById("posts-load-more");
+        postsPaging.nextPath = newButton ? newButton.getAttribute("data-next") : null;
+        postsPaging.loading = false;
+        return true;
+      })
+      .catch(function () {
+        postsPaging.loading = false;
+        return false;
+      });
+  }
+
+  function countVisibleForFilter(filter) {
+    var items = document.querySelectorAll("#posts-list .post-list-item");
+    var count = 0;
+    items.forEach(function (item) {
+      if (filter === "all" || item.dataset.postType === filter) count++;
+    });
+    return count;
+  }
+
+  function ensureFilterFilled(filter) {
+    var button = document.getElementById("posts-load-more");
+    var threshold = postsPaging.pageSize || 5;
+    if (filter === "all" || countVisibleForFilter(filter) >= threshold || !postsPaging.nextPath) {
+      applyPostFilter(filter);
+      return;
+    }
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Yükleniyor...";
+    }
+    loadNextPostsPage().then(function (loaded) {
+      applyPostFilter(filter);
+      if (button) {
+        button.style.display = postsPaging.nextPath ? "flex" : "none";
+        button.textContent = t("load_more");
+        button.disabled = false;
+      }
+      if (loaded) ensureFilterFilled(filter);
     });
   }
 
@@ -251,7 +293,7 @@
       panels.forEach(function (panel) {
         panel.classList.toggle("is-active", panel.id === "panel-" + name);
       });
-      if (name === "posts") applyPostFilter(filter);
+      if (name === "posts") ensureFilterFilled(filter);
       if (sync) {
         syncListParam("tab", name, defaultTab);
         syncListParam("filter", filter, defaultFilter);
@@ -746,8 +788,8 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     setupI18n();
-    setupProfileTabs();
     setupPostsLoadMore();
+    setupProfileTabs();
     setupContactForm();
     setupSearchOverlay();
     setupRssMenu();
