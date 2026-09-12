@@ -20,7 +20,7 @@ permalink: /search.json
 {
   "type": "quote",
   "title": {{ quote.text | jsonify }},
-  "url": {{ "/" | relative_url | append: "?tab=about&target=quote-" | append: forloop.index0 | jsonify }},
+  "url": {{ "/" | relative_url | append: "?tab=quotes&target=quote-" | append: forloop.index0 | jsonify }},
   "date": {{ quote.date | jsonify }},
   "description": "",
   "keywords": [],

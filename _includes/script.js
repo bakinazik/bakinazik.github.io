@@ -339,7 +339,7 @@
 
   function setupQuoteTarget() {
     var params = new URLSearchParams(window.location.search);
-    if (params.get("tab") !== "about") return;
+    if (params.get("tab") !== "quotes") return;
     var targetId = params.get("target");
     if (!targetId) return;
     focusQuoteTarget(targetId);
@@ -640,7 +640,7 @@
     });
 
     document.addEventListener("click", function (e) {
-      var link = e.target.closest('a[href*="tab=about"]');
+      var link = e.target.closest('a[href*="tab=quotes"]');
       if (!link) return;
       var url = new URL(link.getAttribute("href"), window.location.href);
       if (url.pathname !== window.location.pathname) return;
@@ -649,10 +649,10 @@
       e.preventDefault();
       hideOverlay();
       var params = new URLSearchParams();
-      params.set("tab", "about");
+      params.set("tab", "quotes");
       params.set("target", targetId);
       window.history.pushState(null, "", window.location.pathname + "?" + params.toString());
-      if (activateTab) activateTab("about", false);
+      if (activateTab) activateTab("quotes", false);
       focusQuoteTarget(targetId);
       var el = document.getElementById(targetId);
       if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "center" });

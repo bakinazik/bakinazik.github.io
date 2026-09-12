@@ -6,6 +6,7 @@ layout: default
     <a href="#panel-about" class="profile-tab is-active" role="tab" data-tab="about" data-i18n="tab_about"></a>
     <a href="#panel-photos" class="profile-tab" role="tab" data-tab="photos" data-i18n="tab_photos"></a>
     <a href="#panel-posts" class="profile-tab" role="tab" data-tab="posts" data-i18n="tab_posts"></a>
+    <a href="#panel-quotes" class="profile-tab" role="tab" data-tab="quotes" data-i18n="tab_quotes"></a>
   </nav>
 </div>
 
@@ -34,24 +35,6 @@ layout: default
       {% endif %}
       {% endfor %}
     </nav>
-
-    <div class="section-header">
-      <h2 data-i18n="tab_quotes"></h2>
-    </div>
-    <div class="quote-featured" id="quote-featured"></div>
-    <div class="quotes" id="quotes-list" tabindex="0">
-      {% for quote in site.data.quotes %}
-      <p id="quote-{{ forloop.index0 }}" class="quote-item">
-        <span class="text">{{ quote.text }}</span>
-        <span class="date">{{ quote.date }}</span>
-      </p>
-      {% endfor %}
-    </div>
-    {% if site.data.quotes.size > site.paginate %}
-    <div class="panel-toolbar">
-      <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
-    </div>
-    {% endif %}
 
     <div class="section-header">
       <h2 data-i18n="tab_projects"></h2>
@@ -134,6 +117,23 @@ layout: default
     {% else %}
     <div class="no-result">
       <p data-i18n="no_posts_yet"></p>
+    </div>
+    {% endif %}
+  </section>
+
+  <section class="profile-panel" id="panel-quotes" role="tabpanel">
+    <div class="quote-featured" id="quote-featured"></div>
+    <div class="quotes" id="quotes-list" tabindex="0">
+      {% for quote in site.data.quotes %}
+      <p id="quote-{{ forloop.index0 }}" class="quote-item">
+        <span class="text">{{ quote.text }}</span>
+        <span class="date">{{ quote.date }}</span>
+      </p>
+      {% endfor %}
+    </div>
+    {% if site.data.quotes.size > site.paginate %}
+    <div class="panel-toolbar">
+      <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
     </div>
     {% endif %}
   </section>
