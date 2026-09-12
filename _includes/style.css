@@ -123,7 +123,7 @@ header {
   align-items: center;
   width: 100%;
   height: 42px;
-  padding: 0 16px 0 42px;
+  padding: 0 40px 0 42px;
   border: 1px solid var(--border);
   border-radius: 21px;
   background: transparent;
@@ -133,59 +133,32 @@ header {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  transition: 0.1s all;
-}
-
-.header-search:hover .header-search-input,
-.header-search:focus .header-search-input {
-  border-color: var(--secondary);
-  background: var(--secondary);
-}
-
-.archive-search-bar {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.archive-search-icon {
-  position: absolute;
-  left: 16px;
-  display: flex;
-  color: var(--muted);
-  pointer-events: none;
-}
-
-.archive-search-input {
-  width: 100%;
-  height: 46px;
-  padding: 0 44px;
-  border: 1px solid var(--border);
-  border-radius: 23px;
-  background: transparent;
-  color: var(--text);
-  font-family: inherit;
-  font-size: 0.95rem;
   outline: none;
   transition: 0.1s all;
 }
 
-.archive-search-input::placeholder {
+input.header-search-input {
+  color: var(--text);
+  cursor: text;
+}
+
+input.header-search-input::placeholder {
   color: var(--muted);
 }
 
-.archive-search-input:focus {
-  border-color: var(--secondary);
-  background: var(--secondary);
-}
-
-.archive-search-input::-webkit-search-cancel-button,
-.archive-search-input::-webkit-search-decoration {
+input.header-search-input::-webkit-search-cancel-button,
+input.header-search-input::-webkit-search-decoration {
   -webkit-appearance: none;
   appearance: none;
 }
 
-.archive-search-clear {
+.header-search:hover .header-search-input,
+.header-search:focus-within .header-search-input {
+  border-color: var(--secondary);
+  background: var(--secondary);
+}
+
+.header-search-clear {
   position: absolute;
   right: 12px;
   display: none;
@@ -197,7 +170,7 @@ header {
   padding: 6px;
 }
 
-.archive-search-clear:hover {
+.header-search-clear:hover {
   color: var(--accent);
 }
 

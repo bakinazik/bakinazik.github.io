@@ -67,10 +67,18 @@
       <a href="{{ '/' | relative_url }}" data-site-title="{{ site.title }}" data-i18n-aria-label="home_aria" translate="no"><h1 class="profile-name">{{ site.title }}</h1></a>
   </div>
 
+  {% if page.url == '/archive/' %}
+  <div class="header-search" id="header-search">
+    <span class="header-search-icon">{% include social-icon.html icon="search" %}</span>
+    <input type="search" id="archive-search-input" class="header-search-input" data-i18n-placeholder="search_placeholder" autocomplete="off" autofocus>
+    <button type="button" id="archive-search-clear" class="header-search-clear" data-i18n-aria-label="close_aria">{% include social-icon.html icon="close" %}</button>
+  </div>
+  {% else %}
   <a href="{{ '/archive/' | relative_url }}" class="header-search" id="header-search">
     <span class="header-search-icon">{% include social-icon.html icon="search" %}</span>
     <span class="header-search-input" data-i18n="search_placeholder"></span>
   </a>
+  {% endif %}
 
 
 </header>
