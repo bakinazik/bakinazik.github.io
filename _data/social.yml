@@ -4,6 +4,9 @@
 - label: GitHub profili
   url: https://github.com/bakinazik
   icon: github
+- label: E-posta gönder
+  url: mailto:bakinazikk@gmail.com
+  icon: mail
 - label: RSS Feed
   icon: rss
   feeds:

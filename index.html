@@ -28,6 +28,10 @@ layout: default
           {% endfor %}
         </div>
       </div>
+      {% elsif item.url contains "mailto:" %}
+      <a href="{{ item.url }}" aria-label="{{ item.label }}">
+        {% include social-icon.html icon=item.icon %}
+      </a>
       {% else %}
       <a href="{{ item.url }}" aria-label="{{ item.label }}" target="_blank" rel="noopener noreferrer">
         {% include social-icon.html icon=item.icon %}
@@ -56,19 +60,6 @@ layout: default
         </div>
       </div>
       {% endfor %}
-    </div>
-
-    <div class="section-header">
-      <h2 data-i18n="tab_contact"></h2>
-    </div>
-    <div class="contact-form-widget">
-      <div class="form">
-        <form id="contact-form">
-          <input id="contact-form-subject" data-i18n-placeholder="subject_placeholder" type="text" required>
-          <textarea id="contact-form-message" data-i18n-placeholder="message_placeholder" rows="6" required></textarea>
-          <input class="contact-form-button-submit" type="submit" data-i18n-value="submit_button">
-        </form>
-      </div>
     </div>
 
     <p class="about-copyright" translate="no">&copy; {{ 'now' | date: "%Y" }} {{ site.title }}</p>

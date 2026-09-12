@@ -1,5 +1,4 @@
 (function () {
-  var CONTACT_EMAIL = "bakinazikk@gmail.com";
 
   var LANGUAGES = [
     { code: "en", name: "English", flag: "gb" },
@@ -343,19 +342,6 @@
     var targetId = params.get("target");
     if (!targetId) return;
     focusQuoteTarget(targetId);
-  }
-
-  function setupContactForm() {
-    var form = document.getElementById("contact-form");
-    if (!form) return;
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var subject = form.querySelector("#contact-form-subject").value.trim();
-      var body = form.querySelector("#contact-form-message").value.trim();
-      window.location.href = "mailto:" + CONTACT_EMAIL +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-    });
   }
 
   function fetchSearchIndex() {
@@ -863,7 +849,6 @@
     setupPostsLoadMore();
     setupQuotesLoadMore();
     setupQuoteTarget();
-    setupContactForm();
     setupSearchOverlay();
     setupRssMenu();
     setupSettingsMenu();

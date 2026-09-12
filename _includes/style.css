@@ -881,67 +881,6 @@ a.post-nav-item:hover {
 }
   
   
-.contact-form-widget { width: 100%; }
-
-.form {
-  display: flex;
-}
-.form form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-}
-.form input,
-.form textarea {
-  padding: 12px 14px;
-  border-radius: 15px;
-  border: 1px solid var(--border);
-  resize: none;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-  background: transparent;
-  color: var(--text);
-  font-size: calc(15px * var(--font-scale));
-  transition: border-color .2s ease;
-}
-.form textarea{
-  min-height: 140px;
-  max-height: 220px;
-}
-.form input::placeholder,
-.form textarea::placeholder {
-  color: var(--muted);
-}
-.form input:focus,
-.form textarea:focus {
-  outline: none;
-  border-color: var(--text);
-}
-
-.form .contact-form-button-submit {
-    display: flex;
-    color: var(--bg);
-    padding: 10px 15px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    transition: all 0.2s ease;
-    background: var(--accent);
-    justify-content: center;
-    cursor: pointer;
-    width: 100%;
-    font-size: calc(1rem * var(--font-scale));
-    font-weight: bold;
-}
-
-.contact-form-button-submit:hover {
-    color: var(--text);
-    background: var(--secondary);
-    border-color: var(--secondary);
-}
-  
-  
 .quotes {
   border: none;
   padding: 0;
