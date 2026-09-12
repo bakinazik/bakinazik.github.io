@@ -652,21 +652,10 @@ body.search-overlay-locked {
 
 @media (max-width: 640px) {
   .post-cards {
-    flex-direction: row;
-    overflow-x: auto;
     gap: 12px;
-    padding-bottom: 4px;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-  }
-  .post-cards::-webkit-scrollbar {
-    display: none;
   }
   .post-card {
-    flex: 0 0 78%;
-    max-width: 280px;
     flex-direction: column;
-    scroll-snap-align: start;
   }
   .post-card-media {
     flex: none;
