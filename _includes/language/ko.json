@@ -39,6 +39,5 @@
   "next_post": "다음",
   "no_next_post": "더 최신 글이 없습니다.",
   "no_prev_post": "더 오래된 글이 없습니다.",
-  "min_read": "{n}분 읽기",
-  "no_image": "이미지 없음"
+  "min_read": "{n}분 읽기"
 }

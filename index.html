@@ -18,13 +18,6 @@ layout: default
       {% for post in paginator.posts %}
       {% assign read_mins = post.content | number_of_words | divided_by: 200 | at_least: 1 %}
       <a class="post-card" href="{{ post.url | relative_url }}">
-        <div class="post-card-media">
-          {% if post.image %}
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
-          {% else %}
-          <div class="post-card-noimage" data-i18n="no_image"></div>
-          {% endif %}
-        </div>
         <div class="post-card-body">
           <div class="post-card-meta">
             <time datetime="{{ post.date | date_to_xmlschema }}" data-i18n-date="{{ post.date | date_to_xmlschema }}"></time>

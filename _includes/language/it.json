@@ -39,6 +39,5 @@
   "next_post": "SUCCESSIVO",
   "no_next_post": "Non c'è un post più recente.",
   "no_prev_post": "Non c'è un post più vecchio.",
-  "min_read": "{n} min di lettura",
-  "no_image": "Nessuna immagine"
+  "min_read": "{n} min di lettura"
 }

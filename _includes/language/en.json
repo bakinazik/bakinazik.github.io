@@ -39,6 +39,5 @@
   "next_post": "NEXT",
   "no_next_post": "There's no newer post.",
   "no_prev_post": "There's no older post.",
-  "min_read": "{n} min read",
-  "no_image": "No image"
+  "min_read": "{n} min read"
 }

@@ -39,6 +39,5 @@
   "next_post": "次の記事",
   "no_next_post": "これより新しい記事はありません。",
   "no_prev_post": "これより古い記事はありません。",
-  "min_read": "{n}分で読める",
-  "no_image": "画像なし"
+  "min_read": "{n}分で読める"
 }
