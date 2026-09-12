@@ -431,7 +431,8 @@ body.search-overlay-locked {
 .footer {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    text-align: center;
     flex-wrap: wrap;
     gap: 1rem;
     font-size: 0.85rem;
@@ -1260,6 +1261,7 @@ a.post-nav-item:hover {
     align-items: center;
     align-self: flex-start;
     color: var(--muted);
+    margin-bottom: 1.2rem;
 }
 
 @media (max-width: 600px) {
