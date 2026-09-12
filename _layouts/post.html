@@ -8,7 +8,7 @@ layout: default
       <time datetime="{{ page.date | date_to_xmlschema }}" data-i18n-date="{{ page.date | date_to_xmlschema }}"></time>
       {% if page.tags.size > 0 %}
       ·
-      {% for tag in page.tags %}<a href="{{ '/archive/' | relative_url }}?search=%23{{ tag | url_encode }}">#{{ tag }}</a>{% unless forloop.last %} {% endunless %}{% endfor %}
+      {% for tag in page.tags %}<a href="{{ page.url | relative_url }}?search=%23{{ tag | url_encode }}">#{{ tag }}</a>{% unless forloop.last %} {% endunless %}{% endfor %}
       {% endif %}
     </div>
   </div>

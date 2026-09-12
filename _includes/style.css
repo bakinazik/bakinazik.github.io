@@ -106,8 +106,6 @@ header {
   margin-left: auto;
   flex: 0 1 240px;
   min-width: 0;
-  text-decoration: none;
-  cursor: pointer;
 }
 
 .header-search-icon {
@@ -119,66 +117,151 @@ header {
 }
 
 .header-search-input {
-  display: flex;
-  align-items: center;
   width: 100%;
   height: 42px;
-  padding: 0 40px 0 42px;
+  padding: 0 16px 0 42px;
   border: 1px solid var(--border);
   border-radius: 21px;
   background: transparent;
-  color: var(--muted);
+  color: var(--text);
   font-family: inherit;
   font-size: 0.9rem;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
   outline: none;
   transition: 0.1s all;
 }
 
-input.header-search-input {
-  color: var(--text);
-  cursor: text;
-}
-
-input.header-search-input::placeholder {
+.header-search-input::placeholder {
   color: var(--muted);
 }
 
-input.header-search-input::-webkit-search-cancel-button,
-input.header-search-input::-webkit-search-decoration {
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.header-search:hover .header-search-input,
-.header-search:focus-within .header-search-input {
+.header-search-input:focus {
   border-color: var(--secondary);
   background: var(--secondary);
 }
 
-.header-search-clear {
+.header-search-input[readonly] {
+  cursor: pointer;
+  caret-color: transparent;
+}
+
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease, visibility 0s linear .25s;
+}
+
+.search-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity .25s ease, visibility 0s linear 0s;
+}
+
+.search-overlay-backdrop {
   position: absolute;
-  right: 12px;
+  inset: 0;
+  background: rgba(6, 6, 8, .78);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  opacity: 0;
+  transition: opacity .25s ease;
+}
+
+.search-overlay.is-open .search-overlay-backdrop {
+  opacity: 1;
+}
+
+.search-overlay-panel {
+  position: relative;
+  width: 100%;
+  max-width: var(--max);
+  height: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  opacity: 0;
+  transform: scale(.96);
+  transition: opacity .22s ease, transform .22s ease;
+}
+
+.search-overlay.is-open .search-overlay-panel {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.search-overlay-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 16px 20px;
+}
+
+.search-overlay-icon {
+  display: flex;
+  color: var(--muted);
+}
+
+.search-overlay-input {
+  flex: 1;
+  min-width: 0;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.search-overlay-input::placeholder {
+  color: var(--muted);
+}
+
+.search-overlay-input::-webkit-search-cancel-button,
+.search-overlay-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-overlay-clear,
+.search-overlay-close {
+  flex-shrink: 0;
   display: none;
   align-items: center;
   border: none;
   background: transparent;
   color: var(--muted);
+  font-family: inherit;
+  font-size: .9rem;
   cursor: pointer;
   padding: 6px;
 }
 
-.header-search-clear:hover {
+.search-overlay-close {
+  display: flex;
+}
+
+.search-overlay-clear:hover,
+.search-overlay-close:hover {
   color: var(--accent);
 }
 
-.archive-page {
-  margin-top: 2.5rem;
+.search-overlay-body {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  overflow-y: auto;
+  padding: 20px;
+  border-top: 1px solid var(--border);
 }
 
 .search-overlay-default-section + .search-overlay-default-section {
@@ -227,6 +310,24 @@ input.header-search-input::-webkit-search-decoration {
   color: var(--contrast-text);
   border-radius: 3px;
   padding: 0 2px;
+}
+
+@media (min-width: 640px) {
+  .search-overlay {
+    align-items: center;
+    padding: 6vh 20px;
+  }
+  .search-overlay-panel {
+    height: 82vh;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+    overflow: hidden;
+  }
+}
+
+body.search-overlay-locked {
+  overflow: hidden;
 }
 
 .profile-tabs {
@@ -400,6 +501,10 @@ input.header-search-input::-webkit-search-decoration {
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
+}
+
+#search-overlay-results{
+  overflow-y: scroll;
 }
 
 .post-list-item {

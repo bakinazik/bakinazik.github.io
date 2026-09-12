@@ -261,7 +261,7 @@
   }
 
   function setupProfileTabs() {
-    var tabs = Array.from(document.querySelectorAll(".profile-tab[data-tab]"));
+    var tabs = Array.from(document.querySelectorAll(".profile-tab"));
     var panels = Array.from(document.querySelectorAll(".profile-panel"));
     if (!tabs.length || !panels.length) return;
 
@@ -474,11 +474,16 @@
     return item;
   }
 
-  function setupArchiveSearch() {
+  function setupSearchOverlay() {
     var RESULT_LIMIT = 20;
     var DEFAULT_LIMIT = 3;
-    var input = document.getElementById("archive-search-input");
-    var clearBtn = document.getElementById("archive-search-clear");
+    var overlay = document.getElementById("search-overlay");
+    var backdrop = document.getElementById("search-overlay-backdrop");
+    var trigger = document.getElementById("header-search-trigger");
+    var input = document.getElementById("search-overlay-input");
+    var clearBtn = document.getElementById("search-overlay-clear");
+    var closeBtn = document.getElementById("search-overlay-close");
+    var body = document.getElementById("search-overlay-body");
     var defaultBox = document.getElementById("search-overlay-default");
     var defaultPostsSection = document.getElementById("search-overlay-default-posts-section");
     var defaultPostsBox = document.getElementById("search-overlay-default-posts");
@@ -487,9 +492,11 @@
     var metaBox = document.getElementById("search-overlay-meta");
     var resultsBox = document.getElementById("search-overlay-results");
     var emptyBox = document.getElementById("search-overlay-empty");
-    if (!input) return;
+    if (!overlay || !trigger || !input) return;
 
     var posts = [];
+    var loaded = false;
+    var isOpen = false;
 
     function urlFor(query) {
       var params = new URLSearchParams(window.location.search);
@@ -499,6 +506,8 @@
     }
 
     function loadPosts() {
+      if (loaded) return;
+      loaded = true;
       fetchSearchIndex().then(function (data) {
         posts = data;
         render(input.value);
@@ -562,25 +571,116 @@
       emptyBox.style.display = matches.length ? "none" : "";
     }
 
+    function showOverlay() {
+      overlay.classList.add("is-open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("search-overlay-locked");
+      isOpen = true;
+    }
+
+    function hideOverlay() {
+      overlay.classList.remove("is-open");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("search-overlay-locked");
+      isOpen = false;
+      trigger.blur();
+      removeUrlParam("search");
+      setTimeout(function () {
+        input.value = "";
+        render("");
+      }, 250);
+    }
+
+    function open(query) {
+      loadPosts();
+      if (typeof query === "string") input.value = query;
+      showOverlay();
+      input.focus();
+      render(input.value);
+      window.history.pushState({ searchOverlay: true }, "", urlFor(input.value));
+    }
+
+    function requestClose() {
+      if (window.history.state && window.history.state.searchOverlay) {
+        window.history.back();
+      } else {
+        hideOverlay();
+      }
+    }
+
+    trigger.addEventListener("focus", function () { open(); });
+    closeBtn.addEventListener("click", requestClose);
+    backdrop.addEventListener("click", requestClose);
+
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest('a[href*="?search="]');
+      if (!link) return;
+      var url = new URL(link.getAttribute("href"), window.location.href);
+      if (url.pathname !== window.location.pathname) return;
+      var query = url.searchParams.get("search");
+      if (!query) return;
+      e.preventDefault();
+      open(decodeURIComponent(query));
+    });
+
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest('a[href*="tab=quotes"]');
+      if (!link) return;
+      var url = new URL(link.getAttribute("href"), window.location.href);
+      if (url.pathname !== window.location.pathname) return;
+      var targetId = url.searchParams.get("target");
+      if (!targetId) return;
+      e.preventDefault();
+      hideOverlay();
+      var params = new URLSearchParams();
+      params.set("tab", "quotes");
+      params.set("target", targetId);
+      window.history.pushState(null, "", window.location.pathname + "?" + params.toString());
+      if (activateTab) activateTab("quotes", false);
+      focusQuoteTarget(targetId);
+      var el = document.getElementById(targetId);
+      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+
     input.addEventListener("input", function () {
       render(input.value);
-      window.history.replaceState(null, "", urlFor(input.value));
+      if (isOpen) window.history.replaceState({ searchOverlay: true }, "", urlFor(input.value));
     });
 
     clearBtn.addEventListener("click", function () {
       input.value = "";
       render("");
       input.focus();
-      window.history.replaceState(null, "", urlFor(""));
+      if (isOpen) window.history.replaceState({ searchOverlay: true }, "", urlFor(""));
     });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && isOpen) requestClose();
+    });
+
+    window.addEventListener("popstate", function (e) {
+      var wantsOpen = !!(e.state && e.state.searchOverlay);
+      if (isOpen && !wantsOpen) {
+        hideOverlay();
+      } else if (!isOpen && wantsOpen) {
+        input.value = new URLSearchParams(window.location.search).get("search") || "";
+        loadPosts();
+        showOverlay();
+        render(input.value);
+      }
+    });
+
+    var initialQuery = new URLSearchParams(window.location.search).get("search");
+    if (initialQuery) {
+      input.value = initialQuery;
+      loadPosts();
+      showOverlay();
+      render(input.value);
+    }
 
     document.addEventListener("i18n:changed", function () {
       render(input.value);
     });
-
-    input.value = new URLSearchParams(window.location.search).get("search") || "";
-    loadPosts();
-    render(input.value);
   }
 
   var THEMES = ["system", "dark", "light"];
@@ -724,7 +824,7 @@
     setupQuotesLoadMore();
     setupQuoteTarget();
     setupContactForm();
-    setupArchiveSearch();
+    setupSearchOverlay();
     setupRssMenu();
     setupSettingsMenu();
     setupThemeMenu();
