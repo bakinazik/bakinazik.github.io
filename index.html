@@ -67,7 +67,8 @@ layout: default
     <div class="photo-grid">
       <div class="photo-col"></div>
       <div class="photo-col"></div>
-      {% assign photos = site.collections["photos"].files | sort: "name" | reverse %}
+      {% assign photo_collection = site.collections | where: "label", "photos" | first %}
+      {% assign photos = photo_collection.files | sort: "name" | reverse %}
       {% for photo in photos %}
       <div class="photo-item"><img src="{{ photo.path | relative_url }}" alt="{{ photo.basename | slice: 11, 200 | replace: '-', ' ' | capitalize }}" loading="lazy"></div>
       {% endfor %}
