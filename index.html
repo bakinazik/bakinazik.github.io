@@ -67,8 +67,9 @@ layout: default
     <div class="photo-grid">
       <div class="photo-col"></div>
       <div class="photo-col"></div>
-      {% for photo in site.data.photos %}
-      <div class="photo-item"><img src="{{ photo.image }}" alt="{{ photo.alt }}" loading="lazy"></div>
+      {% assign photos = site.static_files | where: "collection", "photos" | sort: "name" | reverse %}
+      {% for photo in photos %}
+      <div class="photo-item"><img src="{{ photo.path | relative_url }}" alt="{{ photo.basename | slice: 11, 200 | replace: '-', ' ' | capitalize }}" loading="lazy"></div>
       {% endfor %}
     </div>
     <div id="photo-lightbox"><img src="" alt=""></div>

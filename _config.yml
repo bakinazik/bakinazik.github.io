@@ -21,6 +21,8 @@ kramdown:
 collections:
   posts:
     output: true
+  photos:
+    output: false
 
 defaults:
   - scope:
