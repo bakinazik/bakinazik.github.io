@@ -943,8 +943,7 @@ a.post-nav-item:hover {
   
   
 .quotes {
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  border: none;
   padding: 0;
   position: relative;
   max-height: 350px;
@@ -952,7 +951,7 @@ a.post-nav-item:hover {
   transition: max-height 0.2s ease;
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 12px;
 }
 
 .quotes:focus-within {
@@ -994,15 +993,12 @@ a.post-nav-item:hover {
   user-select: auto;
   -webkit-user-select: auto;
   pointer-events: auto;
-  border-bottom: 1px solid var(--border);
+  border: 1px solid var(--border);
+  border-radius: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-}
-
-.quote-item:last-child {
-  border-bottom: none;
 }
 
 .quote-item .text {
