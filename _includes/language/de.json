@@ -38,5 +38,7 @@
   "prev_post": "VORHERIGER",
   "next_post": "NÄCHSTER",
   "no_next_post": "Es gibt keinen neueren Beitrag.",
-  "no_prev_post": "Es gibt keinen älteren Beitrag."
+  "no_prev_post": "Es gibt keinen älteren Beitrag.",
+  "min_read": "{n} Min. Lesezeit",
+  "no_image": "Kein Bild"
 }

@@ -38,5 +38,7 @@
   "prev_post": "PRÉCÉDENT",
   "next_post": "SUIVANT",
   "no_next_post": "Il n'y a pas d'article plus récent.",
-  "no_prev_post": "Il n'y a pas d'article plus ancien."
+  "no_prev_post": "Il n'y a pas d'article plus ancien.",
+  "min_read": "{n} min de lecture",
+  "no_image": "Aucune image"
 }

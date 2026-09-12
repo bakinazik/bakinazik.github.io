@@ -38,5 +38,7 @@
   "prev_post": "SEBELUMNYA",
   "next_post": "BERIKUTNYA",
   "no_next_post": "Tidak ada postingan yang lebih baru.",
-  "no_prev_post": "Tidak ada postingan yang lebih lama."
+  "no_prev_post": "Tidak ada postingan yang lebih lama.",
+  "min_read": "{n} menit baca",
+  "no_image": "Tidak ada gambar"
 }

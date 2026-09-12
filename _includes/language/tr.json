@@ -38,5 +38,7 @@
   "prev_post": "ÖNCEKİ",
   "next_post": "SONRAKİ",
   "no_next_post": "Daha yeni bir yazı yok.",
-  "no_prev_post": "Daha eski bir yazı yok."
+  "no_prev_post": "Daha eski bir yazı yok.",
+  "min_read": "{n} dk okuma",
+  "no_image": "Görsel yok"
 }

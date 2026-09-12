@@ -51,6 +51,14 @@
     });
   }
 
+  function formatReadTimes() {
+    document.querySelectorAll("[data-i18n-minread]").forEach(function (el) {
+      var n = el.getAttribute("data-i18n-minread");
+      if (!n) return;
+      el.textContent = t("min_read", { n: n });
+    });
+  }
+
   function applyI18n() {
     document.documentElement.lang = currentLang;
     document.documentElement.dir = RTL_CODES.indexOf(currentLang) !== -1 ? "rtl" : "ltr";
@@ -70,6 +78,7 @@
       el.setAttribute("aria-label", text);
     });
     formatDates();
+    formatReadTimes();
     updateLanguageTrigger();
   }
 
@@ -192,10 +201,12 @@
           var doc = new DOMParser().parseFromString(html, "text/html");
           var newList = doc.getElementById("posts-list");
           if (newList) {
-            newList.querySelectorAll(".post-list-item").forEach(function (item) {
+            newList.querySelectorAll(".post-card").forEach(function (item) {
               container.appendChild(item);
             });
           }
+          formatDates();
+          formatReadTimes();
           var newButton = doc.getElementById("posts-load-more");
           nextPath = newButton ? newButton.getAttribute("data-next") : null;
           button.style.display = nextPath ? "flex" : "none";

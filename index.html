@@ -14,14 +14,33 @@ layout: default
 
   <section class="profile-panel is-active" id="panel-posts" role="tabpanel">
     {% if paginator.posts.size > 0 %}
-    <div class="post-list-wrapper" id="posts-list">
+    <div class="post-cards" id="posts-list">
       {% for post in paginator.posts %}
-      <div class="post-list-item">
-        <a class="post-list-link" href="{{ post.url | relative_url }}">
-          <div class="post-list-title">{{ post.title }}</div>
-          <div class="post-list-date"><time datetime="{{ post.date | date_to_xmlschema }}" data-i18n-date="{{ post.date | date_to_xmlschema }}"></time></div>
-        </a>
-      </div>
+      {% assign read_mins = post.content | number_of_words | divided_by: 200 | at_least: 1 %}
+      <a class="post-card" href="{{ post.url | relative_url }}">
+        <div class="post-card-media">
+          {% if post.image %}
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" loading="lazy">
+          {% else %}
+          <div class="post-card-noimage" data-i18n="no_image"></div>
+          {% endif %}
+        </div>
+        <div class="post-card-body">
+          <div class="post-card-meta">
+            <time datetime="{{ post.date | date_to_xmlschema }}" data-i18n-date="{{ post.date | date_to_xmlschema }}"></time>
+            <span class="post-card-dot">·</span>
+            <span data-i18n-minread="{{ read_mins }}"></span>
+          </div>
+          <div class="post-card-title">{{ post.title }}</div>
+          {% if post.description %}<div class="post-card-desc">{{ post.description }}</div>{% endif %}
+          {% if post.tags.size > 0 %}
+          <div class="post-card-tags">
+            {% for tag in post.tags limit:2 %}<span class="post-card-tag">{{ tag }}</span>{% endfor %}
+            {% if post.tags.size > 2 %}<span class="post-card-tag post-card-tag-more">+{{ post.tags.size | minus: 2 }}</span>{% endif %}
+          </div>
+          {% endif %}
+        </div>
+      </a>
       {% endfor %}
     </div>
     {% if paginator.next_page_path %}
