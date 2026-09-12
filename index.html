@@ -70,7 +70,7 @@ layout: default
       {% assign photo_collection = site.collections | where: "label", "photos" | first %}
       {% assign photos = photo_collection.files | sort: "name" | reverse %}
       {% for photo in photos %}
-      <div class="photo-item"><img src="{{ photo.path | relative_url }}" alt="{{ photo.basename | slice: 11, 200 | replace: '-', ' ' | capitalize }}" loading="lazy"></div>
+      <div class="photo-item"><img src="https://raw.githubusercontent.com/bakinazik/bakinazik.github.io/refs/heads/main/_photos/{{ photo.basename }}{{ photo.extname }}" alt="{{ photo.basename | slice: 11, 200 | replace: '-', ' ' | capitalize }}" loading="lazy"></div>
       {% endfor %}
     </div>
     <div id="photo-lightbox"><img src="" alt=""></div>
