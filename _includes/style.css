@@ -1315,10 +1315,11 @@ a.post-nav-item:hover {
   flex: 1;
 }
 
-footer nav{
+.settings-menu-links {
     display: flex;
     gap: 8px;
     align-items: center;
+    color: var(--muted);
 }
 
 @media (max-width: 600px) {
@@ -1431,4 +1432,68 @@ footer nav{
   .subscribe-info p{
     display: none;
   }
+}
+
+.about-intro {
+  color: var(--text);
+}
+
+.about-copyright {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.photo-grid {
+  display: flex;
+  gap: 10px;
+}
+
+.photo-col {
+  flex: 1;
+}
+
+.photo-item {
+  border-radius: 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.photo-item img {
+  width: 100%;
+  display: block;
+}
+
+#photo-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 9999;
+}
+
+#photo-lightbox.show {
+  visibility: visible;
+  opacity: 1;
+  cursor: pointer;
+}
+
+#photo-lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+#photo-lightbox.show img {
+  transform: scale(1);
 }

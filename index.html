@@ -3,16 +3,106 @@ layout: default
 ---
 <div class="profile">
   <nav class="profile-tabs" role="tablist" data-i18n-aria-label="tabs_aria">
-    <a href="#panel-posts" class="profile-tab is-active" role="tab" data-tab="posts" data-i18n="tab_posts"></a>
-    <a href="#panel-quotes" class="profile-tab" role="tab" data-tab="quotes" data-i18n="tab_quotes"></a>
-    <a href="#panel-projects" class="profile-tab" role="tab" data-tab="projects" data-i18n="tab_projects"></a>
-    <a href="#panel-contact" class="profile-tab" role="tab" data-tab="contact" data-i18n="tab_contact"></a>
+    <a href="#panel-about" class="profile-tab is-active" role="tab" data-tab="about" data-i18n="tab_about"></a>
+    <a href="#panel-photos" class="profile-tab" role="tab" data-tab="photos" data-i18n="tab_photos"></a>
+    <a href="#panel-posts" class="profile-tab" role="tab" data-tab="posts" data-i18n="tab_posts"></a>
   </nav>
 </div>
 
 <div class="profile-panels">
 
-  <section class="profile-panel is-active" id="panel-posts" role="tabpanel">
+  <section class="profile-panel is-active" id="panel-about" role="tabpanel">
+    <p class="about-intro" data-i18n="about_intro"></p>
+
+    <nav class="settings-menu-links links" data-i18n-aria-label="social_nav_aria">
+      {% for item in site.data.social %}
+      {% if item.feeds %}
+      <div class="rss-menu" id="rss-menu">
+        <a href="{{ item.feeds[0].url | relative_url }}" id="rss-menu-trigger" aria-label="{{ item.label }}" aria-haspopup="true" aria-expanded="false">
+          {% include social-icon.html icon=item.icon %}
+        </a>
+        <div class="rss-menu-panel" id="rss-menu-panel" role="menu">
+          {% for feed in item.feeds %}
+          <a href="{{ feed.url | relative_url }}" role="menuitem">{{ feed.label }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <a href="{{ item.url }}" aria-label="{{ item.label }}" target="_blank" rel="noopener noreferrer">
+        {% include social-icon.html icon=item.icon %}
+      </a>
+      {% endif %}
+      {% endfor %}
+    </nav>
+
+    <div class="section-header">
+      <h2 data-i18n="tab_quotes"></h2>
+    </div>
+    <div class="quote-featured" id="quote-featured"></div>
+    <div class="quotes" id="quotes-list" tabindex="0">
+      {% for quote in site.data.quotes %}
+      <p id="quote-{{ forloop.index0 }}" class="quote-item">
+        <span class="text">{{ quote.text }}</span>
+        <span class="date">{{ quote.date }}</span>
+      </p>
+      {% endfor %}
+    </div>
+    {% if site.data.quotes.size > site.paginate %}
+    <div class="panel-toolbar">
+      <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
+    </div>
+    {% endif %}
+
+    <div class="section-header">
+      <h2 data-i18n="tab_projects"></h2>
+    </div>
+    <div id="projects-container">
+      {% for project in site.data.projects %}
+      <div class="project-item">
+        <div class="project-left">
+          <div class="project-icon">{% include social-icon.html icon="project" %}</div>
+          <div class="project-meta">
+            <div class="project-title">{{ project.title }}</div>
+            <small>{{ project.meta }}</small>
+          </div>
+        </div>
+        <div class="project-actions">
+          {% for link in project.links %}
+          <a href="{{ link.url }}" aria-label="{{ project.title }} - {{ link.label }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="section-header">
+      <h2 data-i18n="tab_contact"></h2>
+    </div>
+    <div class="contact-form-widget">
+      <div class="form">
+        <form id="contact-form">
+          <input id="contact-form-subject" data-i18n-placeholder="subject_placeholder" type="text" required>
+          <textarea id="contact-form-message" data-i18n-placeholder="message_placeholder" rows="6" required></textarea>
+          <input class="contact-form-button-submit" type="submit" data-i18n-value="submit_button">
+        </form>
+      </div>
+    </div>
+
+    <p class="about-copyright" translate="no">&copy; {{ 'now' | date: "%Y" }} {{ site.title }}</p>
+  </section>
+
+  <section class="profile-panel" id="panel-photos" role="tabpanel">
+    <div class="photo-grid">
+      <div class="photo-col"></div>
+      <div class="photo-col"></div>
+      {% for photo in site.data.photos %}
+      <div class="photo-item"><img src="{{ photo.image }}" alt="{{ photo.alt }}" loading="lazy"></div>
+      {% endfor %}
+    </div>
+    <div id="photo-lightbox"><img src="" alt=""></div>
+  </section>
+
+  <section class="profile-panel" id="panel-posts" role="tabpanel">
     {% if paginator.posts.size > 0 %}
     <div class="post-cards" id="posts-list">
       {% for post in paginator.posts %}
@@ -46,56 +136,6 @@ layout: default
       <p data-i18n="no_posts_yet"></p>
     </div>
     {% endif %}
-  </section>
-
-  <section class="profile-panel" id="panel-quotes" role="tabpanel">
-    <div class="quote-featured" id="quote-featured"></div>
-    <div class="quotes" id="quotes-list" tabindex="0">
-      {% for quote in site.data.quotes %}
-      <p id="quote-{{ forloop.index0 }}" class="quote-item">
-        <span class="text">{{ quote.text }}</span>
-        <span class="date">{{ quote.date }}</span>
-      </p>
-      {% endfor %}
-    </div>
-    {% if site.data.quotes.size > site.paginate %}
-    <div class="panel-toolbar">
-      <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
-    </div>
-    {% endif %}
-  </section>
-
-  <section class="profile-panel" id="panel-projects" role="tabpanel">
-    <div id="projects-container">
-      {% for project in site.data.projects %}
-      <div class="project-item">
-        <div class="project-left">
-          <div class="project-icon">{% include social-icon.html icon="project" %}</div>
-          <div class="project-meta">
-            <div class="project-title">{{ project.title }}</div>
-            <small>{{ project.meta }}</small>
-          </div>
-        </div>
-        <div class="project-actions">
-          {% for link in project.links %}
-          <a href="{{ link.url }}" aria-label="{{ project.title }} - {{ link.label }}" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
-          {% endfor %}
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </section>
-
-  <section class="profile-panel" id="panel-contact" role="tabpanel">
-    <div class="contact-form-widget">
-      <div class="form">
-        <form id="contact-form">
-          <input id="contact-form-subject" data-i18n-placeholder="subject_placeholder" type="text" required>
-          <textarea id="contact-form-message" data-i18n-placeholder="message_placeholder" rows="6" required></textarea>
-          <input class="contact-form-button-submit" type="submit" data-i18n-value="submit_button">
-        </form>
-      </div>
-    </div>
   </section>
 
 </div>

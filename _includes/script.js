@@ -281,6 +281,7 @@
     var defaultTab = tabs[0].dataset.tab;
     var tabNames = tabs.map(function (tab) { return tab.dataset.tab; });
 
+    var photoGridReady = false;
     function activate(name, sync) {
       tabs.forEach(function (tab) {
         tab.classList.toggle("is-active", tab.dataset.tab === name);
@@ -288,6 +289,10 @@
       panels.forEach(function (panel) {
         panel.classList.toggle("is-active", panel.id === "panel-" + name);
       });
+      if (name === "photos" && !photoGridReady) {
+        photoGridReady = true;
+        setupPhotoGrid();
+      }
       if (sync) syncListParam("tab", name, defaultTab);
     }
     activateTab = activate;
@@ -334,7 +339,7 @@
 
   function setupQuoteTarget() {
     var params = new URLSearchParams(window.location.search);
-    if (params.get("tab") !== "quotes") return;
+    if (params.get("tab") !== "about") return;
     var targetId = params.get("target");
     if (!targetId) return;
     focusQuoteTarget(targetId);
@@ -635,7 +640,7 @@
     });
 
     document.addEventListener("click", function (e) {
-      var link = e.target.closest('a[href*="tab=quotes"]');
+      var link = e.target.closest('a[href*="tab=about"]');
       if (!link) return;
       var url = new URL(link.getAttribute("href"), window.location.href);
       if (url.pathname !== window.location.pathname) return;
@@ -644,10 +649,10 @@
       e.preventDefault();
       hideOverlay();
       var params = new URLSearchParams();
-      params.set("tab", "quotes");
+      params.set("tab", "about");
       params.set("target", targetId);
       window.history.pushState(null, "", window.location.pathname + "?" + params.toString());
-      if (activateTab) activateTab("quotes", false);
+      if (activateTab) activateTab("about", false);
       focusQuoteTarget(targetId);
       var el = document.getElementById(targetId);
       if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -825,6 +830,30 @@
 
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") close();
+    });
+  }
+
+  function setupPhotoGrid() {
+    var grid = document.querySelector(".photo-grid");
+    var lightbox = document.getElementById("photo-lightbox");
+    if (!grid || !lightbox || typeof Colcade === "undefined") return;
+
+    new Colcade(grid, {
+      columns: ".photo-col",
+      items: ".photo-item"
+    });
+
+    var lightboxImg = lightbox.querySelector("img");
+
+    grid.querySelectorAll(".photo-item img").forEach(function (img) {
+      img.addEventListener("click", function () {
+        lightboxImg.src = img.src;
+        lightbox.classList.add("show");
+      });
+    });
+
+    lightbox.addEventListener("click", function () {
+      lightbox.classList.remove("show");
     });
   }
 
