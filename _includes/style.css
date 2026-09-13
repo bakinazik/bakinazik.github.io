@@ -376,7 +376,7 @@ body.search-overlay-locked {
 
 .profile-tab.is-active::before {
   transform: translateX(-50%) scaleX(1);
-  animation: profile-tab-underline-in 650ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: profile-tab-underline-in 650ms cubic-bezier(0.34, 1.56, 0.64, 1) 150ms both;
 }
 
 @keyframes profile-tab-underline-in {
@@ -978,6 +978,11 @@ a.post-nav-item:hover {
   border-radius: 14px;
   overflow: hidden;
   margin-bottom: 1rem;
+}
+
+#panel-quotes.is-single-quote .quotes,
+#panel-quotes.is-single-quote .panel-toolbar {
+  display: none;
 }
   
 @media (max-width:640px){

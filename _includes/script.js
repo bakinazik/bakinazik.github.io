@@ -220,8 +220,7 @@
   var quoteTargetNextSibling = null;
   var quoteTargetWasHidden = false;
 
-  function clearQuoteTarget() {
-    removeUrlParam("");
+  function resetQuoteDom() {
     var featured = document.getElementById("quote-featured");
     if (quoteTargetEl) {
       var quotesList = document.getElementById("quotes-list");
@@ -243,11 +242,25 @@
     }
   }
 
+  function setQuoteSingleView(active) {
+    var panel = document.getElementById("panel-quotes");
+    if (panel) panel.classList.toggle("is-single-quote", active);
+  }
+
+  function clearQuoteTarget() {
+    removeUrlParam("");
+    resetQuoteDom();
+    setQuoteSingleView(false);
+  }
+
   function focusQuoteTarget(targetId) {
-    clearQuoteTarget();
+    resetQuoteDom();
     var source = document.getElementById(targetId);
     var featured = document.getElementById("quote-featured");
-    if (!source || !featured) return;
+    if (!source || !featured) {
+      setQuoteSingleView(false);
+      return;
+    }
 
     quoteTargetEl = source;
     quoteTargetNextSibling = source.nextSibling;
@@ -255,6 +268,7 @@
     source.classList.remove("quote-hidden");
     featured.appendChild(source);
     featured.style.display = "block";
+    setQuoteSingleView(true);
   }
 
   function setupQuotesLoadMore() {
