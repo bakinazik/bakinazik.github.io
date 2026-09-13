@@ -594,7 +594,7 @@ body.search-overlay-locked {
 }
 
 .post-card-body {
-  padding: 16px 20px;
+  padding: 15px 20px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -950,7 +950,7 @@ a.post-nav-item:hover {
 
 .quote-item {
   margin: 0;
-  padding: 14px 18px;
+  padding: 15px 20px;
   color: var(--muted2);
   line-height: 1.6;
   user-select: auto;
@@ -985,7 +985,6 @@ a.post-nav-item:hover {
 
 @media (max-width: 480px) {
   .quote-item {
-    padding: 12px 14px;
     font-size: calc(0.95rem * var(--font-scale));
     flex-direction: column;
     align-items: flex-start;
