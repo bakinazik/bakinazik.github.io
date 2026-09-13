@@ -38,7 +38,5 @@
   "next_post": "次の記事",
   "no_next_post": "これより新しい記事はありません。",
   "no_prev_post": "これより古い記事はありません。",
-  "min_read": "{n}分で読める",
-  "breadcrumb_home": "ホーム",
-  "breadcrumb_switch_aria": "セクションを切り替え"
+  "min_read": "{n}分で読める"
 }

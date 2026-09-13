@@ -38,7 +38,5 @@
   "next_post": "अगला",
   "no_next_post": "इससे नई कोई पोस्ट नहीं है।",
   "no_prev_post": "इससे पुरानी कोई पोस्ट नहीं है।",
-  "min_read": "{n} मिनट पढ़ने में",
-  "breadcrumb_home": "होम",
-  "breadcrumb_switch_aria": "सेक्शन बदलें"
+  "min_read": "{n} मिनट पढ़ने में"
 }

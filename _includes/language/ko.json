@@ -38,7 +38,5 @@
   "next_post": "다음",
   "no_next_post": "더 최신 글이 없습니다.",
   "no_prev_post": "더 오래된 글이 없습니다.",
-  "min_read": "{n}분 읽기",
-  "breadcrumb_home": "홈",
-  "breadcrumb_switch_aria": "섹션 전환"
+  "min_read": "{n}분 읽기"
 }

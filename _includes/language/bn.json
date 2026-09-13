@@ -38,7 +38,5 @@
   "next_post": "পরবর্তী",
   "no_next_post": "এর চেয়ে নতুন কোনো পোস্ট নেই।",
   "no_prev_post": "এর চেয়ে পুরনো কোনো পোস্ট নেই।",
-  "min_read": "{n} মিনিট পড়া",
-  "breadcrumb_home": "হোম",
-  "breadcrumb_switch_aria": "বিভাগ পরিবর্তন করুন"
+  "min_read": "{n} মিনিট পড়া"
 }

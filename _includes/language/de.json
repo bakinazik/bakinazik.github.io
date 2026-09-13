@@ -38,7 +38,5 @@
   "next_post": "NÄCHSTER",
   "no_next_post": "Es gibt keinen neueren Beitrag.",
   "no_prev_post": "Es gibt keinen älteren Beitrag.",
-  "min_read": "{n} Min. Lesezeit",
-  "breadcrumb_home": "Startseite",
-  "breadcrumb_switch_aria": "Bereich wechseln"
+  "min_read": "{n} Min. Lesezeit"
 }

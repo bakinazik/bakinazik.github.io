@@ -697,33 +697,6 @@
     });
   }
 
-  function setupBreadcrumbSwitch() {
-    var menu = document.getElementById("breadcrumb-switch");
-    var trigger = document.getElementById("breadcrumb-switch-trigger");
-    if (!menu || !trigger) return;
-
-    function close() {
-      menu.classList.remove("is-open");
-      trigger.setAttribute("aria-expanded", "false");
-    }
-
-    trigger.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var willOpen = !menu.classList.contains("is-open");
-      menu.classList.toggle("is-open", willOpen);
-      trigger.setAttribute("aria-expanded", String(willOpen));
-    });
-
-    document.addEventListener("click", function (e) {
-      if (!menu.contains(e.target)) close();
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") close();
-    });
-  }
-
   function setupPhotoGrid() {
     var grid = document.querySelector(".photo-grid");
     var lightbox = document.getElementById("photo-lightbox");
@@ -784,7 +757,6 @@
     setupPhotoGrid();
     setupSearchOverlay();
     setupRssMenu();
-    setupBreadcrumbSwitch();
     setupSettingsMenu();
     setupThemeMenu();
     setupFontSizeMenu();

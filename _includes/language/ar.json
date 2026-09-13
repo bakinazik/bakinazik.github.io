@@ -38,7 +38,5 @@
   "next_post": "التالي",
   "no_next_post": "لا يوجد منشور أحدث.",
   "no_prev_post": "لا يوجد منشور أقدم.",
-  "min_read": "قراءة {n} دقيقة",
-  "breadcrumb_home": "الرئيسية",
-  "breadcrumb_switch_aria": "تبديل القسم"
+  "min_read": "قراءة {n} دقيقة"
 }

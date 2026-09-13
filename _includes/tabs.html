@@ -2,7 +2,7 @@
   <nav class="profile-tabs is-interactive" role="tablist" data-i18n-aria-label="tabs_aria">
     <a href="{{ '/' | relative_url }}" class="profile-tab{% if page.tab == 'about' %} is-active{% endif %}" role="tab" data-i18n="tab_about"></a>
     <a href="{{ '/photos/' | relative_url }}" class="profile-tab{% if page.tab == 'photos' %} is-active{% endif %}" role="tab" data-i18n="tab_photos"></a>
-    <a href="{{ '/posts/' | relative_url }}" class="profile-tab{% if page.tab == 'posts' %} is-active{% endif %}" role="tab" data-i18n="tab_posts"></a>
-    <a href="{{ '/quotes/' | relative_url }}" class="profile-tab{% if page.tab == 'quotes' %} is-active{% endif %}" role="tab" data-i18n="tab_quotes"></a>
+    <a href="{{ '/posts/' | relative_url }}" class="profile-tab{% if page.tab == 'posts' or page.layout == 'post' %} is-active{% endif %}" role="tab" data-i18n="tab_posts"></a>
+    <a href="{{ '/quotes/' | relative_url }}" class="profile-tab{% if page.tab == 'quotes' or page.layout == 'quote' %} is-active{% endif %}" role="tab" data-i18n="tab_quotes"></a>
   </nav>
 </div>

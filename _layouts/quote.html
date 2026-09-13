@@ -1,8 +1,7 @@
 ---
 layout: default
 ---
-{% assign quote_excerpt = content | strip_html | strip_newlines | truncate: 60 %}
-{% include breadcrumbs.html section="quotes" current=quote_excerpt %}
+{% include tabs.html %}
 <article id="quote-{{ page.slug }}" class="quote-page">
   <blockquote class="quote-page-text">{{ content }}</blockquote>
   <time class="quote-page-date" datetime="{{ page.date | date_to_xmlschema }}" data-i18n-date="{{ page.date | date_to_xmlschema }}"></time>
