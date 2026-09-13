@@ -1412,19 +1412,11 @@ a.post-nav-item:hover {
   margin-bottom: 10px;
   cursor: pointer;
   overflow: hidden;
-  background: var(--secondary);
 }
 
 .photo-item img {
   width: 100%;
-  height: auto;
   display: block;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.photo-item img.is-loaded {
-  opacity: 1;
 }
 
 #photo-lightbox {

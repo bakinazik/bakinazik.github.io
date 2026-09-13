@@ -785,9 +785,6 @@
       img.addEventListener("click", function () {
         open(img.closest(".photo-item"), true);
       });
-
-      function markLoaded() { img.classList.add("is-loaded"); }
-      if (img.complete) markLoaded(); else img.addEventListener("load", markLoaded);
     });
 
     lightbox.addEventListener("click", function () {
