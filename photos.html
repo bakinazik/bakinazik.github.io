@@ -14,7 +14,8 @@ permalink: /photos/
       {% assign photo_collection = site.collections | where: "label", "photos" | first %}
       {% assign photos = photo_collection.files | sort: "name" | reverse %}
       {% for photo in photos %}
-      <div class="photo-item" data-photo="{{ photo.basename }}"><img src="https://raw.githubusercontent.com/bakinazik/bakinazik.github.io/refs/heads/main/_photos/{{ photo.basename }}{{ photo.extname }}" alt="{{ photo.basename | slice: 11, 200 | replace: '-', ' ' | capitalize }}" loading="lazy"></div>
+      {% assign dim = site.data.photo_dimensions[photo.basename] %}
+      <div class="photo-item" data-photo="{{ photo.basename }}"><img src="https://raw.githubusercontent.com/bakinazik/bakinazik.github.io/refs/heads/main/_photos/{{ photo.basename }}{{ photo.extname }}" alt="{{ photo.basename | slice: 11, 200 | replace: '-', ' ' | capitalize }}" width="{{ dim.width }}" height="{{ dim.height }}" loading="lazy" decoding="async"></div>
       {% endfor %}
     </div>
     <div id="photo-lightbox"><img src="" alt=""></div>
