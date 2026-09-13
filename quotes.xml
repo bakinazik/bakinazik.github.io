@@ -15,7 +15,7 @@ permalink: /quotes.xml
     <item>
       <title>{{ quote.text | strip_html | xml_escape }}</title>
       <description>{{ quote.text | strip_html | xml_escape }}</description>
-      <link>{{ site.url }}{{ site.baseurl }}/?tab=quotes&amp;target=quote-{{ forloop.index0 }}</link>
+      <link>{{ site.url }}{{ site.baseurl }}/quotes/?=quote-{{ forloop.index0 }}</link>
       <guid isPermaLink="false">{{ site.url }}{{ site.baseurl }}/quote-{{ forloop.index0 }}</guid>
     </item>
     {% endfor %}

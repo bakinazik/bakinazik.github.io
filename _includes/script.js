@@ -164,18 +164,6 @@
     return isNaN(n) ? fallback : n;
   }
 
-  function syncListParam(key, value, defaultValue) {
-    var params = new URLSearchParams(window.location.search);
-    if (value === defaultValue) {
-      params.delete(key);
-    } else {
-      params.set(key, value);
-    }
-    var query = params.toString();
-    var url = window.location.pathname + (query ? "?" + query : "") + window.location.hash;
-    window.history.replaceState(null, "", url);
-  }
-
   function setupPostsLoadMore() {
     var container = document.getElementById("posts-list");
     var button = document.getElementById("posts-load-more");
@@ -231,10 +219,9 @@
   var quoteTargetEl = null;
   var quoteTargetNextSibling = null;
   var quoteTargetWasHidden = false;
-  var activateTab = null;
 
   function clearQuoteTarget() {
-    removeUrlParam("target");
+    removeUrlParam("");
     var featured = document.getElementById("quote-featured");
     if (quoteTargetEl) {
       var quotesList = document.getElementById("quotes-list");
@@ -270,47 +257,6 @@
     featured.style.display = "block";
   }
 
-  function setupProfileTabs() {
-    var tabs = Array.from(document.querySelectorAll(".profile-tab"));
-    var panels = Array.from(document.querySelectorAll(".profile-panel"));
-    if (!tabs.length || !panels.length) return;
-
-    document.documentElement.classList.add("js-ready");
-
-    var defaultTab = tabs[0].dataset.tab;
-    var tabNames = tabs.map(function (tab) { return tab.dataset.tab; });
-
-    var photoGridReady = false;
-    function activate(name, sync) {
-      tabs.forEach(function (tab) {
-        tab.classList.toggle("is-active", tab.dataset.tab === name);
-      });
-      panels.forEach(function (panel) {
-        panel.classList.toggle("is-active", panel.id === "panel-" + name);
-      });
-      if (name === "photos" && !photoGridReady) {
-        photoGridReady = true;
-        setupPhotoGrid();
-      }
-      if (sync) syncListParam("tab", name, defaultTab);
-    }
-    activateTab = activate;
-
-    tabs.forEach(function (tab) {
-      tab.addEventListener("click", function (e) {
-        e.preventDefault();
-        clearQuoteTarget();
-        activate(tab.dataset.tab, true);
-      });
-    });
-
-    var requested = new URLSearchParams(window.location.search).get("tab");
-    var startTab = tabNames.indexOf(requested) !== -1 ? requested : defaultTab;
-    activate(startTab, false);
-
-    document.querySelector(".profile-tabs").classList.add("is-interactive");
-  }
-
   function setupQuotesLoadMore() {
     var container = document.getElementById("quotes-list");
     var button = document.getElementById("quotes-load-more");
@@ -337,11 +283,41 @@
   }
 
   function setupQuoteTarget() {
-    var params = new URLSearchParams(window.location.search);
-    if (params.get("tab") !== "quotes") return;
-    var targetId = params.get("target");
-    if (!targetId) return;
-    focusQuoteTarget(targetId);
+    var list = document.getElementById("quotes-list");
+    var featured = document.getElementById("quote-featured");
+    if (!list || !featured) return;
+
+    function open(id, sync) {
+      focusQuoteTarget(id);
+      if (sync) {
+        var params = new URLSearchParams();
+        params.set("", id);
+        window.history.pushState({ quote: id }, "", window.location.pathname + "?" + params.toString());
+      }
+    }
+
+    function close(sync) {
+      clearQuoteTarget();
+      if (sync) window.history.pushState({}, "", window.location.pathname);
+    }
+
+    list.addEventListener("click", function (e) {
+      var item = e.target.closest(".quote-item");
+      if (!item || item.classList.contains("quote-hidden")) return;
+      open(item.id, true);
+    });
+
+    featured.addEventListener("click", function () {
+      close(true);
+    });
+
+    window.addEventListener("popstate", function () {
+      var targetId = new URLSearchParams(window.location.search).get("");
+      if (targetId) open(targetId, false); else close(false);
+    });
+
+    var initialId = new URLSearchParams(window.location.search).get("");
+    if (initialId) open(initialId, false);
   }
 
   function fetchSearchIndex() {
@@ -625,25 +601,6 @@
       open(decodeURIComponent(query));
     });
 
-    document.addEventListener("click", function (e) {
-      var link = e.target.closest('a[href*="tab=quotes"]');
-      if (!link) return;
-      var url = new URL(link.getAttribute("href"), window.location.href);
-      if (url.pathname !== window.location.pathname) return;
-      var targetId = url.searchParams.get("target");
-      if (!targetId) return;
-      e.preventDefault();
-      hideOverlay();
-      var params = new URLSearchParams();
-      params.set("tab", "quotes");
-      params.set("target", targetId);
-      window.history.pushState(null, "", window.location.pathname + "?" + params.toString());
-      if (activateTab) activateTab("quotes", false);
-      focusQuoteTarget(targetId);
-      var el = document.getElementById(targetId);
-      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "center" });
-    });
-
     input.addEventListener("input", function () {
       render(input.value);
       if (isOpen) window.history.replaceState({ searchOverlay: true }, "", urlFor(input.value));
@@ -831,24 +788,53 @@
 
     var lightboxImg = lightbox.querySelector("img");
 
+    function findItem(id) {
+      return id ? grid.querySelector('.photo-item[data-photo="' + id + '"]') : null;
+    }
+
+    function open(item, sync) {
+      var img = item.querySelector("img");
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add("show");
+      if (sync) {
+        var params = new URLSearchParams();
+        params.set("", item.dataset.photo);
+        window.history.pushState({ photo: item.dataset.photo }, "", window.location.pathname + "?" + params.toString());
+      }
+    }
+
+    function close(sync) {
+      lightbox.classList.remove("show");
+      if (sync) window.history.pushState({}, "", window.location.pathname);
+    }
+
     grid.querySelectorAll(".photo-item img").forEach(function (img) {
       img.addEventListener("click", function () {
-        lightboxImg.src = img.src;
-        lightbox.classList.add("show");
+        open(img.closest(".photo-item"), true);
       });
     });
 
     lightbox.addEventListener("click", function () {
-      lightbox.classList.remove("show");
+      close(true);
     });
+
+    window.addEventListener("popstate", function () {
+      var item = findItem(new URLSearchParams(window.location.search).get(""));
+      if (item) open(item, false); else close(false);
+    });
+
+    var initialItem = findItem(new URLSearchParams(window.location.search).get(""));
+    if (initialItem) open(initialItem, false);
   }
 
   document.addEventListener("DOMContentLoaded", function () {
+    document.documentElement.classList.add("js-ready");
     setupI18n();
-    setupProfileTabs();
     setupPostsLoadMore();
     setupQuotesLoadMore();
     setupQuoteTarget();
+    setupPhotoGrid();
     setupSearchOverlay();
     setupRssMenu();
     setupSettingsMenu();

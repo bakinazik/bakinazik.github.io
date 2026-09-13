@@ -1,14 +1,8 @@
 ---
 layout: default
+tab: about
 ---
-<div class="profile">
-  <nav class="profile-tabs" role="tablist" data-i18n-aria-label="tabs_aria">
-    <a href="#panel-about" class="profile-tab is-active" role="tab" data-tab="about" data-i18n="tab_about"></a>
-    <a href="#panel-photos" class="profile-tab" role="tab" data-tab="photos" data-i18n="tab_photos"></a>
-    <a href="#panel-posts" class="profile-tab" role="tab" data-tab="posts" data-i18n="tab_posts"></a>
-    <a href="#panel-quotes" class="profile-tab" role="tab" data-tab="quotes" data-i18n="tab_quotes"></a>
-  </nav>
-</div>
+{% include tabs.html %}
 
 <div class="profile-panels">
 
@@ -36,74 +30,6 @@ layout: default
       </div>
       {% endfor %}
     </div>
-  </section>
-
-  <section class="profile-panel" id="panel-photos" role="tabpanel">
-    <div class="photo-grid">
-      <div class="photo-col"></div>
-      <div class="photo-col"></div>
-      {% assign photo_collection = site.collections | where: "label", "photos" | first %}
-      {% assign photos = photo_collection.files | sort: "name" | reverse %}
-      {% for photo in photos %}
-      <div class="photo-item"><img src="https://raw.githubusercontent.com/bakinazik/bakinazik.github.io/refs/heads/main/_photos/{{ photo.basename }}{{ photo.extname }}" alt="{{ photo.basename | slice: 11, 200 | replace: '-', ' ' | capitalize }}" loading="lazy"></div>
-      {% endfor %}
-    </div>
-    <div id="photo-lightbox"><img src="" alt=""></div>
-  </section>
-
-  <section class="profile-panel" id="panel-posts" role="tabpanel">
-    {% if paginator.posts.size > 0 %}
-    <div class="post-cards" id="posts-list">
-      {% for post in paginator.posts %}
-      {% assign read_mins = post.content | number_of_words | divided_by: 200 | at_least: 1 %}
-      <a class="post-card" href="{{ post.url | relative_url }}">
-        <div class="post-card-body">
-          <div class="post-card-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}" data-i18n-date="{{ post.date | date_to_xmlschema }}"></time>
-            <span class="post-card-dot">·</span>
-            <span data-i18n-minread="{{ read_mins }}"></span>
-          </div>
-          <div class="post-card-title">{{ post.title }}</div>
-          {% if post.description %}<div class="post-card-desc">{{ post.description }}</div>{% endif %}
-          {% if post.tags.size > 0 %}
-          <div class="post-card-tags">
-            {% for tag in post.tags limit:2 %}<span class="post-card-tag">{{ tag }}</span>{% endfor %}
-            {% if post.tags.size > 2 %}<span class="post-card-tag post-card-tag-more">+{{ post.tags.size | minus: 2 }}</span>{% endif %}
-          </div>
-          {% endif %}
-        </div>
-      </a>
-      {% endfor %}
-    </div>
-    {% if paginator.next_page_path %}
-    <div class="panel-toolbar">
-      <button type="button" class="load-more" id="posts-load-more" data-i18n="load_more" data-next="{{ paginator.next_page_path | relative_url }}"></button>
-    </div>
-    {% endif %}
-    {% else %}
-    <div class="no-result">
-      <p data-i18n="no_posts_yet"></p>
-    </div>
-    {% endif %}
-
-    {% include subscribe.html %}
-  </section>
-
-  <section class="profile-panel" id="panel-quotes" role="tabpanel">
-    <div class="quote-featured" id="quote-featured"></div>
-    <div class="quotes" id="quotes-list" tabindex="0">
-      {% for quote in site.data.quotes %}
-      <p id="quote-{{ forloop.index0 }}" class="quote-item">
-        <span class="text">{{ quote.text }}</span>
-        <span class="date">{{ quote.date }}</span>
-      </p>
-      {% endfor %}
-    </div>
-    {% if site.data.quotes.size > site.paginate %}
-    <div class="panel-toolbar">
-      <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
-    </div>
-    {% endif %}
   </section>
 
 </div>

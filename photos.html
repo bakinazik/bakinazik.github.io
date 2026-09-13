@@ -1,0 +1,23 @@
+---
+layout: default
+tab: photos
+permalink: /photos/
+---
+{% include tabs.html %}
+
+<div class="profile-panels">
+
+  <section class="profile-panel is-active" id="panel-photos" role="tabpanel">
+    <div class="photo-grid">
+      <div class="photo-col"></div>
+      <div class="photo-col"></div>
+      {% assign photo_collection = site.collections | where: "label", "photos" | first %}
+      {% assign photos = photo_collection.files | sort: "name" | reverse %}
+      {% for photo in photos %}
+      <div class="photo-item" data-photo="{{ photo.basename }}"><img src="https://raw.githubusercontent.com/bakinazik/bakinazik.github.io/refs/heads/main/_photos/{{ photo.basename }}{{ photo.extname }}" alt="{{ photo.basename | slice: 11, 200 | replace: '-', ' ' | capitalize }}" loading="lazy"></div>
+      {% endfor %}
+    </div>
+    <div id="photo-lightbox"><img src="" alt=""></div>
+  </section>
+
+</div>

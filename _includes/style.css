@@ -391,14 +391,6 @@ body.search-overlay-locked {
   gap: 1rem;
 }
 
-.js-ready .profile-panel {
-  display: none;
-}
-
-.js-ready .profile-panel.is-active {
-  display: flex;
-}
-
 .panel-toolbar {
   display: flex;
   justify-content: center;

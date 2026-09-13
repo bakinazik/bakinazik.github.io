@@ -1,0 +1,27 @@
+---
+layout: default
+tab: quotes
+permalink: /quotes/
+---
+{% include tabs.html %}
+
+<div class="profile-panels">
+
+  <section class="profile-panel is-active" id="panel-quotes" role="tabpanel">
+    <div class="quote-featured" id="quote-featured"></div>
+    <div class="quotes" id="quotes-list" tabindex="0">
+      {% for quote in site.data.quotes %}
+      <p id="quote-{{ forloop.index0 }}" class="quote-item">
+        <span class="text">{{ quote.text }}</span>
+        <span class="date">{{ quote.date }}</span>
+      </p>
+      {% endfor %}
+    </div>
+    {% if site.data.quotes.size > site.paginate %}
+    <div class="panel-toolbar">
+      <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
+    </div>
+    {% endif %}
+  </section>
+
+</div>
