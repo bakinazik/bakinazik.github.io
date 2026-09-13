@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@hotwired/turbo@8.0.23/dist/turbo.es2017-esm.min.js"></script>
+  <script src="https://unpkg.com/colcade/colcade.js"></script>
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="follow.it-verification-code" content="fz7cbKCtS5nnxg1MHQsz"/>
   <link rel="icon" type="image/x-icon" href="{{ '/favicon/favicon.ico' | relative_url }}">
@@ -67,7 +69,6 @@
     {% include footer.html %}
   </main>
   <script type="application/json" id="i18n-data">{"tr": {% include language/tr.json %}, "en": {% include language/en.json %}, "es": {% include language/es.json %}, "fr": {% include language/fr.json %}, "de": {% include language/de.json %}, "it": {% include language/it.json %}, "pt": {% include language/pt.json %}, "ru": {% include language/ru.json %}, "zh": {% include language/zh.json %}, "ja": {% include language/ja.json %}, "ko": {% include language/ko.json %}, "hi": {% include language/hi.json %}, "bn": {% include language/bn.json %}, "id": {% include language/id.json %}, "ar": {% include language/ar.json %}}</script>
-  <script src="https://unpkg.com/colcade/colcade.js"></script>
   <script>{% include script.js %}</script>
 </body>
 </html>

@@ -391,7 +391,7 @@
     var metaBox = document.getElementById("search-overlay-meta");
     var resultsBox = document.getElementById("search-overlay-results");
     var emptyBox = document.getElementById("search-overlay-empty");
-    if (!overlay || !trigger || !input) return;
+    if (!overlay || !trigger || !input) { window.__searchOverlayState = null; return; }
 
     var posts = [];
     var loaded = false;
@@ -511,17 +511,6 @@
     closeBtn.addEventListener("click", requestClose);
     backdrop.addEventListener("click", requestClose);
 
-    document.addEventListener("click", function (e) {
-      var link = e.target.closest('a[href*="?search="]');
-      if (!link) return;
-      var url = new URL(link.getAttribute("href"), window.location.href);
-      if (url.pathname !== window.location.pathname) return;
-      var query = url.searchParams.get("search");
-      if (!query) return;
-      e.preventDefault();
-      open(decodeURIComponent(query));
-    });
-
     input.addEventListener("input", function () {
       render(input.value);
       if (isOpen) window.history.replaceState({ searchOverlay: true }, "", urlFor(input.value));
@@ -534,21 +523,17 @@
       if (isOpen) window.history.replaceState({ searchOverlay: true }, "", urlFor(""));
     });
 
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && isOpen) requestClose();
-    });
-
-    window.addEventListener("popstate", function (e) {
-      var wantsOpen = !!(e.state && e.state.searchOverlay);
-      if (isOpen && !wantsOpen) {
-        hideOverlay();
-      } else if (!isOpen && wantsOpen) {
-        input.value = new URLSearchParams(window.location.search).get("search") || "";
-        loadPosts();
-        showOverlay();
-        render(input.value);
-      }
-    });
+    window.__searchOverlayState = {
+      open: open,
+      requestClose: requestClose,
+      hideOverlay: hideOverlay,
+      showOverlay: showOverlay,
+      loadPosts: loadPosts,
+      render: render,
+      input: input,
+      isOpen: function () { return isOpen; }
+    };
+    bindSearchOverlayGlobalListeners();
 
     var initialQuery = new URLSearchParams(window.location.search).get("search");
     if (initialQuery) {
@@ -557,9 +542,47 @@
       showOverlay();
       render(input.value);
     }
+  }
+
+  function bindSearchOverlayGlobalListeners() {
+    if (window.__searchOverlayGlobalBound) return;
+    window.__searchOverlayGlobalBound = true;
+
+    document.addEventListener("click", function (e) {
+      var state = window.__searchOverlayState;
+      if (!state) return;
+      var link = e.target.closest('a[href*="?search="]');
+      if (!link) return;
+      var url = new URL(link.getAttribute("href"), window.location.href);
+      if (url.pathname !== window.location.pathname) return;
+      var query = url.searchParams.get("search");
+      if (!query) return;
+      e.preventDefault();
+      state.open(decodeURIComponent(query));
+    });
+
+    document.addEventListener("keydown", function (e) {
+      var state = window.__searchOverlayState;
+      if (state && e.key === "Escape" && state.isOpen()) state.requestClose();
+    });
+
+    window.addEventListener("popstate", function (e) {
+      var state = window.__searchOverlayState;
+      if (!state) return;
+      var wantsOpen = !!(e.state && e.state.searchOverlay);
+      if (state.isOpen() && !wantsOpen) {
+        state.hideOverlay();
+      } else if (!state.isOpen() && wantsOpen) {
+        state.input.value = new URLSearchParams(window.location.search).get("search") || "";
+        state.loadPosts();
+        state.showOverlay();
+        state.render(state.input.value);
+      }
+    });
 
     document.addEventListener("i18n:changed", function () {
-      render(input.value);
+      var state = window.__searchOverlayState;
+      if (state) state.render(state.input.value);
     });
   }
 
@@ -618,7 +641,7 @@
       var menu = document.getElementById("settings-menu");
       var trigger = document.getElementById("settings-menu-trigger");
       var panel = document.getElementById("settings-menu-panel");
-      if (!menu || !trigger || !panel) return;
+      if (!menu || !trigger || !panel) { window.__settingsMenuState = null; return; }
 
       function showAccordionRoot() {
         panel.classList.remove("has-active-section");
@@ -647,14 +670,6 @@
         if (!willOpen) showAccordionRoot();
       });
 
-      document.addEventListener("click", function (e) {
-        if (!menu.contains(e.target)) close();
-      });
-
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") close();
-      });
-
       panel.querySelectorAll(".settings-accordion-trigger").forEach(function (btn) {
         btn.addEventListener("click", function () {
           var target = document.getElementById(btn.dataset.accordionTarget);
@@ -668,12 +683,30 @@
       panel.querySelectorAll("[data-accordion-back]").forEach(function (btn) {
         btn.addEventListener("click", showAccordionRoot);
       });
+
+      window.__settingsMenuState = { menu: menu, close: close };
+      bindSettingsMenuGlobalListeners();
     }
+
+  function bindSettingsMenuGlobalListeners() {
+    if (window.__settingsMenuGlobalBound) return;
+    window.__settingsMenuGlobalBound = true;
+
+    document.addEventListener("click", function (e) {
+      var state = window.__settingsMenuState;
+      if (state && !state.menu.contains(e.target)) state.close();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      var state = window.__settingsMenuState;
+      if (state && e.key === "Escape") state.close();
+    });
+  }
 
   function setupRssMenu() {
     var menu = document.getElementById("rss-menu");
     var trigger = document.getElementById("rss-menu-trigger");
-    if (!menu || !trigger) return;
+    if (!menu || !trigger) { window.__rssMenuState = null; return; }
 
     function close() {
       menu.classList.remove("is-open");
@@ -688,19 +721,29 @@
       trigger.setAttribute("aria-expanded", String(willOpen));
     });
 
+    window.__rssMenuState = { menu: menu, close: close };
+    bindRssMenuGlobalListeners();
+  }
+
+  function bindRssMenuGlobalListeners() {
+    if (window.__rssMenuGlobalBound) return;
+    window.__rssMenuGlobalBound = true;
+
     document.addEventListener("click", function (e) {
-      if (!menu.contains(e.target)) close();
+      var state = window.__rssMenuState;
+      if (state && !state.menu.contains(e.target)) state.close();
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") close();
+      var state = window.__rssMenuState;
+      if (state && e.key === "Escape") state.close();
     });
   }
 
   function setupPhotoGrid() {
     var grid = document.querySelector(".photo-grid");
     var lightbox = document.getElementById("photo-lightbox");
-    if (!grid || !lightbox || typeof Colcade === "undefined") return;
+    if (!grid || !lightbox || typeof Colcade === "undefined") { window.__photoGridState = null; return; }
 
     new Colcade(grid, {
       columns: ".photo-col",
@@ -727,7 +770,15 @@
 
     function close(sync) {
       lightbox.classList.remove("show");
-      if (sync) window.history.pushState({}, "", window.location.pathname);
+      if (sync) removeUrlParam("");
+    }
+
+    function requestClose() {
+      if (window.history.state && window.history.state.photo) {
+        window.history.back();
+      } else {
+        close(true);
+      }
     }
 
     grid.querySelectorAll(".photo-item img").forEach(function (img) {
@@ -737,28 +788,36 @@
     });
 
     lightbox.addEventListener("click", function () {
-      close(true);
+      requestClose();
     });
 
-    window.addEventListener("popstate", function () {
-      var item = findItem(new URLSearchParams(window.location.search).get(""));
-      if (item) open(item, false); else close(false);
-    });
+    window.__photoGridState = { findItem: findItem, open: open, close: close };
+    bindPhotoGridGlobalListeners();
 
     var initialItem = findItem(new URLSearchParams(window.location.search).get(""));
     if (initialItem) open(initialItem, false);
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
-    document.documentElement.classList.add("js-ready");
-    setupI18n();
-    setupPostsLoadMore();
-    setupQuotesLoadMore();
-    setupPhotoGrid();
-    setupSearchOverlay();
-    setupRssMenu();
-    setupSettingsMenu();
-    setupThemeMenu();
-    setupFontSizeMenu();
-  });
+  function bindPhotoGridGlobalListeners() {
+    if (window.__photoGridGlobalBound) return;
+    window.__photoGridGlobalBound = true;
+
+    window.addEventListener("popstate", function () {
+      var state = window.__photoGridState;
+      if (!state) return;
+      var item = state.findItem(new URLSearchParams(window.location.search).get(""));
+      if (item) state.open(item, false); else state.close(false);
+    });
+  }
+
+  document.documentElement.classList.add("js-ready");
+  setupI18n();
+  setupPostsLoadMore();
+  setupQuotesLoadMore();
+  setupPhotoGrid();
+  setupSearchOverlay();
+  setupRssMenu();
+  setupSettingsMenu();
+  setupThemeMenu();
+  setupFontSizeMenu();
 })();
