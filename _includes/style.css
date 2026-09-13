@@ -391,11 +391,11 @@ body.search-overlay-locked {
   gap: 1rem;
 }
 
-.profile-panel {
+.js-ready .profile-panel {
   display: none;
 }
 
-.profile-panel.is-active {
+.js-ready .profile-panel.is-active {
   display: flex;
 }
 
