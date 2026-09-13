@@ -275,8 +275,6 @@
     var panels = Array.from(document.querySelectorAll(".profile-panel"));
     if (!tabs.length || !panels.length) return;
 
-    document.documentElement.classList.add("js-ready");
-
     var defaultTab = tabs[0].dataset.tab;
     var tabNames = tabs.map(function (tab) { return tab.dataset.tab; });
 
