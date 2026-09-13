@@ -38,5 +38,7 @@
   "next_post": "NEXT",
   "no_next_post": "There's no newer post.",
   "no_prev_post": "There's no older post.",
-  "min_read": "{n} min read"
+  "min_read": "{n} min read",
+  "breadcrumb_home": "Home",
+  "breadcrumb_switch_aria": "Switch section"
 }

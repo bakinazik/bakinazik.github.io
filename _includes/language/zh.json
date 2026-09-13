@@ -38,5 +38,7 @@
   "next_post": "下一篇",
   "no_next_post": "没有更新的文章了。",
   "no_prev_post": "没有更旧的文章了。",
-  "min_read": "{n} 分钟阅读"
+  "min_read": "{n} 分钟阅读",
+  "breadcrumb_home": "首页",
+  "breadcrumb_switch_aria": "切换栏目"
 }

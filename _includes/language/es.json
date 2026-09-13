@@ -38,5 +38,7 @@
   "next_post": "SIGUIENTE",
   "no_next_post": "No hay una publicación más reciente.",
   "no_prev_post": "No hay una publicación más antigua.",
-  "min_read": "{n} min de lectura"
+  "min_read": "{n} min de lectura",
+  "breadcrumb_home": "Inicio",
+  "breadcrumb_switch_aria": "Cambiar de sección"
 }

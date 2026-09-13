@@ -38,5 +38,7 @@
   "next_post": "SONRAKİ",
   "no_next_post": "Daha yeni bir yazı yok.",
   "no_prev_post": "Daha eski bir yazı yok.",
-  "min_read": "{n} dk okuma"
+  "min_read": "{n} dk okuma",
+  "breadcrumb_home": "Ana Sayfa",
+  "breadcrumb_switch_aria": "Bölüm değiştir"
 }

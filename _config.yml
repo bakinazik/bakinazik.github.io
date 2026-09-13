@@ -23,6 +23,9 @@ collections:
     output: true
   photos:
     output: false
+  quotes:
+    output: true
+    permalink: /quotes/:year/:month/:title.html
 
 defaults:
   - scope:
@@ -30,6 +33,11 @@ defaults:
       type: posts
     values:
       layout: post
+  - scope:
+      path: ""
+      type: quotes
+    values:
+      layout: quote
 
 exclude:
   - Gemfile

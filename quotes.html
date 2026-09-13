@@ -3,21 +3,22 @@ layout: default
 tab: quotes
 permalink: /quotes/
 ---
+{% include breadcrumbs.html section="quotes" %}
 {% include tabs.html %}
 
 <div class="profile-panels">
 
   <section class="profile-panel is-active" id="panel-quotes" role="tabpanel">
-    <div class="quote-featured" id="quote-featured"></div>
+    {% assign quotes = site.quotes | sort: "date" | reverse %}
     <div class="quotes" id="quotes-list" tabindex="0">
-      {% for quote in site.data.quotes %}
-      <p id="quote-{{ forloop.index0 }}" class="quote-item">
-        <span class="text">{{ quote.text }}</span>
-        <span class="date">{{ quote.date }}</span>
-      </p>
+      {% for quote in quotes %}
+      <a href="{{ quote.url | relative_url }}" class="quote-item">
+        <span class="text">{{ quote.content | strip_html | strip_newlines }}</span>
+        <time class="date" datetime="{{ quote.date | date_to_xmlschema }}" data-i18n-date="{{ quote.date | date_to_xmlschema }}"></time>
+      </a>
       {% endfor %}
     </div>
-    {% if site.data.quotes.size > site.paginate %}
+    {% if quotes.size > site.paginate %}
     <div class="panel-toolbar">
       <button type="button" class="load-more" id="quotes-load-more" data-i18n="load_more" data-batch-size="{{ site.paginate }}"></button>
     </div>

@@ -38,5 +38,7 @@
   "next_post": "BERIKUTNYA",
   "no_next_post": "Tidak ada postingan yang lebih baru.",
   "no_prev_post": "Tidak ada postingan yang lebih lama.",
-  "min_read": "{n} menit baca"
+  "min_read": "{n} menit baca",
+  "breadcrumb_home": "Beranda",
+  "breadcrumb_switch_aria": "Ganti bagian"
 }

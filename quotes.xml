@@ -11,12 +11,13 @@ permalink: /quotes.xml
     <atom:link href="{{ "/quotes.xml" | absolute_url }}" rel="self" type="application/rss+xml" />
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     <generator>Jekyll</generator>
-    {% for quote in site.data.quotes %}
+    {% assign feed_quotes = site.quotes | sort: "date" | reverse %}
+    {% for quote in feed_quotes %}
     <item>
-      <title>{{ quote.text | strip_html | xml_escape }}</title>
-      <description>{{ quote.text | strip_html | xml_escape }}</description>
-      <link>{{ site.url }}{{ site.baseurl }}/quotes/?=quote-{{ forloop.index0 }}</link>
-      <guid isPermaLink="false">{{ site.url }}{{ site.baseurl }}/quote-{{ forloop.index0 }}</guid>
+      <title>{{ quote.content | strip_html | strip_newlines | xml_escape }}</title>
+      <description>{{ quote.content | strip_html | strip_newlines | xml_escape }}</description>
+      <link>{{ quote.url | absolute_url }}</link>
+      <guid isPermaLink="true">{{ quote.url | absolute_url }}</guid>
     </item>
     {% endfor %}
   </channel>

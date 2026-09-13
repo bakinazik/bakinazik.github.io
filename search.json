@@ -16,16 +16,16 @@ permalink: /search.json
   "content": {{ post.content | strip_html | strip_newlines | jsonify }}
 }
 {% endfor %}
-{% for quote in site.data.quotes %}{% unless i == 0 %},{% endunless %}{% assign i = i | plus: 1 %}
+{% for quote in site.quotes %}{% unless i == 0 %},{% endunless %}{% assign i = i | plus: 1 %}
 {
   "type": "quote",
-  "title": {{ quote.text | jsonify }},
-  "url": {{ "/quotes/" | relative_url | append: "?=quote-" | append: forloop.index0 | jsonify }},
-  "date": {{ quote.date | jsonify }},
+  "title": {{ quote.content | strip_html | strip_newlines | jsonify }},
+  "url": {{ quote.url | relative_url | jsonify }},
+  "date": {{ quote.date | date_to_xmlschema | jsonify }},
   "description": "",
   "keywords": [],
   "tags": [],
-  "content": {{ quote.text | jsonify }}
+  "content": {{ quote.content | strip_html | strip_newlines | jsonify }}
 }
 {% endfor %}
 ]

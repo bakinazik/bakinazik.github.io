@@ -1,0 +1,32 @@
+{% case include.section %}
+  {% when "photos" %}
+    {% assign section_url = "/photos/" %}
+    {% assign section_key = "tab_photos" %}
+  {% when "posts" %}
+    {% assign section_url = "/posts/" %}
+    {% assign section_key = "tab_posts" %}
+  {% when "quotes" %}
+    {% assign section_url = "/quotes/" %}
+    {% assign section_key = "tab_quotes" %}
+{% endcase %}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <a href="{{ '/' | relative_url }}" class="breadcrumb-link" data-i18n="breadcrumb_home"></a>
+  <span class="breadcrumb-sep">/</span>
+  <div class="breadcrumb-switch" id="breadcrumb-switch">
+    <button type="button" id="breadcrumb-switch-trigger" class="breadcrumb-switch-trigger" data-i18n-aria-label="breadcrumb_switch_aria" aria-haspopup="true" aria-expanded="false">
+      {% include social-icon.html icon="chevron-down" %}
+    </button>
+    <div class="breadcrumb-switch-panel" role="menu">
+      <a href="{{ '/photos/' | relative_url }}" role="menuitem" class="{% if include.section == 'photos' %}is-active{% endif %}" data-i18n="tab_photos"></a>
+      <a href="{{ '/posts/' | relative_url }}" role="menuitem" class="{% if include.section == 'posts' %}is-active{% endif %}" data-i18n="tab_posts"></a>
+      <a href="{{ '/quotes/' | relative_url }}" role="menuitem" class="{% if include.section == 'quotes' %}is-active{% endif %}" data-i18n="tab_quotes"></a>
+    </div>
+  </div>
+  {% if include.current %}
+  <a href="{{ section_url | relative_url }}" class="breadcrumb-link" data-i18n="{{ section_key }}"></a>
+  <span class="breadcrumb-sep">/</span>
+  <span class="breadcrumb-current">{{ include.current }}</span>
+  {% else %}
+  <span class="breadcrumb-current" data-i18n="{{ section_key }}"></span>
+  {% endif %}
+</nav>

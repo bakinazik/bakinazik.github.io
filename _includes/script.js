@@ -216,61 +216,6 @@
     window.history.replaceState(null, "", url);
   }
 
-  var quoteTargetEl = null;
-  var quoteTargetNextSibling = null;
-  var quoteTargetWasHidden = false;
-
-  function resetQuoteDom() {
-    var featured = document.getElementById("quote-featured");
-    if (quoteTargetEl) {
-      var quotesList = document.getElementById("quotes-list");
-      if (quotesList) {
-        if (quoteTargetNextSibling && quoteTargetNextSibling.parentNode === quotesList) {
-          quotesList.insertBefore(quoteTargetEl, quoteTargetNextSibling);
-        } else {
-          quotesList.appendChild(quoteTargetEl);
-        }
-      }
-      if (quoteTargetWasHidden) quoteTargetEl.classList.add("quote-hidden");
-      quoteTargetEl = null;
-      quoteTargetNextSibling = null;
-      quoteTargetWasHidden = false;
-    }
-    if (featured) {
-      featured.innerHTML = "";
-      featured.style.display = "none";
-    }
-  }
-
-  function setQuoteSingleView(active) {
-    var panel = document.getElementById("panel-quotes");
-    if (panel) panel.classList.toggle("is-single-quote", active);
-  }
-
-  function clearQuoteTarget() {
-    removeUrlParam("");
-    resetQuoteDom();
-    setQuoteSingleView(false);
-  }
-
-  function focusQuoteTarget(targetId) {
-    resetQuoteDom();
-    var source = document.getElementById(targetId);
-    var featured = document.getElementById("quote-featured");
-    if (!source || !featured) {
-      setQuoteSingleView(false);
-      return;
-    }
-
-    quoteTargetEl = source;
-    quoteTargetNextSibling = source.nextSibling;
-    quoteTargetWasHidden = source.classList.contains("quote-hidden");
-    source.classList.remove("quote-hidden");
-    featured.appendChild(source);
-    featured.style.display = "block";
-    setQuoteSingleView(true);
-  }
-
   function setupQuotesLoadMore() {
     var container = document.getElementById("quotes-list");
     var button = document.getElementById("quotes-load-more");
@@ -294,44 +239,6 @@
       visible = Math.min(visible + batchSize, items.length);
       render();
     });
-  }
-
-  function setupQuoteTarget() {
-    var list = document.getElementById("quotes-list");
-    var featured = document.getElementById("quote-featured");
-    if (!list || !featured) return;
-
-    function open(id, sync) {
-      focusQuoteTarget(id);
-      if (sync) {
-        var params = new URLSearchParams();
-        params.set("", id);
-        window.history.pushState({ quote: id }, "", window.location.pathname + "?" + params.toString());
-      }
-    }
-
-    function close(sync) {
-      clearQuoteTarget();
-      if (sync) window.history.pushState({}, "", window.location.pathname);
-    }
-
-    list.addEventListener("click", function (e) {
-      var item = e.target.closest(".quote-item");
-      if (!item || item.classList.contains("quote-hidden")) return;
-      open(item.id, true);
-    });
-
-    featured.addEventListener("click", function () {
-      close(true);
-    });
-
-    window.addEventListener("popstate", function () {
-      var targetId = new URLSearchParams(window.location.search).get("");
-      if (targetId) open(targetId, false); else close(false);
-    });
-
-    var initialId = new URLSearchParams(window.location.search).get("");
-    if (initialId) open(initialId, false);
   }
 
   function fetchSearchIndex() {
@@ -790,6 +697,33 @@
     });
   }
 
+  function setupBreadcrumbSwitch() {
+    var menu = document.getElementById("breadcrumb-switch");
+    var trigger = document.getElementById("breadcrumb-switch-trigger");
+    if (!menu || !trigger) return;
+
+    function close() {
+      menu.classList.remove("is-open");
+      trigger.setAttribute("aria-expanded", "false");
+    }
+
+    trigger.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var willOpen = !menu.classList.contains("is-open");
+      menu.classList.toggle("is-open", willOpen);
+      trigger.setAttribute("aria-expanded", String(willOpen));
+    });
+
+    document.addEventListener("click", function (e) {
+      if (!menu.contains(e.target)) close();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") close();
+    });
+  }
+
   function setupPhotoGrid() {
     var grid = document.querySelector(".photo-grid");
     var lightbox = document.getElementById("photo-lightbox");
@@ -847,10 +781,10 @@
     setupI18n();
     setupPostsLoadMore();
     setupQuotesLoadMore();
-    setupQuoteTarget();
     setupPhotoGrid();
     setupSearchOverlay();
     setupRssMenu();
+    setupBreadcrumbSwitch();
     setupSettingsMenu();
     setupThemeMenu();
     setupFontSizeMenu();

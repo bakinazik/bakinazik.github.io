@@ -38,5 +38,7 @@
   "next_post": "СЛЕДУЮЩАЯ",
   "no_next_post": "Более новой записи нет.",
   "no_prev_post": "Более старой записи нет.",
-  "min_read": "{n} мин чтения"
+  "min_read": "{n} мин чтения",
+  "breadcrumb_home": "Главная",
+  "breadcrumb_switch_aria": "Сменить раздел"
 }
