@@ -336,6 +336,7 @@ body.search-overlay-locked {
 
 .quote-page .quote-page-text {
   font-size: 1.2rem;
+  color: var(--accent);
 }
 
 .quote-page-text {
@@ -459,7 +460,7 @@ body.search-overlay-locked {
     flex-wrap: wrap;
     gap: 1rem;
     font-size: 0.85rem;
-    color: var(--muted);
+    color: var(--accent);
     padding: 30px 0 0 0;
 }
 
@@ -468,6 +469,7 @@ body.search-overlay-locked {
   align-items: center;
   justify-content: space-between;
   flex-wrap: nowrap;
+  color: var(--accent);
 }
 
 .section-header h2 {
@@ -612,6 +614,7 @@ body.search-overlay-locked {
   font-size: 1.05rem;
   font-weight: 600;
   line-height: 1.35;
+  color: var(--accent);
 }
 
 .post-card-desc {
